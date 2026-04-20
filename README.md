@@ -2,72 +2,161 @@
 
 > A gentle space to talk things through.
 
-Willow is a small Next.js + Vercel AI Gateway chatbot scaffold for an
-emotional-wellbeing companion. The project is designed for two people
-to work together:
+Willow is a Next.js + Vercel AI Gateway chatbot scaffold for an
+emotional-wellbeing companion. The codebase is intentionally small
+and the responsibilities are intentionally split:
 
-| You are a... | Start here |
-|---|---|
-| **Subject Matter Expert** (psychologist, counsellor, content owner) | [`SME_GUIDE.md`](./SME_GUIDE.md), then `/sme` in the running app |
-| **Junior developer** (continuing the code) | [`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md) |
+- **The Subject Matter Expert** authors the clinical method, the
+  persona, the safety wording, the exercises, and the evidence —
+  all in plain Markdown in `content/`.
+- **The developer** owns the plumbing — Next.js routes, AI Gateway
+  wiring, the loader, the dashboard.
+- **Both** work together for going-live decisions and
+  joint changes (new tools, new content folders, etc.).
 
 ---
 
-## What's distinctive about this project
+## Where to start
 
-- **The SME owns the clinical method, not just the persona.** The
-  `content/method/` folder lets the SME pick the framework
-  (CBT, ACT, MI, person-centered…), the conversational micro-skills,
-  the conversation flow, and the if/then decision rules. The bot
-  follows whatever they write.
+> **Read [`ROADMAP.md`](./ROADMAP.md) first.** It is the single
+> source of truth for "what's done, what's next, who does it." Every
+> other doc supports it.
+
+Then pick the guide for your role:
+
+| You are a... | Read this | Then this |
+|---|---|---|
+| **Subject Matter Expert** | [`SME_GUIDE.md`](./SME_GUIDE.md) | open [`/sme`](https://willow-memari-majids-projects.vercel.app/sme) |
+| **Developer** | [`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md) | run `npm install && npm run dev` |
+| **Both, working together** | [`docs/09-collaboration.md`](./docs/09-collaboration.md) | follow the change-cycle paths |
+| **Anyone curious about how it works** | [`docs/02-architecture.md`](./docs/02-architecture.md) | the file map and request flow |
+
+---
+
+## Live URLs
+
+| | |
+|---|---|
+| Production app | https://willow-memari-majids-projects.vercel.app |
+| Live chat | https://willow-memari-majids-projects.vercel.app/chat |
+| **SME dashboard** | https://willow-memari-majids-projects.vercel.app/sme |
+| GitHub | https://github.com/memari-majid/willow |
+
+---
+
+## How it works (60-second tour)
+
+```
+   content/  (SME-owned Markdown)
+       │
+       ▼
+   src/lib/content.ts            parse, count [SME:] placeholders
+       │
+       ▼
+   src/lib/ai/system-prompt.ts   assemble one big system prompt
+       │
+       ▼
+   src/app/api/chat/route.ts     stream via Vercel AI Gateway
+       │
+       ▼
+   src/app/chat/page.tsx         end-user conversation
+   src/app/sme/page.tsx          dashboard + test chat
+```
+
+- The SME edits a Markdown file. The loader picks it up. The system
+  prompt assembler weaves it into the AI's instructions. The AI
+  responds accordingly.
+- The same Markdown also feeds the `/sme` dashboard so the SME can
+  see *exactly* what the AI is being told and test it side-by-side
+  with editing.
+- Required files that still contain `[SME: …]` placeholders trigger
+  a draft banner on `/chat` so end users can never mistake
+  scaffolding for finished product.
+
+For the full deep dive, read [`docs/02-architecture.md`](./docs/02-architecture.md).
+
+---
+
+## What's distinctive
+
+- **The SME owns the clinical method, not just the persona.**
+  `content/method/` lets them pick the framework (CBT, ACT, MI,
+  person-centered…), the conversational micro-skills, the
+  conversation flow, and the if/then decision rules.
 - **The SME documents the science.** `content/evidence/` is where
-  citations and the clinical glossary live. The bot is told it may
-  only cite sources that are in that file.
-- **The SME has a live dashboard.** Open `/sme` in the running app
-  to see which files are still placeholders, the exact assembled
-  prompt the AI is being told, and a test chat — all on one screen.
+  citations and the clinical glossary live. The bot is told
+  explicitly that it may only cite sources documented there.
+- **The SME has a live dashboard at `/sme`.** Readiness checklist,
+  assembled-prompt preview with placeholder highlighting, and an
+  inline test chat — all on one screen.
 - **The developer authored the structure, not the content.** Every
-  spot waiting for the SME's input is marked `[SME: …]`; the loader
-  counts them and the chat shows a draft banner until the required
-  files are filled in.
+  spot waiting for the SME's input is marked `[SME: …]`. The
+  loader counts them and the chat shows a draft banner until
+  required files are filled in.
 
-## What's in the box
+---
+
+## Tech stack
 
 - **Next.js 16** App Router, TypeScript, Tailwind v4
-- **AI SDK v6** with the **Vercel AI Gateway** for routing across
-  providers
-- **shadcn/ui** for the interface (dark mode by default)
-- A `content/` folder that captures everything the SME owns
-- A `src/` folder with one responsibility per file — the developer's
-  territory
-- Eight numbered tutorials in [`docs/`](./docs)
-- A live `/sme` dashboard for content authoring + testing
-- A `/chat` page for end users with a draft banner whenever required
-  SME content is incomplete
+- **AI SDK v6** (with `useChat` + `DefaultChatTransport`)
+- **Vercel AI Gateway** via plain `"provider/model"` strings
+  (`openai/gpt-5.4`, with failover to Claude and Gemini)
+- **shadcn/ui** primitives, dark mode by default
+- **Vercel** auto-deploy on `git push`
 
-## Run it locally in 60 seconds
+---
+
+## Run it locally
 
 ```bash
 npm install
-cp .env.example .env.local        # then fill in one or two values
+cp .env.example .env.local
 vercel link                       # connect to a Vercel project
-vercel env pull .env.local        # provisions the AI Gateway OIDC token
+vercel env pull .env.local        # provisions VERCEL_OIDC_TOKEN
 npm run dev
 ```
 
 Open http://localhost:3000:
-- **`/`** — the landing page
-- **`/chat`** — the live chat (with a draft banner until SME content
-  is filled in)
-- **`/sme`** — the SME dashboard
+- `/` — landing page
+- `/chat` — live chat (with draft banner if SME content is incomplete)
+- `/sme` — SME dashboard
 
 Full walkthrough → [`docs/01-getting-started.md`](./docs/01-getting-started.md)
+
+---
+
+## Documentation map
+
+```
+README.md                ← you are here
+ROADMAP.md               ← THE plan (start here for "what next?")
+SME_GUIDE.md             ← complete SME workflow
+DEVELOPER_GUIDE.md       ← complete developer workflow
+AGENTS.md                ← rules for AI agents touching the repo
+
+content/README.md        ← the SME's folder map
+
+docs/
+  01-getting-started.md       install + run + first message
+  02-architecture.md          file map + request flow
+  03-ai-gateway-explained.md  auth, failover, cost tracking
+  04-content-folder.md        how Markdown becomes the prompt
+  05-add-a-technique.md       SME workflow for new exercises
+  06-add-a-tool.md            developer workflow for AI tools
+  07-deploy-to-vercel.md      deploy + rollback
+  08-extending.md             auth, persistence, observability
+  09-collaboration.md         SME ↔ developer workflow
+```
+
+---
 
 ## Important — what Willow is and is not
 
 Willow is **not** a therapist, doctor, crisis service, or medical
 device. It does not diagnose, treat, or store conversations. The
 project ships with a baseline keyword crisis detector and a hotline
-banner, but the *clinical* responsibility belongs to the SME, who is
-the one filling in the `content/` folder. Please do not ship to real
-users until the SME dashboard shows green.
+banner, but the **clinical responsibility belongs to the SME**, who
+authors the content. Do not ship to real users until the SME
+dashboard shows green and the going-live checklist in
+[`docs/09-collaboration.md`](./docs/09-collaboration.md) is complete.

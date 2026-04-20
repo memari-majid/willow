@@ -39,6 +39,16 @@ export default async function SmeDashboardPage() {
           </Link>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm" className="rounded-full">
+              <Link
+                href="https://github.com/memari-majid/willow/blob/master/SME_GUIDE.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                SME Guide
+                <ExternalLink className="size-3.5" />
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="rounded-full">
               <Link href="/chat">
                 Open the live chat
                 <ExternalLink className="size-3.5" />
@@ -60,6 +70,22 @@ export default async function SmeDashboardPage() {
             </code>{" "}
             folder, refresh this page, and see your changes reflected in
             the prompt the AI receives. Then test it on the right.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            New here? Read the{" "}
+            <Link
+              href="https://github.com/memari-majid/willow/blob/master/SME_GUIDE.md"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
+              SME Guide
+            </Link>{" "}
+            (10-minute read), then come back and start with{" "}
+            <code className="rounded bg-muted px-1 py-0.5 font-mono">
+              method/
+            </code>{" "}
+            below.
           </p>
         </div>
 

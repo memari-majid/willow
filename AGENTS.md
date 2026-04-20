@@ -31,6 +31,14 @@ are in `README.md`, `SME_GUIDE.md`, `DEVELOPER_GUIDE.md`, and `docs/`.
    dozen source files. Resist the urge to add abstractions. New code
    should map clearly to a row in `DEVELOPER_GUIDE.md`'s cheat sheet.
 
+## Required reading order (in this order)
+
+1. `ROADMAP.md` — single source of truth for what's done / what's next.
+2. The role guide that matches the request (`SME_GUIDE.md` or
+   `DEVELOPER_GUIDE.md`).
+3. `docs/09-collaboration.md` for any change involving both roles.
+4. The relevant `docs/0X-*.md` for the topic at hand.
+
 ## File layout (orientation)
 
 - `content/` — SME-edited Markdown. Read by `src/lib/content.ts`.
@@ -39,5 +47,7 @@ are in `README.md`, `SME_GUIDE.md`, `DEVELOPER_GUIDE.md`, and `docs/`.
   `chat.tsx`).
 - `src/lib/ai/` — model selection, system-prompt assembly, safety,
   metadata types.
-- `docs/01-08-*.md` — junior-dev tutorials. Update them when you
+- `ROADMAP.md` — the plan; update it in the same commit when a phase
+  item completes.
+- `docs/01-09-*.md` — junior-dev tutorials. Update them when you
   change matching code.
