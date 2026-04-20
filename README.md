@@ -26,7 +26,7 @@ Then pick the guide for your role:
 
 | You are a... | Read this | Then this |
 |---|---|---|
-| **Subject Matter Expert** | [`docs/sme/GUIDE.md`](./docs/sme/GUIDE.md) | open [`/sme`](https://willow-memari-majids-projects.vercel.app/sme) |
+| **Subject Matter Expert** | [`docs/sme/GUIDE.md`](./docs/sme/GUIDE.md) | open [`/sme`](https://willowspace.dev/sme) |
 | **Developer** | [`docs/developer/GUIDE.md`](./docs/developer/GUIDE.md) | run `npm install && npm run dev` |
 | **Both, working together** | [`docs/shared/collaboration.md`](./docs/shared/collaboration.md) | follow the change-cycle paths |
 | **Anyone curious about how it works** | [`docs/developer/architecture.md`](./docs/developer/architecture.md) | the file map and request flow |
@@ -37,9 +37,9 @@ Then pick the guide for your role:
 
 | | |
 |---|---|
-| Production app | https://willow-memari-majids-projects.vercel.app |
-| Live chat | https://willow-memari-majids-projects.vercel.app/chat |
-| **SME dashboard** | https://willow-memari-majids-projects.vercel.app/sme |
+| Production app | https://willowspace.dev |
+| Live chat | https://willowspace.dev/chat |
+| **SME dashboard** | https://willowspace.dev/sme |
 | GitHub | https://github.com/memari-majid/willow |
 
 ---

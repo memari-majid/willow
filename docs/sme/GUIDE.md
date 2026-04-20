@@ -27,7 +27,7 @@
 3. **Where you work.**
    - **Editor:** any Markdown editor (VS Code, Obsidian, Typora) or
      directly on GitHub in the browser.
-   - **Live dashboard:** [`/sme`](https://willow-memari-majids-projects.vercel.app/sme)
+   - **Live dashboard:** [`/sme`](https://willowspace.dev/sme)
      — shows what's done, what's left, and an inline test chat.
 4. **The marker you'll see most often:**
    - `[SME: …]` means a blank waiting for your input. Replace it

@@ -22,8 +22,8 @@
 | SME dashboard sign-in (placeholder shared credential, env-overridable) | ✅ |
 | Documentation (README, SME_GUIDE, DEVELOPER_GUIDE, docs/01–09) | ✅ |
 
-**Production URL:** https://willow-memari-majids-projects.vercel.app
-**SME dashboard:** https://willow-memari-majids-projects.vercel.app/sme
+**Production URL:** https://willowspace.dev
+**SME dashboard:** https://willowspace.dev/sme
 **Repo:** https://github.com/memari-majid/willow
 
 ---

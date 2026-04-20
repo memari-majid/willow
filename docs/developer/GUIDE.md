@@ -240,7 +240,10 @@ git push            # Vercel auto-builds and promotes to production
 ```
 
 Vercel posts the deployment URL in the GitHub commit checks. The
-production URL stays the same: `willow-memari-majids-projects.vercel.app`.
+production URL stays the same: `willowspace.dev` (Vercel also serves
+the same deployment from `willow-memari-majids-projects.vercel.app`,
+which is gated by Vercel Deployment Protection — use the custom
+domain for anything you share externally).
 
 ### Preview deploys
 
