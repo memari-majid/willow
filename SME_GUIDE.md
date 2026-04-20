@@ -13,8 +13,10 @@
 1. **What you control.** The clinical method, the persona, the safety
    responses, the exercises, the conversation starters, the evidence
    base. All in plain Markdown.
-2. **What you don't control.** The model, the deployment plumbing,
-   anything in `src/`. The developer handles that.
+2. **What you don't control day-to-day.** The deployment plumbing
+   and anything in `src/`. The developer handles that. (You *can*
+   pick the model on the `/sme` dashboard for testing — see Q&amp;A
+   below.)
 3. **Where you work.**
    - **Editor:** any Markdown editor (VS Code, Obsidian, Typora) or
      directly on GitHub in the browser.
@@ -246,6 +248,12 @@ edits without a restart.)
 **Q: Can I edit on GitHub directly without setting anything up?**
 Yes. Open the file on github.com, click the pencil icon, edit, and
 commit. The change deploys automatically.
+
+**Q: Can I compare two models side by side?**
+The picker on `/sme` lets you switch in one click. Run a scenario
+with one model, click Reset, switch the picker, run the same
+scenario again. The metadata under each assistant message tells you
+which model produced it.
 
 **Q: What if I'm not sure which framework to pick?**
 Write what you'd actually do in a session. The bot doesn't need a

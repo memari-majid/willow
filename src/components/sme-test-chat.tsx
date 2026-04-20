@@ -8,19 +8,23 @@ import { FlaskConical, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Composer } from "@/components/composer";
 import { MessageBubble } from "@/components/message-bubble";
+import { ModelPicker, useModelChoice } from "@/components/model-picker";
 import { SuggestionChips } from "@/components/suggestion-chips";
 import { cn } from "@/lib/utils";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 
 /**
  * Compact chat widget on the SME page. Shares /api/chat with the
- * live chat (single source of truth) and adds two SME-only
+ * live chat (single source of truth) and adds three SME-only
  * affordances:
  *
- *  1. **Quick test scenarios** — one-click buttons covering the
+ *  1. **Model picker** — pick from a curated list of Gateway models;
+ *     persisted to localStorage; sent in the request body so the
+ *     server uses it without code changes.
+ *  2. **Quick test scenarios** — one-click buttons covering the
  *     eight scenarios from `SME_GUIDE.md`. Lets the SME smoke-test
  *     a new content edit in seconds.
- *  2. **Suggestion chips** — same as the live chat. The SME can
+ *  3. **Suggestion chips** — same as the live chat. The SME can
  *     speed-run a long conversation by clicking suggestions instead
  *     of typing.
  */
@@ -28,10 +32,21 @@ export function SmeTestChat({ className }: { className?: string }) {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [model, setModel] = useModelChoice();
+
+  // Keep the latest model in a ref so DefaultChatTransport — which
+  // captures `body` at construction time — sees the current value.
+  const modelRef = useRef(model);
+  useEffect(() => {
+    modelRef.current = model;
+  }, [model]);
 
   const { messages, sendMessage, status, stop, setMessages, error } =
     useChat<WillowUIMessage>({
-      transport: new DefaultChatTransport({ api: "/api/chat" }),
+      transport: new DefaultChatTransport({
+        api: "/api/chat",
+        body: () => ({ model: modelRef.current }),
+      }),
       onFinish: async ({ messages: finalMessages }) => {
         setSuggestionsLoading(true);
         try {
@@ -80,6 +95,10 @@ export function SmeTestChat({ className }: { className?: string }) {
 
   const isEmpty = messages.length === 0;
   const showSuggestions = status === "ready" && messages.length > 0;
+  const lastAssistant = [...messages]
+    .reverse()
+    .find((m) => m.role === "assistant");
+  const lastModel = lastAssistant?.metadata?.model;
 
   return (
     <section
@@ -88,7 +107,7 @@ export function SmeTestChat({ className }: { className?: string }) {
         className,
       )}
     >
-      <header className="flex items-center justify-between gap-2 border-b border-border/40 px-4 py-3">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-border/40 px-4 py-3">
         <div>
           <h3 className="text-sm font-medium">Test conversation</h3>
           <p className="text-[11px] text-muted-foreground">
@@ -107,6 +126,15 @@ export function SmeTestChat({ className }: { className?: string }) {
           Reset
         </Button>
       </header>
+
+      <div className="flex flex-wrap items-center gap-2 border-b border-border/40 bg-background/40 px-4 py-2">
+        <ModelPicker value={model} onChange={setModel} />
+        {lastModel && lastModel !== model && (
+          <span className="text-[10px] text-muted-foreground">
+            (last reply used {lastModel})
+          </span>
+        )}
+      </div>
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4">
         {isEmpty ? (
