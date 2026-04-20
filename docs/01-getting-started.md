@@ -53,6 +53,14 @@ npm run dev
 Open http://localhost:3000. You should see the landing page. Click
 **Start a conversation** and try one of the suggested starters.
 
+> **SME dashboard sign-in.** The `/sme` dashboard is password-protected
+> while the project is in Phase 0. Default credentials for local dev
+> are `admin` / `admin`. To change them (always do this in production),
+> set the env vars `SME_USERNAME`, `SME_PASSWORD`, and
+> `SME_SESSION_SECRET` (a long random string — generate with
+> `openssl rand -base64 32`). The whole placeholder gate is replaced
+> by Clerk in Phase 4 item 1.
+
 ## What to do if it doesn't work
 
 | Symptom | Fix |

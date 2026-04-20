@@ -1,13 +1,16 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { SmeChecklist } from "@/components/sme-checklist";
+import { SmeLogoutButton } from "@/components/sme-logout-button";
 import { SmePromptPreview } from "@/components/sme-prompt-preview";
 import { SmeReadiness } from "@/components/sme-readiness";
 import { SmeTestChat } from "@/components/sme-test-chat";
 import { WillowMark } from "@/components/willow-mark";
 import { buildSystemPrompt } from "@/lib/ai/system-prompt";
+import { isAuthenticated } from "@/lib/auth";
 import { loadContent, REQUIRED_SME_FILES } from "@/lib/content";
 
 export const metadata = {
@@ -32,6 +35,10 @@ export const metadata = {
  *  6. Footer — quick how-edits-work explainer.
  */
 export default async function SmeDashboardPage() {
+  if (!(await isAuthenticated())) {
+    redirect("/sme/login?from=%2Fsme");
+  }
+
   const content = await loadContent();
   const prompt = buildSystemPrompt(content);
   const requiredSet = new Set<string>(REQUIRED_SME_FILES);
@@ -60,6 +67,7 @@ export default async function SmeDashboardPage() {
                 <ExternalLink className="size-3.5" />
               </Link>
             </Button>
+            <SmeLogoutButton />
           </div>
         </div>
       </header>

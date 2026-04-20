@@ -19,6 +19,7 @@
 | `[SME: …]` placeholder convention + dashboard counters | ✅ |
 | Crisis keyword detector + UI banner | ✅ |
 | Draft banner on `/chat` until required SME files are complete | ✅ |
+| SME dashboard sign-in (placeholder shared credential, env-overridable) | ✅ |
 | Documentation (README, SME_GUIDE, DEVELOPER_GUIDE, docs/01–09) | ✅ |
 
 **Production URL:** https://willow-memari-majids-projects.vercel.app
@@ -131,7 +132,7 @@ parallel.
 
 | Priority | Feature | Why now? | Owner | Reference |
 |---|---|---|---|---|
-| 1 | **Authentication** (Clerk via Marketplace) | Required before per-user features and before storing anything personal | Dev | [`docs/08-extending.md` § Authentication](./docs/08-extending.md) |
+| 1 | **Authentication** (Clerk via Marketplace) | Replaces the Phase 0 placeholder shared admin credential in `src/lib/auth.ts`. Required before per-user features and before storing anything personal | Dev | [`docs/08-extending.md` § Authentication](./docs/08-extending.md) |
 | 2 | **Per-user rate limit + budget caps** | Once auth ships, prevents abuse and runaway spend | Dev | [`docs/08-extending.md` § Per-user rate limiting](./docs/08-extending.md) |
 | 3 | **Better safety detection** (moderation API + cheap classifier) | Reduces missed signals beyond keyword matching | Dev + SME | [`docs/08-extending.md` § Better safety](./docs/08-extending.md) |
 | 4 | **Conversation persistence** (Neon Postgres) | Only after auth + privacy review with the SME | Dev | [`docs/08-extending.md` § Persistence](./docs/08-extending.md) |

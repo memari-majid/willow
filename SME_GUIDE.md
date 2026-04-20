@@ -10,6 +10,13 @@
 
 ## Five-minute orientation
 
+> **Sign-in:** the dashboard is gated by a username + password while
+> we're in Phase 0. Default for local development is
+> `admin` / `admin`. In production the developer sets real values via
+> `SME_USERNAME`, `SME_PASSWORD`, and `SME_SESSION_SECRET` env vars on
+> Vercel. (This whole gate goes away when proper auth ships in
+> Phase 4 item 1 — see [`ROADMAP.md`](./ROADMAP.md).)
+
 1. **What you control.** The clinical method, the persona, the safety
    responses, the exercises, the conversation starters, the evidence
    base. All in plain Markdown.
