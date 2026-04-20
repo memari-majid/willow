@@ -1,4 +1,4 @@
-# 09 — How the SME and Developer Work Together
+# How the SME and Developer Work Together
 
 This document is the operating manual for the two-person team that
 runs Willow. Both should read it once and refer back when something
@@ -68,7 +68,7 @@ Pair on it.
 
 ### Path D — Backlog item from Phase 4
 
-See [`ROADMAP.md`](../ROADMAP.md) Phase 4. **Pull from the top of the
+See [`ROADMAP.md`](../../ROADMAP.md) Phase 4. **Pull from the top of the
 queue, not the middle.** Each item has an owner field; that person
 drives, the other reviews.
 
@@ -112,7 +112,7 @@ hits `/chat`.
 ### Content readiness (SME)
 - [ ] `/sme` readiness bar is **green** ("11 / 11 ready").
 - [ ] Draft banner no longer appears on `/chat`.
-- [ ] All eight test scenarios in `SME_GUIDE.md` produce expected
+- [ ] All eight test scenarios in `docs/sme/GUIDE.md` produce expected
       Willow behavior on production.
 - [ ] `content/safety/crisis-resources.md` lists the **right**
       hotlines for the actual user audience (not the global

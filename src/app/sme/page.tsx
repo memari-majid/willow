@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { SmeChecklist } from "@/components/sme-checklist";
-import { SmeLogoutButton } from "@/components/sme-logout-button";
-import { SmePromptPreview } from "@/components/sme-prompt-preview";
-import { SmeReadiness } from "@/components/sme-readiness";
-import { SmeTestChat } from "@/components/sme-test-chat";
+import { SmeChecklist } from "@/components/sme/checklist";
+import { SmeLogoutButton } from "@/components/sme/logout-button";
+import { SmePromptPreview } from "@/components/sme/prompt-preview";
+import { SmeReadiness } from "@/components/sme/readiness";
+import { SmeTestChat } from "@/components/sme/test-chat";
 import { WillowMark } from "@/components/willow-mark";
 import { buildSystemPrompt } from "@/lib/ai/system-prompt";
 import { isAuthenticated } from "@/lib/auth";
@@ -53,7 +53,7 @@ export default async function SmeDashboardPage() {
           <div className="flex items-center gap-1">
             <Button asChild variant="ghost" size="sm" className="rounded-full">
               <Link
-                href="https://github.com/memari-majid/willow/blob/master/SME_GUIDE.md"
+                href="https://github.com/memari-majid/willow/blob/master/docs/sme/GUIDE.md"
                 target="_blank"
                 rel="noreferrer"
               >

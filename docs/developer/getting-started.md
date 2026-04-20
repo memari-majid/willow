@@ -1,4 +1,4 @@
-# 01 — Getting started
+# Getting started
 
 Goal: open Willow in your browser, send a message, see a streamed
 reply.
@@ -32,7 +32,7 @@ vercel env pull .env.local   # writes VERCEL_OIDC_TOKEN to .env.local
 > sits in front of the providers. Your OIDC token tells the gateway
 > "this user is authorized to call models", and Vercel's free tier
 > ($5/month of credits) covers experimentation. See
-> [03-ai-gateway-explained.md](./03-ai-gateway-explained.md).
+> [03-ai-gateway-explained.md](./ai-gateway.md).
 
 If you don't want to use Vercel right now, you can use a long-lived
 API key instead:
@@ -72,4 +72,4 @@ Open http://localhost:3000. You should see the landing page. Click
 
 ## Next
 
-→ [02 — Architecture](./02-architecture.md)
+→ [02 — Architecture](./architecture.md)

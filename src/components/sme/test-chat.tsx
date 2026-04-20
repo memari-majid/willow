@@ -6,10 +6,10 @@ import { DefaultChatTransport } from "ai";
 import { FlaskConical, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Composer } from "@/components/composer";
-import { MessageBubble } from "@/components/message-bubble";
-import { ModelPicker, useModelChoice } from "@/components/model-picker";
-import { SuggestionChips } from "@/components/suggestion-chips";
+import { Composer } from "@/components/chat/composer";
+import { MessageBubble } from "@/components/chat/message-bubble";
+import { ModelPicker, useModelChoice } from "@/components/sme/model-picker";
+import { SuggestionChips } from "@/components/chat/suggestion-chips";
 import { cn } from "@/lib/utils";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 
@@ -22,7 +22,7 @@ import type { WillowUIMessage } from "@/lib/ai/message-metadata";
  *     persisted to localStorage; sent in the request body so the
  *     server uses it without code changes.
  *  2. **Quick test scenarios** — one-click buttons covering the
- *     eight scenarios from `SME_GUIDE.md`. Lets the SME smoke-test
+ *     eight scenarios from `docs/sme/GUIDE.md`. Lets the SME smoke-test
  *     a new content edit in seconds.
  *  3. **Suggestion chips** — same as the live chat. The SME can
  *     speed-run a long conversation by clicking suggestions instead
@@ -238,7 +238,7 @@ function SmeEmptyState({ onPick }: { onPick: (text: string) => void }) {
         </p>
         <p className="text-xs text-muted-foreground">
           One click sends the message. The eight scenarios mirror the
-          checklist in <code className="rounded bg-muted px-1 font-mono text-[11px]">SME_GUIDE.md</code>.
+          checklist in <code className="rounded bg-muted px-1 font-mono text-[11px]">docs/sme/GUIDE.md</code>.
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-2">

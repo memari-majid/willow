@@ -26,10 +26,10 @@ Then pick the guide for your role:
 
 | You are a... | Read this | Then this |
 |---|---|---|
-| **Subject Matter Expert** | [`SME_GUIDE.md`](./SME_GUIDE.md) | open [`/sme`](https://willow-memari-majids-projects.vercel.app/sme) |
-| **Developer** | [`DEVELOPER_GUIDE.md`](./DEVELOPER_GUIDE.md) | run `npm install && npm run dev` |
-| **Both, working together** | [`docs/09-collaboration.md`](./docs/09-collaboration.md) | follow the change-cycle paths |
-| **Anyone curious about how it works** | [`docs/02-architecture.md`](./docs/02-architecture.md) | the file map and request flow |
+| **Subject Matter Expert** | [`docs/sme/GUIDE.md`](./docs/sme/GUIDE.md) | open [`/sme`](https://willow-memari-majids-projects.vercel.app/sme) |
+| **Developer** | [`docs/developer/GUIDE.md`](./docs/developer/GUIDE.md) | run `npm install && npm run dev` |
+| **Both, working together** | [`docs/shared/collaboration.md`](./docs/shared/collaboration.md) | follow the change-cycle paths |
+| **Anyone curious about how it works** | [`docs/developer/architecture.md`](./docs/developer/architecture.md) | the file map and request flow |
 
 ---
 
@@ -73,7 +73,7 @@ Then pick the guide for your role:
   a draft banner on `/chat` so end users can never mistake
   scaffolding for finished product.
 
-For the full deep dive, read [`docs/02-architecture.md`](./docs/02-architecture.md).
+For the full deep dive, read [`docs/developer/architecture.md`](./docs/developer/architecture.md).
 
 ---
 
@@ -122,32 +122,42 @@ Open http://localhost:3000:
 - `/chat` — live chat (with draft banner if SME content is incomplete)
 - `/sme` — SME dashboard
 
-Full walkthrough → [`docs/01-getting-started.md`](./docs/01-getting-started.md)
+Full walkthrough → [`docs/developer/getting-started.md`](./docs/developer/getting-started.md)
 
 ---
 
 ## Documentation map
 
-```
-README.md                ← you are here
-ROADMAP.md               ← THE plan (start here for "what next?")
-SME_GUIDE.md             ← complete SME workflow
-DEVELOPER_GUIDE.md       ← complete developer workflow
-AGENTS.md                ← rules for AI agents touching the repo
+Everything is organized by audience so you only read what's for you.
 
-content/README.md        ← the SME's folder map
+```
+README.md                       ← you are here
+ROADMAP.md                      ← THE plan (start here for "what next?")
+AGENTS.md                       ← rules for AI agents touching the repo
+
+content/                        ← the SME's working files (Markdown)
+  README.md                       folder map for the SME
 
 docs/
-  01-getting-started.md       install + run + first message
-  02-architecture.md          file map + request flow
-  03-ai-gateway-explained.md  auth, failover, cost tracking
-  04-content-folder.md        how Markdown becomes the prompt
-  05-add-a-technique.md       SME workflow for new exercises
-  06-add-a-tool.md            developer workflow for AI tools
-  07-deploy-to-vercel.md      deploy + rollback
-  08-extending.md             auth, persistence, observability
-  09-collaboration.md         SME ↔ developer workflow
+  README.md                       audience-routed index
+  sme/                            ← for the Subject Matter Expert
+    GUIDE.md                        complete SME workflow
+    add-a-technique.md              add an exercise to Willow's toolkit
+  developer/                      ← for the Developer
+    GUIDE.md                        complete developer workflow
+    getting-started.md              install + run + first message
+    architecture.md                 file map + request flow
+    ai-gateway.md                   auth, failover, cost tracking
+    add-a-tool.md                   give the AI a function to call
+    deploy-to-vercel.md             deploy + rollback
+    extending.md                    auth, persistence, observability
+    research-mode.md                logging, eval, A/B (Phase 4 #5)
+  shared/                         ← read by both
+    content-folder.md               how Markdown becomes the prompt
+    collaboration.md                SME ↔ developer working agreement
 ```
+
+The full audience-routed index lives in [`docs/README.md`](./docs/README.md).
 
 ---
 
@@ -159,4 +169,4 @@ project ships with a baseline keyword crisis detector and a hotline
 banner, but the **clinical responsibility belongs to the SME**, who
 authors the content. Do not ship to real users until the SME
 dashboard shows green and the going-live checklist in
-[`docs/09-collaboration.md`](./docs/09-collaboration.md) is complete.
+[`docs/shared/collaboration.md`](./docs/shared/collaboration.md) is complete.

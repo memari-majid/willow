@@ -1,4 +1,4 @@
-# 08 — Extending Willow
+# Extending Willow
 
 Things v1 deliberately does not include, because they need product
 decisions. This doc points at the right Vercel pattern for each.

@@ -1,4 +1,4 @@
-# 05 — Add a new wellbeing technique
+# Add a new wellbeing technique
 
 This is the most common change request from the SME. It takes about
 two minutes and zero TypeScript.
@@ -81,4 +81,4 @@ when the moment is right.
 
 ## Next
 
-→ [06 — Add a tool](./06-add-a-tool.md)
+→ [06 — Add a tool](../developer/add-a-tool.md)

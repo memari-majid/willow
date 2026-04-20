@@ -67,13 +67,13 @@ The recommended order — each step builds on the previous one:
 | 11 | `content/conversation-starters.md` | Replace with starters in your audience's voice |
 | 12 | `content/evidence/glossary.md` | Define every clinical term Willow may use (optional but recommended) |
 
-> Detailed step-by-step instructions for each task: see [`SME_GUIDE.md`](./SME_GUIDE.md).
+> Detailed step-by-step instructions for each task: see [`docs/sme/GUIDE.md`](./docs/sme/GUIDE.md).
 
 ### Definition of done
 
 - The readiness bar at `/sme` is green ("11 / 11 ready").
 - The draft banner no longer appears on `/chat`.
-- All test scenarios in `SME_GUIDE.md` ("Test scenarios you should
+- All test scenarios in `docs/sme/GUIDE.md` ("Test scenarios you should
   always run") pass.
 
 ---
@@ -85,13 +85,13 @@ representative range of conversations.
 **Owner:** SME (with developer pairing).
 **Estimated time:** 2–3 days.
 
-Both roles work from [`docs/09-collaboration.md`](./docs/09-collaboration.md).
+Both roles work from [`docs/shared/collaboration.md`](./docs/shared/collaboration.md).
 
 | Step | Owner | What |
 |---|---|---|
-| 1 | SME + Dev | Pairing session: SME edits, Dev reloads — work through every test scenario in `SME_GUIDE.md` |
-| 2 | Dev | Open the production AI Gateway dashboard, set a monthly budget alert and a per-user rate limit (see `docs/07-deploy-to-vercel.md`) |
-| 3 | SME | Sign off the **going-live checklist** in `docs/09-collaboration.md` |
+| 1 | SME + Dev | Pairing session: SME edits, Dev reloads — work through every test scenario in `docs/sme/GUIDE.md` |
+| 2 | Dev | Open the production AI Gateway dashboard, set a monthly budget alert and a per-user rate limit (see `docs/developer/deploy-to-vercel.md`) |
+| 3 | SME | Sign off the **going-live checklist** in `docs/shared/collaboration.md` |
 | 4 | Dev | Tag the release: `git tag v1.0.0 && git push --tags` |
 
 ---
@@ -118,7 +118,7 @@ from real conversations.
 
 ### Monthly
 
-- SME and developer review docs/08-extending.md together — pick at
+- SME and developer review docs/developer/extending.md together — pick at
   most one new feature to add per month, working from the priority
   list in this file (next section)
 
@@ -132,16 +132,16 @@ parallel.
 
 | Priority | Feature | Why now? | Owner | Reference |
 |---|---|---|---|---|
-| 1 | **Authentication** (Clerk via Marketplace) | Replaces the Phase 0 placeholder shared admin credential in `src/lib/auth.ts`. Required before per-user features and before storing anything personal | Dev | [`docs/08-extending.md` § Authentication](./docs/08-extending.md) |
-| 2 | **Per-user rate limit + budget caps** | Once auth ships, prevents abuse and runaway spend | Dev | [`docs/08-extending.md` § Per-user rate limiting](./docs/08-extending.md) |
-| 3 | **Better safety detection** (moderation API + cheap classifier) | Reduces missed signals beyond keyword matching | Dev + SME | [`docs/08-extending.md` § Better safety](./docs/08-extending.md) |
-| 4 | **Conversation persistence** (Neon Postgres) | Only after auth + privacy review with the SME | Dev | [`docs/08-extending.md` § Persistence](./docs/08-extending.md) |
-| 5 | **R&D / Research mode** (logging, analytics dashboard, SME tagging, prompt A/B testing) | Closes the improvement loop — the SME learns from real conversations and iterates the method | Dev + SME | [`docs/10-research-mode.md`](./docs/10-research-mode.md) |
-| 6 | **AI Elements rich UI** (reasoning, code blocks, suggestions) | Cosmetic + UX polish | Dev | [`docs/08-extending.md` § AI Elements](./docs/08-extending.md) |
-| 7 | **Multi-language content** (`content/en/`, `content/es/`, …) | Once a non-English audience is identified | SME + Dev | [`docs/08-extending.md` § Multi-language](./docs/08-extending.md) |
-| 8 | **Tests** (safety detector unit tests, prompt snapshot tests, E2E) | Before scaling team or shipping fast | Dev | [`docs/08-extending.md` § Tests](./docs/08-extending.md) |
-| 9 | **Observability** (Datadog log drain, OTel traces) | Once volume justifies it | Dev | [`docs/08-extending.md` § Observability](./docs/08-extending.md) |
-| 10 | **CMS instead of GitHub edits** | Only if the SME asks for a friendlier editor | Dev | [`docs/08-extending.md` § Letting the SME edit from a UI](./docs/08-extending.md) |
+| 1 | **Authentication** (Clerk via Marketplace) | Replaces the Phase 0 placeholder shared admin credential in `src/lib/auth.ts`. Required before per-user features and before storing anything personal | Dev | [`docs/developer/extending.md` § Authentication](./docs/developer/extending.md) |
+| 2 | **Per-user rate limit + budget caps** | Once auth ships, prevents abuse and runaway spend | Dev | [`docs/developer/extending.md` § Per-user rate limiting](./docs/developer/extending.md) |
+| 3 | **Better safety detection** (moderation API + cheap classifier) | Reduces missed signals beyond keyword matching | Dev + SME | [`docs/developer/extending.md` § Better safety](./docs/developer/extending.md) |
+| 4 | **Conversation persistence** (Neon Postgres) | Only after auth + privacy review with the SME | Dev | [`docs/developer/extending.md` § Persistence](./docs/developer/extending.md) |
+| 5 | **R&D / Research mode** (logging, analytics dashboard, SME tagging, prompt A/B testing) | Closes the improvement loop — the SME learns from real conversations and iterates the method | Dev + SME | [`docs/developer/research-mode.md`](./docs/developer/research-mode.md) |
+| 6 | **AI Elements rich UI** (reasoning, code blocks, suggestions) | Cosmetic + UX polish | Dev | [`docs/developer/extending.md` § AI Elements](./docs/developer/extending.md) |
+| 7 | **Multi-language content** (`content/en/`, `content/es/`, …) | Once a non-English audience is identified | SME + Dev | [`docs/developer/extending.md` § Multi-language](./docs/developer/extending.md) |
+| 8 | **Tests** (safety detector unit tests, prompt snapshot tests, E2E) | Before scaling team or shipping fast | Dev | [`docs/developer/extending.md` § Tests](./docs/developer/extending.md) |
+| 9 | **Observability** (Datadog log drain, OTel traces) | Once volume justifies it | Dev | [`docs/developer/extending.md` § Observability](./docs/developer/extending.md) |
+| 10 | **CMS instead of GitHub edits** | Only if the SME asks for a friendlier editor | Dev | [`docs/developer/extending.md` § Letting the SME edit from a UI](./docs/developer/extending.md) |
 
 > **Rule of thumb:** never start item N+1 until item N is in
 > production with the SME's sign-off.

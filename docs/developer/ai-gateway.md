@@ -1,4 +1,4 @@
-# 03 — Vercel AI Gateway explained
+# Vercel AI Gateway explained
 
 ## What it is
 
@@ -78,7 +78,7 @@ request, tokens consumed, latency, and which provider served it. The
 filtering trivial.
 
 For per-user tracking, add `user: userId` to `providerOptions.gateway`
-once you have authentication wired (see [docs/08](./08-extending.md)).
+once you have authentication wired (see [docs/08](./extending.md)).
 
 ## Pricing
 
@@ -97,4 +97,4 @@ Everything else: stay on the gateway.
 
 ## Next
 
-→ [04 — Content folder](./04-content-folder.md)
+→ [04 — Content folder](../shared/content-folder.md)

@@ -101,20 +101,20 @@ You're ready.
 
 ---
 
-## Numbered tutorials (deeper dives)
+## Deeper dives
 
-| # | Topic | When you need it |
-|---|---|---|
-| [01](./docs/01-getting-started.md) | Getting started | First-time install or troubleshooting |
-| [02](./docs/02-architecture.md) | Architecture | Understanding the codebase end-to-end |
-| [03](./docs/03-ai-gateway-explained.md) | AI Gateway | Auth, failover, cost tracking |
-| [04](./docs/04-content-folder.md) | Content folder | How `[SME: ...]` and the loader work |
-| [05](./docs/05-add-a-technique.md) | Add a technique | SME pattern — useful to understand |
-| [06](./docs/06-add-a-tool.md) | Add an AI tool | Giving Willow a function to call |
-| [07](./docs/07-deploy-to-vercel.md) | Deploy to Vercel | First deploy + ops settings |
-| [08](./docs/08-extending.md) | Extensions | Auth, persistence, observability — the Phase 4 backlog |
-| [09](./docs/09-collaboration.md) | Collaboration | How you and the SME work together |
-| [10](./docs/10-research-mode.md) | Research mode | Storing + analyzing conversations to improve the bot (Phase 4 #5) |
+| Topic | When you need it |
+|---|---|
+| [Getting started](./getting-started.md) | First-time install or troubleshooting |
+| [Architecture](./architecture.md) | Understanding the codebase end-to-end |
+| [AI Gateway](./ai-gateway.md) | Auth, failover, cost tracking |
+| [Add an AI tool](./add-a-tool.md) | Giving Willow a function to call |
+| [Deploy to Vercel](./deploy-to-vercel.md) | First deploy + ops settings |
+| [Extending](./extending.md) | Auth, persistence, observability — the Phase 4 backlog |
+| [Research mode](./research-mode.md) | Storing + analyzing conversations to improve the bot (Phase 4 #5) |
+| [Content folder pipeline](../shared/content-folder.md) | How `[SME: ...]` and the loader work *(shared)* |
+| [Collaboration](../shared/collaboration.md) | How you and the SME work together *(shared)* |
+| [Add a technique](../sme/add-a-technique.md) | SME pattern — useful to understand *(SME-side)* |
 
 ---
 
@@ -148,7 +148,7 @@ genuinely requires a code change (which is rare).
 
 ### "The SME wants Willow to *do* something — not just talk."
 
-This is a tool call. Follow [`docs/06-add-a-tool.md`](./docs/06-add-a-tool.md):
+This is a tool call. Follow [`docs/developer/add-a-tool.md`](./add-a-tool.md):
 1. Define the tool in `src/lib/ai/tools.ts` (create the file if
    needed).
 2. Wire it into `streamText` in `src/app/api/chat/route.ts` with
@@ -199,7 +199,7 @@ own component if you need variants.
    include the new content (under a clearly headed section).
 5. If the new files are required before launch, add their relative
    paths to `REQUIRED_SME_FILES` in `content.ts`.
-6. Update `docs/02-architecture.md` and `content/README.md` so both
+6. Update `docs/developer/architecture.md` and `content/README.md` so both
    reflect the new folder.
 
 ---
@@ -274,7 +274,7 @@ keep working; production has to be promoted by clicking.
 ## Working with the SME
 
 The full collaboration playbook is in
-[`docs/09-collaboration.md`](./docs/09-collaboration.md). The short
+[`docs/shared/collaboration.md`](../shared/collaboration.md). The short
 version:
 
 - Most SME edits never touch you. They land as PRs (or pushes) and
@@ -302,8 +302,8 @@ version:
 | Adjust temperature | `src/lib/ai/model.ts` (coordinate with SME) |
 | Send extra metadata to the client | `src/lib/ai/message-metadata.ts` + `src/app/api/chat/route.ts` |
 | Add a new shadcn component | `npx shadcn@latest add <name>` |
-| Give the bot an AI tool | follow [docs/06](./docs/06-add-a-tool.md) |
-| Add auth / persistence / etc. | follow the order in [`ROADMAP.md`](./ROADMAP.md) Phase 4 |
+| Give the bot an AI tool | follow [docs/06](./add-a-tool.md) |
+| Add auth / persistence / etc. | follow the order in [`ROADMAP.md`](../../ROADMAP.md) Phase 4 |
 | Find what's still placeholder | open `/sme` |
 | Roll back a bad deploy | `vercel rollback` |
 

@@ -96,7 +96,8 @@ push your edits to GitHub.
 
 - Authentication, conversation persistence, regional language packs,
   analytics. Talk to the developer if you need any of those — the
-  developer's `docs/08-extending.md` lists how each gets added.
+  developer's [`docs/developer/extending.md`](../docs/developer/extending.md)
+  lists how each gets added.
 
 ---
 

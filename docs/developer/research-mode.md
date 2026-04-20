@@ -1,4 +1,4 @@
-# 10 — Research & Development Mode
+# Research & Development Mode
 
 > **Goal:** close the loop. Every real conversation becomes a
 > learning artifact the SME can review, tag, and use to iterate the
@@ -6,7 +6,7 @@
 >
 > **Pre-requisites:** Phase 4 items #1 (Authentication) and #4
 > (Persistence) must be in production first. R&D mode is item #5 in
-> the [ROADMAP](../ROADMAP.md#phase-4--extensions-backlog) for that
+> the [ROADMAP](../../ROADMAP.md#phase-4--extensions-backlog) for that
 > reason.
 >
 > **Status:** planned, not yet built.

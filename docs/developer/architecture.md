@@ -1,4 +1,4 @@
-# 02 — Architecture
+# Architecture
 
 ## File map
 
@@ -46,34 +46,57 @@ willow/
 │   │   └── globals.css                   Tailwind v4 + shadcn tokens
 │   │
 │   ├── components/
-│   │   ├── chat.tsx                      useChat() consumer
-│   │   ├── composer.tsx                  textarea + send
-│   │   ├── message-bubble.tsx
-│   │   ├── starter-prompts.tsx
-│   │   ├── safety-disclaimer.tsx
-│   │   ├── crisis-banner.tsx
-│   │   ├── draft-banner.tsx              "starter content in use"
-│   │   ├── willow-mark.tsx               wordmark
-│   │   ├── sme-checklist.tsx             file ✓/✗ list
-│   │   ├── sme-readiness.tsx             top "X of N ready" header
-│   │   ├── sme-prompt-preview.tsx        collapsible assembled prompt
-│   │   ├── sme-test-chat.tsx             test chat widget
+│   │   ├── chat/                         end-user chat widgets
+│   │   │   ├── chat.tsx                  useChat() consumer
+│   │   │   ├── composer.tsx              textarea + send
+│   │   │   ├── message-bubble.tsx
+│   │   │   ├── starter-prompts.tsx
+│   │   │   ├── suggestion-chips.tsx
+│   │   │   ├── safety-disclaimer.tsx
+│   │   │   ├── crisis-banner.tsx
+│   │   │   └── draft-banner.tsx          "starter content in use"
+│   │   ├── sme/                          dashboard-only widgets
+│   │   │   ├── checklist.tsx             file ✓/✗ list
+│   │   │   ├── readiness.tsx             top "X of N ready" header
+│   │   │   ├── prompt-preview.tsx        collapsible assembled prompt
+│   │   │   ├── test-chat.tsx             test chat widget
+│   │   │   ├── model-picker.tsx          per-test model override
+│   │   │   └── logout-button.tsx         clears the session cookie
+│   │   ├── willow-mark.tsx               wordmark (used everywhere)
 │   │   └── ui/                           shadcn primitives
 │   │
 │   └── lib/
+│       ├── auth.ts                       SME-dashboard sign-in (Phase 0)
 │       ├── content.ts                    reads + parses content/, counts [SME:]
 │       ├── utils.ts                      cn() helper
 │       └── ai/
 │           ├── model.ts                  PRIMARY_MODEL, FALLBACK_MODELS, TEMPERATURE
 │           ├── system-prompt.ts          assembles the prompt from content
 │           ├── safety.ts                 keyword crisis detector
+│           ├── suggestions.ts            follow-up suggestion generator
 │           └── message-metadata.ts       WillowUIMessage custom type
 │
-├── docs/                                 you are here
-├── README.md
-├── SME_GUIDE.md
-├── DEVELOPER_GUIDE.md
-├── AGENTS.md
+├── docs/
+│   ├── README.md                         audience-routed index
+│   ├── sme/                              for the Subject Matter Expert
+│   │   ├── GUIDE.md
+│   │   └── add-a-technique.md
+│   ├── developer/                        for the Developer
+│   │   ├── GUIDE.md
+│   │   ├── getting-started.md
+│   │   ├── architecture.md
+│   │   ├── ai-gateway.md
+│   │   ├── add-a-tool.md
+│   │   ├── deploy-to-vercel.md
+│   │   ├── extending.md
+│   │   └── research-mode.md
+│   └── shared/                           for both
+│       ├── content-folder.md
+│       └── collaboration.md
+│
+├── README.md                             repo entry point
+├── ROADMAP.md                            single source of truth for "what next"
+├── AGENTS.md                             rules for AI agents in the repo
 ├── components.json
 ├── next.config.ts
 └── tsconfig.json
@@ -143,11 +166,11 @@ on `/sme` is what real users get on `/chat`.
   and test.
 - **AI Gateway via plain `"provider/model"` strings**, not direct
   provider SDKs. Failover, observability, OIDC auth — see
-  [03-ai-gateway-explained.md](./03-ai-gateway-explained.md).
+  [`ai-gateway.md`](./ai-gateway.md).
 - **Server components do the work**, client components do the
   interaction. The chat and SME pages are server components; only
   the chat widgets are client components.
 
 ## Next
 
-→ [03 — AI Gateway explained](./03-ai-gateway-explained.md)
+→ [AI Gateway explained](./ai-gateway.md)

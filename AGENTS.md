@@ -1,7 +1,9 @@
 # Willow — Agents quick-reference
 
 This is a Next.js 16 + AI SDK v6 project. The full docs for humans
-are in `README.md`, `SME_GUIDE.md`, `DEVELOPER_GUIDE.md`, and `docs/`.
+live under `docs/`, organized by audience (`sme/`, `developer/`,
+`shared/`). Start at [`README.md`](./README.md) and
+[`docs/README.md`](./docs/README.md).
 
 ## Critical rules for agents working on this codebase
 
@@ -29,25 +31,38 @@ are in `README.md`, `SME_GUIDE.md`, `DEVELOPER_GUIDE.md`, and `docs/`.
    are not.
 6. **Stay minimal.** This codebase is intentionally small — about a
    dozen source files. Resist the urge to add abstractions. New code
-   should map clearly to a row in `DEVELOPER_GUIDE.md`'s cheat sheet.
+   should map clearly to a row in
+   [`docs/developer/GUIDE.md`](./docs/developer/GUIDE.md)'s cheat sheet.
 
 ## Required reading order (in this order)
 
-1. `ROADMAP.md` — single source of truth for what's done / what's next.
-2. The role guide that matches the request (`SME_GUIDE.md` or
-   `DEVELOPER_GUIDE.md`).
-3. `docs/09-collaboration.md` for any change involving both roles.
-4. The relevant `docs/0X-*.md` for the topic at hand.
+1. [`ROADMAP.md`](./ROADMAP.md) — single source of truth for what's
+   done / what's next.
+2. The role guide that matches the request
+   ([`docs/sme/GUIDE.md`](./docs/sme/GUIDE.md) or
+   [`docs/developer/GUIDE.md`](./docs/developer/GUIDE.md)).
+3. [`docs/shared/collaboration.md`](./docs/shared/collaboration.md)
+   for any change involving both roles.
+4. The relevant topic doc under `docs/sme/`, `docs/developer/`, or
+   `docs/shared/` — see [`docs/README.md`](./docs/README.md) for the
+   index.
 
 ## File layout (orientation)
 
 - `content/` — SME-edited Markdown. Read by `src/lib/content.ts`.
 - `src/app/` — Next.js routes (App Router).
-- `src/components/` — React components (mostly client; see
-  `chat.tsx`).
+  - `api/` — `chat`, `suggestions`, `models` endpoints.
+  - `chat/` — public end-user chat page.
+  - `sme/` — gated SME dashboard, with `sme/login/` for sign-in.
+- `src/components/` — React components in three buckets:
+  - `chat/` — end-user chat widgets.
+  - `sme/` — SME-dashboard widgets (only loaded behind `/sme`).
+  - `ui/` — shadcn primitives.
 - `src/lib/ai/` — model selection, system-prompt assembly, safety,
-  metadata types.
+  suggestions, metadata types.
+- `src/lib/auth.ts` — Phase 0 SME-dashboard sign-in (HMAC cookie).
+- `src/lib/content.ts` — content loader + readiness scoring.
+- `docs/sme/`, `docs/developer/`, `docs/shared/` — human docs by
+  audience. Update them when you change matching code.
 - `ROADMAP.md` — the plan; update it in the same commit when a phase
   item completes.
-- `docs/01-09-*.md` — junior-dev tutorials. Update them when you
-  change matching code.

@@ -1,4 +1,4 @@
-# 07 — Deploy to Vercel
+# Deploy to Vercel
 
 ## The 30-second deploy
 
@@ -68,4 +68,4 @@ issues with full request/response visibility.
 
 ## Next
 
-→ [08 — Extending Willow](./08-extending.md)
+→ [08 — Extending Willow](./extending.md)

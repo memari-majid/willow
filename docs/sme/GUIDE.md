@@ -15,7 +15,7 @@
 > `admin` / `admin`. In production the developer sets real values via
 > `SME_USERNAME`, `SME_PASSWORD`, and `SME_SESSION_SECRET` env vars on
 > Vercel. (This whole gate goes away when proper auth ships in
-> Phase 4 item 1 — see [`ROADMAP.md`](./ROADMAP.md).)
+> Phase 4 item 1 — see [`ROADMAP.md`](../../ROADMAP.md).)
 
 1. **What you control.** The clinical method, the persona, the safety
    responses, the exercises, the conversation starters, the evidence
@@ -40,7 +40,7 @@
 
 ## Your first two weeks (Phase 1)
 
-The order below mirrors [`ROADMAP.md`](./ROADMAP.md). Each step is
+The order below mirrors [`ROADMAP.md`](../../ROADMAP.md). Each step is
 about half a working day. Take longer if you need to.
 
 ### Week 1 — define what Willow *is*
@@ -159,7 +159,7 @@ self-compassion):
 - **Delete** if it's not part of your model.
 
 To add a new technique, copy any existing file, rename it, and rewrite
-the four sections. See [`docs/05-add-a-technique.md`](./docs/05-add-a-technique.md).
+the four sections. See [`add-a-technique.md`](./add-a-technique.md).
 
 #### Day 11 — Conversation starters
 
@@ -230,14 +230,14 @@ Open a GitHub issue (or just message them) when:
   doesn't fit any existing file.
 - You want Willow to *do* something new that isn't pure conversation
   — for example, look up a resource, send a follow-up reminder, or
-  call an external API. (See [`docs/06-add-a-tool.md`](./docs/06-add-a-tool.md).)
+  call an external API. (See [`developer/add-a-tool.md`](../developer/add-a-tool.md).)
 - The crisis banner is firing too often or not often enough and
   adjusting `crisis-keywords.md` isn't enough — you may want a
   smarter detector.
 - A test scenario fails consistently even after you've edited the
   obvious file.
 - You want any of the items in
-  [`ROADMAP.md` Phase 4 — Extensions backlog](./ROADMAP.md#phase-4--extensions-backlog).
+  [`ROADMAP.md` Phase 4 — Extensions backlog](../../ROADMAP.md#phase-4--extensions-backlog).
 
 ---
 
@@ -295,4 +295,4 @@ sentence you wish a wise colleague had said to you on a hard day.
 That's the bar.
 
 When you're ready for users, follow the **going-live checklist** in
-[`docs/09-collaboration.md`](./docs/09-collaboration.md).
+[`shared/collaboration.md`](../shared/collaboration.md).

@@ -13,7 +13,7 @@
  * dashboard's model picker (sent as `body.model` to /api/chat) — see
  * `isAllowedModel()` below for the safety check.
  *
- * See `docs/03-ai-gateway-explained.md` for a deeper walk-through.
+ * See `docs/developer/ai-gateway.md` for a deeper walk-through.
  */
 
 export const PRIMARY_MODEL = "openai/gpt-5.4" as const;

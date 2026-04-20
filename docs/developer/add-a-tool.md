@@ -1,4 +1,4 @@
-# 06 — Give Willow a tool
+# Give Willow a tool
 
 A "tool" in AI SDK terms is a function the model can call mid-reply to
 fetch information or take an action — for example, "look up today's
@@ -111,4 +111,4 @@ The system prompt will pick this up the next request.
 
 ## Next
 
-→ [07 — Deploy to Vercel](./07-deploy-to-vercel.md)
+→ [07 — Deploy to Vercel](./deploy-to-vercel.md)

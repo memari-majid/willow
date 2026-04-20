@@ -1,4 +1,4 @@
-# 04 — How `content/` becomes the AI's instructions
+# How `content/` becomes the AI's instructions
 
 ## The pipeline
 
@@ -106,4 +106,4 @@ ships with the deploy, so any change requires a redeploy.
 
 ## Next
 
-→ [05 — Add a technique](./05-add-a-technique.md)
+→ [05 — Add a technique](../sme/add-a-technique.md)

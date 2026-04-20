@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 
-import { Composer } from "@/components/composer";
-import { CrisisBanner } from "@/components/crisis-banner";
-import { MessageBubble } from "@/components/message-bubble";
-import { StarterPrompts } from "@/components/starter-prompts";
-import { SuggestionChips } from "@/components/suggestion-chips";
+import { Composer } from "@/components/chat/composer";
+import { CrisisBanner } from "@/components/chat/crisis-banner";
+import { MessageBubble } from "@/components/chat/message-bubble";
+import { StarterPrompts } from "@/components/chat/starter-prompts";
+import { SuggestionChips } from "@/components/chat/suggestion-chips";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 
 /**

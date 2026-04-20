@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { Chat } from "@/components/chat";
-import { DraftBanner } from "@/components/draft-banner";
-import { SafetyDisclaimer } from "@/components/safety-disclaimer";
+import { Chat } from "@/components/chat/chat";
+import { DraftBanner } from "@/components/chat/draft-banner";
+import { SafetyDisclaimer } from "@/components/chat/safety-disclaimer";
 import { WillowMark } from "@/components/willow-mark";
 import { isReadyForUsers, loadContent, REQUIRED_SME_FILES } from "@/lib/content";
 
