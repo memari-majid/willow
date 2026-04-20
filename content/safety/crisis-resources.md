@@ -1,12 +1,10 @@
 # Crisis Resources
 
-> SME, this file holds the **resources Willow surfaces during a crisis
-> response**. Both as a banner in the UI and as part of the AI's
-> reply when crisis keywords are detected.
->
-> Update these for the regions and audiences Willow serves. The
-> default list below is global-leaning English-speaking resources —
-> please localize.
+> **STARTER EXAMPLE — written by the developer.**
+> SME, the list below is global-leaning English-speaking defaults.
+> **You must localize this file** for the regions and audiences
+> Willow serves before going to real users. The crisis banner in the
+> UI shows these resources directly to the user.
 
 ## How Willow responds in a crisis
 

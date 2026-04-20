@@ -1,7 +1,12 @@
 # Box Breathing
 
+> **STARTER EXAMPLE — please review.**
 > A four-count breathing pattern that slows the nervous system —
 > inhale 4, hold 4, exhale 4, hold 4.
+
+> **SME:** add this technique's evidence base in
+> [`evidence/references.md`](../evidence/references.md) under
+> "Box Breathing".
 
 ## When to suggest
 

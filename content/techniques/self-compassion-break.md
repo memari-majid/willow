@@ -1,7 +1,12 @@
 # Self-Compassion Break
 
-> A three-step practice (notice, normalize, soothe) drawn from Kristin
-> Neff's work on self-compassion. About a minute long.
+> **STARTER EXAMPLE — please review.**
+> A three-step practice (notice, normalize, soothe) commonly
+> associated with self-compassion research. About a minute long.
+
+> **SME:** confirm the framing and add citations in
+> [`evidence/references.md`](../evidence/references.md) under
+> "Self-Compassion Break".
 
 ## When to suggest
 

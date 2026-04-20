@@ -2,12 +2,12 @@
  * Content loader — reads the SME-editable Markdown files in `content/`
  * and returns them as a typed structure the rest of the app can use.
  *
- * Why this file exists
+ * Two responsibilities
  * --------------------
- * The Subject Matter Expert owns the words; the developer owns the
- * plumbing. This module is the bridge: every other file in `src/`
- * reads content through `loadContent()` so the app stays decoupled
- * from the file layout.
+ *  1. Surface the SME's words to the system-prompt assembler so the
+ *     AI behaves as the SME has specified.
+ *  2. Track which files still contain `[SME: ...]` placeholders so
+ *     the `/sme` page can show the SME exactly what's left to do.
  *
  * Performance
  * -----------
@@ -18,6 +18,10 @@
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
+
+const CONTENT_DIR = path.resolve(process.cwd(), "content");
+
+const PLACEHOLDER_REGEX = /\[SME:[^\]]*\]/g;
 
 export type Technique = {
   /** Filename without extension, e.g. "box-breathing". Stable id. */
@@ -36,7 +40,29 @@ export type Technique = {
   raw: string;
 };
 
+export type CheckIn = {
+  id: string;
+  title: string;
+  summary: string;
+  raw: string;
+};
+
+/**
+ * One row in the SME-facing "what's done, what's still placeholder"
+ * checklist. The relativePath is what the SME sees in their editor.
+ */
+export type FileStatus = {
+  relativePath: string;
+  /** How many `[SME: ...]` markers are still in the file. 0 = ready. */
+  placeholderCount: number;
+  /** Total characters of content (rough indicator of "is this empty?"). */
+  bytes: number;
+  /** True when the SME has at least removed every [SME: ...] marker. */
+  ready: boolean;
+};
+
 export type WillowContent = {
+  // STARTER files (developer-provided shape, SME owns content)
   persona: string;
   toneStyle: string;
   disclaimers: string;
@@ -45,14 +71,48 @@ export type WillowContent = {
   crisisResources: string;
   techniques: Technique[];
   starters: string[];
-};
 
-const CONTENT_DIR = path.resolve(process.cwd(), "content");
+  // METHOD files (SME-only content)
+  method: {
+    approach: string;
+    coreSkills: string;
+    conversationFlow: string;
+    decisionRules: string;
+  };
+
+  // EVIDENCE files (SME-only content)
+  evidence: {
+    references: string;
+    glossary: string;
+  };
+
+  // CHECK-IN files (optional, SME-only)
+  checkIns: CheckIn[];
+
+  // Status — per-file placeholder counts for the /sme page
+  status: FileStatus[];
+};
 
 let cached: WillowContent | null = null;
 
 export async function loadContent(): Promise<WillowContent> {
   if (cached) return cached;
+
+  const reads = {
+    persona: readMd("persona.md"),
+    toneStyle: readMd("tone-style-guide.md"),
+    disclaimers: readMd("safety/disclaimers.md"),
+    boundaries: readMd("safety/boundaries.md"),
+    crisisKeywordsFile: readMd("safety/crisis-keywords.md"),
+    crisisResources: readMd("safety/crisis-resources.md"),
+    starters: readMd("conversation-starters.md"),
+    methodApproach: readMd("method/01-approach.md"),
+    methodCoreSkills: readMd("method/02-core-skills.md"),
+    methodConvFlow: readMd("method/03-conversation-flow.md"),
+    methodRules: readMd("method/04-decision-rules.md"),
+    references: readMd("evidence/references.md"),
+    glossary: readMd("evidence/glossary.md"),
+  };
 
   const [
     persona,
@@ -61,18 +121,52 @@ export async function loadContent(): Promise<WillowContent> {
     boundaries,
     crisisKeywordsFile,
     crisisResources,
-    techniques,
     startersFile,
+    methodApproach,
+    methodCoreSkills,
+    methodConvFlow,
+    methodRules,
+    references,
+    glossary,
+    techniques,
+    checkIns,
   ] = await Promise.all([
-    readMd("persona.md"),
-    readMd("tone-style-guide.md"),
-    readMd("safety/disclaimers.md"),
-    readMd("safety/boundaries.md"),
-    readMd("safety/crisis-keywords.md"),
-    readMd("safety/crisis-resources.md"),
+    reads.persona,
+    reads.toneStyle,
+    reads.disclaimers,
+    reads.boundaries,
+    reads.crisisKeywordsFile,
+    reads.crisisResources,
+    reads.starters,
+    reads.methodApproach,
+    reads.methodCoreSkills,
+    reads.methodConvFlow,
+    reads.methodRules,
+    reads.references,
+    reads.glossary,
     loadTechniques(),
-    readMd("conversation-starters.md"),
+    loadCheckIns(),
   ]);
+
+  const status: FileStatus[] = [
+    statusOf("persona.md", persona),
+    statusOf("tone-style-guide.md", toneStyle),
+    statusOf("conversation-starters.md", startersFile),
+    statusOf("safety/disclaimers.md", disclaimers),
+    statusOf("safety/boundaries.md", boundaries),
+    statusOf("safety/crisis-keywords.md", crisisKeywordsFile),
+    statusOf("safety/crisis-resources.md", crisisResources),
+    statusOf("method/01-approach.md", methodApproach),
+    statusOf("method/02-core-skills.md", methodCoreSkills),
+    statusOf("method/03-conversation-flow.md", methodConvFlow),
+    statusOf("method/04-decision-rules.md", methodRules),
+    statusOf("evidence/references.md", references),
+    statusOf("evidence/glossary.md", glossary),
+    ...techniques.map((t) =>
+      statusOf(`techniques/${t.id}.md`, t.raw),
+    ),
+    ...checkIns.map((c) => statusOf(`check-ins/${c.id}.md`, c.raw)),
+  ];
 
   cached = {
     persona,
@@ -83,6 +177,18 @@ export async function loadContent(): Promise<WillowContent> {
     crisisResources,
     techniques,
     starters: parseBulletList(startersFile),
+    method: {
+      approach: methodApproach,
+      coreSkills: methodCoreSkills,
+      conversationFlow: methodConvFlow,
+      decisionRules: methodRules,
+    },
+    evidence: {
+      references,
+      glossary,
+    },
+    checkIns,
+    status,
   };
 
   return cached;
@@ -97,17 +203,52 @@ async function loadTechniques(): Promise<Technique[]> {
   const dir = path.join(CONTENT_DIR, "techniques");
   const files = await fs.readdir(dir);
   const mdFiles = files
-    .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
+    .filter(
+      (f) =>
+        f.endsWith(".md") &&
+        f.toLowerCase() !== "readme.md" &&
+        !f.startsWith("_"),
+    )
     .sort();
 
-  const parsed = await Promise.all(
+  return Promise.all(
     mdFiles.map(async (filename) => {
       const raw = await fs.readFile(path.join(dir, filename), "utf8");
       return parseTechnique(filename.replace(/\.md$/, ""), raw);
     }),
   );
+}
 
-  return parsed;
+async function loadCheckIns(): Promise<CheckIn[]> {
+  const dir = path.join(CONTENT_DIR, "check-ins");
+  let files: string[] = [];
+  try {
+    files = await fs.readdir(dir);
+  } catch {
+    return [];
+  }
+  const mdFiles = files
+    .filter(
+      (f) =>
+        f.endsWith(".md") &&
+        f.toLowerCase() !== "readme.md" &&
+        !f.startsWith("_"),
+    )
+    .sort();
+
+  return Promise.all(
+    mdFiles.map(async (filename) => {
+      const raw = await fs.readFile(path.join(dir, filename), "utf8");
+      const id = filename.replace(/\.md$/, "");
+      return {
+        id,
+        title: matchFirst(raw, /^#\s+(.+)$/m) ?? id,
+        summary:
+          matchFirst(raw, /^>\s+([\s\S]+?)(?=\n\n|\n##|$)/m)?.trim() ?? "",
+        raw,
+      };
+    }),
+  );
 }
 
 function parseTechnique(id: string, raw: string): Technique {
@@ -122,6 +263,16 @@ function parseTechnique(id: string, raw: string): Technique {
   };
 }
 
+function statusOf(relativePath: string, raw: string): FileStatus {
+  const placeholders = raw.match(PLACEHOLDER_REGEX) ?? [];
+  return {
+    relativePath,
+    placeholderCount: placeholders.length,
+    bytes: raw.length,
+    ready: placeholders.length === 0,
+  };
+}
+
 function matchFirst(input: string, regex: RegExp): string | null {
   const match = input.match(regex);
   return match ? match[1].trim() : null;
@@ -133,15 +284,18 @@ function matchFirst(input: string, regex: RegExp): string | null {
  */
 function extractSection(input: string, heading: string): string {
   const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(`##\\s+${escaped}\\s*\\n([\\s\\S]*?)(?=\\n##\\s|$)`, "i");
+  const regex = new RegExp(
+    `##\\s+${escaped}\\s*\\n([\\s\\S]*?)(?=\\n##\\s|$)`,
+    "i",
+  );
   const match = input.match(regex);
   return match ? match[1].trim() : "";
 }
 
 /**
  * Pulls top-level "- bullet" lines out of a markdown file, ignoring
- * everything inside fenced code blocks, blockquotes, headings, and
- * indented sub-bullets. Used for crisis-keywords and starters.
+ * everything inside fenced code blocks. Used for crisis-keywords and
+ * starters.
  */
 function parseBulletList(input: string): string[] {
   const lines = input.split(/\r?\n/);
@@ -158,4 +312,30 @@ function parseBulletList(input: string): string[] {
     if (match) out.push(match[1].trim());
   }
   return out;
+}
+
+/**
+ * Files the SME *must* fill in before this product is ready for real
+ * users. Used by the chat page to show a "draft" banner and by the
+ * `/sme` page to score readiness.
+ */
+export const REQUIRED_SME_FILES = [
+  "persona.md",
+  "tone-style-guide.md",
+  "safety/disclaimers.md",
+  "safety/boundaries.md",
+  "safety/crisis-keywords.md",
+  "safety/crisis-resources.md",
+  "method/01-approach.md",
+  "method/02-core-skills.md",
+  "method/03-conversation-flow.md",
+  "method/04-decision-rules.md",
+  "evidence/references.md",
+] as const;
+
+export function isReadyForUsers(content: WillowContent): boolean {
+  const required = new Set<string>(REQUIRED_SME_FILES);
+  return content.status
+    .filter((s) => required.has(s.relativePath))
+    .every((s) => s.ready);
 }

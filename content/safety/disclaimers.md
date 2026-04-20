@@ -1,8 +1,10 @@
 # Disclaimers
 
-> SME, this file holds the **standing disclaimers** the AI is reminded
-> of every conversation. The first block also appears as a banner on
-> the chat screen so the user can see it.
+> **STARTER EXAMPLE — written by the developer.**
+> SME, the wording below is a generic baseline. Please rewrite it to
+> match the disclosures **your** product, regulator, and audience
+> require. The first block appears as a banner on the chat screen
+> exactly as written.
 
 ## Shown to the user (banner above the chat)
 

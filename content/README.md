@@ -1,74 +1,114 @@
 # Willow Content — for the Subject Matter Expert
 
-Welcome. **This folder is yours.** Everything in `content/` is plain
-Markdown — open any file in any text editor (or directly on GitHub) and
-edit it. No code knowledge required.
+Hello. **You are the SME, and this folder is yours.**
 
-The application reads these files at startup and builds Willow's
-"personality", safety rules, and exercises from what you write here.
-Whatever you change here is what the AI will say.
+The developer set up the structure: a place for every kind of input
+the AI needs. Then they wrote some **starter examples** so the bot has
+*something* to do while you're getting set up. Those starters are
+clearly marked. **Please review every one and rewrite to match the
+companion you actually want to build.**
 
-> If you change a file while the app is running locally, just refresh the
-> browser. In production, the change goes live as soon as the developer
-> redeploys.
+You don't have to learn any code, run any commands, or open `src/`.
+Open any `.md` file in this folder, edit, save, and the bot picks it
+up.
+
+> **Tip:** open the live [`/sme`](/sme) dashboard in the app. It shows
+> exactly which files still need your input, exactly what the bot is
+> being told, and a test chat — all on one screen.
 
 ---
 
-## What lives where
+## The map
 
 ```
 content/
-├── persona.md                  ← Who Willow is, how it behaves
-├── tone-style-guide.md         ← How Willow writes (voice, sentence length)
-├── conversation-starters.md    ← Suggested first messages users see
+│
+├── method/                       ← YOU author this. The clinical method.
+│   ├── 01-approach.md            ← which framework(s) Willow draws from
+│   ├── 02-core-skills.md         ← which conversational skills it uses
+│   ├── 03-conversation-flow.md   ← how a session unfolds
+│   └── 04-decision-rules.md      ← if/then rules for the bot
+│
+├── evidence/                     ← YOU author this. Show your work.
+│   ├── references.md             ← citations for every claim
+│   └── glossary.md               ← clinical terms the bot may use
+│
+├── persona.md                    ← STARTER — please review/rewrite
+├── tone-style-guide.md           ← STARTER — please review/rewrite
+├── conversation-starters.md      ← STARTER — please review/rewrite
+│
 ├── safety/
-│   ├── disclaimers.md          ← The "Willow is not a therapist" message
-│   ├── boundaries.md           ← Things Willow will NOT do
-│   ├── crisis-keywords.md      ← Words/phrases that trigger the safety banner
-│   └── crisis-resources.md     ← Hotlines and emergency resources to surface
-└── techniques/
-    ├── README.md               ← How to add a new technique
-    ├── grounding-54321.md
-    ├── box-breathing.md
-    ├── cognitive-reframing.md
-    └── self-compassion-break.md
+│   ├── disclaimers.md            ← STARTER — needs your review
+│   ├── boundaries.md             ← STARTER — needs your review
+│   ├── crisis-keywords.md        ← STARTER — localize for your audience
+│   └── crisis-resources.md       ← STARTER — must be localized
+│
+├── techniques/                   ← STARTERS — review or replace
+│   ├── grounding-54321.md
+│   ├── box-breathing.md
+│   ├── cognitive-reframing.md
+│   └── self-compassion-break.md
+│
+└── check-ins/                    ← OPTIONAL — empty unless you add files
+    └── _example.md               ← copy and rename to add a check-in
 ```
 
 ---
 
 ## How edits flow into the AI
 
-1. You edit, say, `persona.md` and add a sentence about Willow always
-   ending with a gentle question.
-2. The next time someone opens Willow, that sentence is part of the
-   instructions the AI receives — so it follows it.
-3. There is **no code change** required. You own the words.
+1. You open a file (any text editor — VS Code, Obsidian, even GitHub
+   in a browser).
+2. You replace each `[SME: …]` marker with your own words.
+3. You save.
+4. The next time someone opens Willow, the bot follows whatever you
+   wrote. **No code change required.**
+
+In production, Vercel rebuilds and redeploys automatically when you
+push your edits to GitHub.
 
 ---
 
-## Editing rules of thumb
+## The two markers you'll see
 
-- **Use plain English.** No technical syntax. The headings (`##`) and
-  bullet points (`-`) are just for readability — write what feels natural.
-- **Be specific.** "Be warm" is too vague. "Use the user's name when they
-  share it. Reflect feelings back in your own words before offering ideas"
-  gives the AI something to actually do.
-- **Show examples** when you want a particular style. The AI learns from
-  the examples you give. See `tone-style-guide.md` for how to do this.
-- **Crisis content is sacred.** Anything in `safety/` is checked against
-  every conversation. Be conservative. When in doubt, escalate to a
-  human professional.
+| Marker | Meaning |
+|---|---|
+| `[SME: …]` | A blank waiting for your input. Replace it (including the brackets). The dashboard counts how many remain in each file. |
+| **STARTER EXAMPLE** at the top of a file | A whole file the developer pre-filled with sensible defaults. Treat it as a draft — review every line, edit anything you'd say differently, delete anything you wouldn't say at all. |
+
+---
+
+## What you control
+
+- **The clinical method** — which framework, which skills, which
+  rules (`method/`)
+- **The evidence base** — which sources back what the bot says
+  (`evidence/`)
+- **The persona, voice, and example replies** (`persona.md`,
+  `tone-style-guide.md`)
+- **The safety responses** — disclaimers, boundaries, crisis keywords,
+  hotlines (`safety/`)
+- **The exercises in the toolkit** (`techniques/`)
+- **Optional structured check-ins** (`check-ins/`)
+- **The first messages users see** (`conversation-starters.md`)
+
+## What you don't control (yet)
+
+- Authentication, conversation persistence, regional language packs,
+  analytics. Talk to the developer if you need any of those — the
+  developer's `docs/08-extending.md` lists how each gets added.
 
 ---
 
 ## When you're stuck
 
-- Open `persona.md` and read it out loud. If it doesn't sound like the
-  companion you want, change it.
-- Ask the developer to send you a transcript of a conversation that
-  didn't go well — then trace it back to what you'd want to change in
-  these files.
-- The developer can also help you add a new "technique" file. See
-  `techniques/README.md`.
+- Open [`/sme`](/sme) and look at the file checklist. The amber
+  "Required" badges show what's blocking the app from being
+  production-ready.
+- Click "What the AI is being told" on the same page. You can read
+  the entire instruction set the model receives. Anything still
+  highlighted in amber is a placeholder you haven't filled in.
+- Use the test chat on the right side of the dashboard to send
+  messages and see how the current configuration responds.
 
-— You're shaping Willow. Take your time.
+You're shaping Willow. Take your time. The words matter.

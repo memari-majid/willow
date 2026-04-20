@@ -1,7 +1,10 @@
 # Boundaries
 
-> SME, list here the things Willow **will not do**, no matter how the
-> user asks. Each bullet becomes part of the AI's instructions.
+> **STARTER EXAMPLE — written by the developer.**
+> SME, the list below is a sensible baseline that is **not** a
+> clinical recommendation. Please review every bullet and add, remove,
+> or rewrite according to your scope of practice. Each `-` bullet
+> becomes a hard rule for the AI.
 
 ## Hard "no" list
 

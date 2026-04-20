@@ -1,7 +1,12 @@
 # Cognitive Reframing
 
+> **STARTER EXAMPLE — please review.**
 > A short reflective exercise that helps someone notice the thought
 > behind a feeling and consider it from another angle.
+
+> **SME:** add this technique's evidence base in
+> [`evidence/references.md`](../evidence/references.md) under
+> "Cognitive Reframing".
 
 ## When to suggest
 

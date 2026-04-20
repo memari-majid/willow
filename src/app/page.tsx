@@ -57,17 +57,28 @@ export default function HomePage() {
         </div>
       </main>
 
-      <footer className="mx-auto w-full max-w-5xl px-6 py-6 text-center text-xs text-muted-foreground">
-        If you&rsquo;re in crisis, please contact a real human now —{" "}
-        <a
-          href="https://findahelpline.com"
-          target="_blank"
-          rel="noreferrer"
-          className="underline underline-offset-4 hover:text-foreground"
-        >
-          findahelpline.com
-        </a>{" "}
-        lists 24/7 services worldwide.
+      <footer className="mx-auto w-full max-w-5xl space-y-2 px-6 py-6 text-center text-xs text-muted-foreground">
+        <p>
+          If you&rsquo;re in crisis, please contact a real human now —{" "}
+          <a
+            href="https://findahelpline.com"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-4 hover:text-foreground"
+          >
+            findahelpline.com
+          </a>{" "}
+          lists 24/7 services worldwide.
+        </p>
+        <p>
+          <Link
+            href="/sme"
+            className="underline underline-offset-4 hover:text-foreground"
+          >
+            SME dashboard
+          </Link>
+          {" — author content and test conversations."}
+        </p>
       </footer>
     </div>
   );

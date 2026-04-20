@@ -24,3 +24,15 @@ export const FALLBACK_MODELS = [
   "anthropic/claude-sonnet-4.6",
   "google/gemini-3-pro",
 ] as const;
+
+/**
+ * Sampling temperature.
+ *
+ * Kept low (0.4) on purpose for a wellbeing companion — a higher
+ * value produces more variable, "creative" replies, which is good for
+ * brainstorming but bad for a tool that should follow the SME's
+ * methodology consistently. The SME may raise this if they want more
+ * variety; the developer should not change it without consulting the
+ * SME.
+ */
+export const TEMPERATURE = 0.4;

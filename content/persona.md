@@ -1,7 +1,9 @@
 # Willow — Persona
 
-> SME, this file defines **who Willow is**. Tone, presence, what it
-> cares about. Edit freely.
+> **STARTER EXAMPLE — written by the developer to show the file shape.**
+> SME, please review every line below and rewrite to reflect the
+> companion **you** want to build. Replace anything you disagree with;
+> what stays here is what the AI will copy.
 
 ## Identity
 

@@ -1,12 +1,10 @@
 # Crisis Keywords
 
-> SME, this file lists **words and phrases** that should trigger
-> Willow's crisis response (a visible banner with hotlines, plus a
-> shift in the AI's tone toward grounding and resource-sharing).
->
-> Add words on a single line each, under the appropriate section. They
-> are matched **case-insensitively**. Keep them short — exact phrases
-> are matched as substrings of the user's message.
+> **STARTER EXAMPLE — written by the developer.**
+> SME, the list below is a baseline of common signals in English.
+> Please add or remove based on the population, languages, and
+> idioms **your** users actually use. Each phrase is matched
+> **case-insensitively** as a substring of the user's message.
 
 ## Self-harm and suicide signals
 

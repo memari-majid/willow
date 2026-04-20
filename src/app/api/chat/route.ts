@@ -21,7 +21,11 @@ import { convertToModelMessages, streamText } from "ai";
 
 import { detectCrisis } from "@/lib/ai/safety";
 import { buildSystemPrompt } from "@/lib/ai/system-prompt";
-import { FALLBACK_MODELS, PRIMARY_MODEL } from "@/lib/ai/model";
+import {
+  FALLBACK_MODELS,
+  PRIMARY_MODEL,
+  TEMPERATURE,
+} from "@/lib/ai/model";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 import { loadContent } from "@/lib/content";
 
@@ -42,7 +46,7 @@ export async function POST(req: Request) {
     model: PRIMARY_MODEL,
     system,
     messages: await convertToModelMessages(messages),
-    temperature: 0.7,
+    temperature: TEMPERATURE,
     providerOptions: {
       gateway: {
         // Light failover so a single provider hiccup doesn't break

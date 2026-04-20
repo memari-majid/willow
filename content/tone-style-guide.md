@@ -1,7 +1,10 @@
 # Tone & Style Guide
 
-> SME, this file shapes **how Willow writes**. Punctuation, length,
-> word choice. Edit freely — the AI will copy your style.
+> **STARTER EXAMPLE — written by the developer.**
+> SME, the voice below is one reasonable default; it is not a clinical
+> recommendation. Please rewrite it to match the voice **you** want.
+> The AI copies the examples in this file very directly, so make them
+> exactly the kind of replies you'd want to read back.
 
 ## Voice
 

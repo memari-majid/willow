@@ -1,8 +1,9 @@
 # Conversation Starters
 
+> **STARTER EXAMPLE — written by the developer.**
 > SME, the lines below appear as **suggested first messages** on the
-> chat screen. Each `-` bullet is one suggestion. Add, remove, or
-> reword them freely.
+> chat screen. Replace them with the openings you'd actually want
+> users to see. Each `-` bullet is one suggestion.
 
 ## Starters shown to new users
 

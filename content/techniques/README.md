@@ -1,7 +1,12 @@
 # Techniques
 
 > SME, every `.md` file in this folder is a **wellbeing technique**
-> Willow can suggest. The application loads them automatically — no
+> Willow may suggest. The four files currently here are
+> **STARTER EXAMPLES** the developer added so the bot has *something*
+> to draw from while you're getting set up — please review, edit, or
+> delete each one and add your own.
+>
+> The application loads this whole folder automatically — no
 > developer help needed.
 
 ## How to add a new technique
