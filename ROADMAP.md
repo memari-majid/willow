@@ -135,11 +135,12 @@ parallel.
 | 2 | **Per-user rate limit + budget caps** | Once auth ships, prevents abuse and runaway spend | Dev | [`docs/08-extending.md` § Per-user rate limiting](./docs/08-extending.md) |
 | 3 | **Better safety detection** (moderation API + cheap classifier) | Reduces missed signals beyond keyword matching | Dev + SME | [`docs/08-extending.md` § Better safety](./docs/08-extending.md) |
 | 4 | **Conversation persistence** (Neon Postgres) | Only after auth + privacy review with the SME | Dev | [`docs/08-extending.md` § Persistence](./docs/08-extending.md) |
-| 5 | **AI Elements rich UI** (reasoning, code blocks, suggestions) | Cosmetic + UX polish | Dev | [`docs/08-extending.md` § AI Elements](./docs/08-extending.md) |
-| 6 | **Multi-language content** (`content/en/`, `content/es/`, …) | Once a non-English audience is identified | SME + Dev | [`docs/08-extending.md` § Multi-language](./docs/08-extending.md) |
-| 7 | **Tests** (safety detector unit tests, prompt snapshot tests, E2E) | Before scaling team or shipping fast | Dev | [`docs/08-extending.md` § Tests](./docs/08-extending.md) |
-| 8 | **Observability** (Datadog log drain, OTel traces) | Once volume justifies it | Dev | [`docs/08-extending.md` § Observability](./docs/08-extending.md) |
-| 9 | **CMS instead of GitHub edits** | Only if the SME asks for a friendlier editor | Dev | [`docs/08-extending.md` § Letting the SME edit from a UI](./docs/08-extending.md) |
+| 5 | **R&D / Research mode** (logging, analytics dashboard, SME tagging, prompt A/B testing) | Closes the improvement loop — the SME learns from real conversations and iterates the method | Dev + SME | [`docs/10-research-mode.md`](./docs/10-research-mode.md) |
+| 6 | **AI Elements rich UI** (reasoning, code blocks, suggestions) | Cosmetic + UX polish | Dev | [`docs/08-extending.md` § AI Elements](./docs/08-extending.md) |
+| 7 | **Multi-language content** (`content/en/`, `content/es/`, …) | Once a non-English audience is identified | SME + Dev | [`docs/08-extending.md` § Multi-language](./docs/08-extending.md) |
+| 8 | **Tests** (safety detector unit tests, prompt snapshot tests, E2E) | Before scaling team or shipping fast | Dev | [`docs/08-extending.md` § Tests](./docs/08-extending.md) |
+| 9 | **Observability** (Datadog log drain, OTel traces) | Once volume justifies it | Dev | [`docs/08-extending.md` § Observability](./docs/08-extending.md) |
+| 10 | **CMS instead of GitHub edits** | Only if the SME asks for a friendlier editor | Dev | [`docs/08-extending.md` § Letting the SME edit from a UI](./docs/08-extending.md) |
 
 > **Rule of thumb:** never start item N+1 until item N is in
 > production with the SME's sign-off.

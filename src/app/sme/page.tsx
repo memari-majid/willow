@@ -13,17 +13,23 @@ import { loadContent, REQUIRED_SME_FILES } from "@/lib/content";
 export const metadata = {
   title: "Willow — SME Dashboard",
   description:
-    "Author Willow's content, see exactly what the AI is being told, and test conversations.",
+    "Author Willow's content, see exactly what the AI is being told, and test conversations with one-click scenarios.",
 };
 
 /**
  * SME-facing dashboard.
  *
- * Three jobs, top to bottom:
- *  1. Show readiness — how many required content files are filled in.
- *  2. Let the SME inspect the *exact* assembled system prompt.
- *  3. Let the SME run a test conversation against the same endpoint
- *     the live chat uses.
+ * Layout intent (top → bottom):
+ *  1. Header — Willow mark + quick links to the SME Guide and live chat.
+ *  2. Readiness — single bar that tells the SME if the bot is launchable.
+ *  3. Test chat (sticky on wide screens) — fastest way to verify edits.
+ *     Includes one-click test scenarios and AI-generated follow-up
+ *     suggestions so the SME can speed-run a conversation without typing.
+ *  4. Content checklist — file-by-file with [SME:] todo counts, grouped
+ *     by folder, with Required/Optional badges.
+ *  5. Assembled prompt preview — collapsed by default. Shows the SME
+ *     the *exact* text the model receives.
+ *  6. Footer — quick how-edits-work explainer.
  */
 export default async function SmeDashboardPage() {
   const content = await loadContent();
@@ -37,7 +43,7 @@ export default async function SmeDashboardPage() {
           <Link href="/" className="opacity-90 hover:opacity-100">
             <WillowMark />
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <Button asChild variant="ghost" size="sm" className="rounded-full">
               <Link
                 href="https://github.com/memari-majid/willow/blob/master/SME_GUIDE.md"
@@ -50,7 +56,7 @@ export default async function SmeDashboardPage() {
             </Button>
             <Button asChild variant="ghost" size="sm" className="rounded-full">
               <Link href="/chat">
-                Open the live chat
+                Live chat
                 <ExternalLink className="size-3.5" />
               </Link>
             </Button>
@@ -59,33 +65,15 @@ export default async function SmeDashboardPage() {
       </header>
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-10">
-        <div className="mb-8 space-y-3">
+        <div className="mb-6 space-y-2">
           <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             SME Dashboard
           </h1>
           <p className="max-w-2xl text-sm text-muted-foreground">
-            This is your control surface. Edit any file in the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              content/
-            </code>{" "}
-            folder, refresh this page, and see your changes reflected in
-            the prompt the AI receives. Then test it on the right.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            New here? Read the{" "}
-            <Link
-              href="https://github.com/memari-majid/willow/blob/master/SME_GUIDE.md"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              SME Guide
-            </Link>{" "}
-            (10-minute read), then come back and start with{" "}
-            <code className="rounded bg-muted px-1 py-0.5 font-mono">
-              method/
-            </code>{" "}
-            below.
+            Edit any file in <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">content/</code>,
+            refresh this page, and try the change in the test chat on the
+            right. Click a scenario chip for a one-tap test; click a
+            suggestion chip to keep the conversation moving.
           </p>
         </div>
 
@@ -95,8 +83,9 @@ export default async function SmeDashboardPage() {
           className="mb-8"
         />
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+          {/* LEFT — content authoring surface */}
+          <div className="flex flex-col gap-6 min-w-0">
             <SmeChecklist
               status={content.status}
               required={requiredSet}
@@ -104,7 +93,8 @@ export default async function SmeDashboardPage() {
             <SmePromptPreview prompt={prompt} />
           </div>
 
-          <div>
+          {/* RIGHT — sticky test chat (the SME's main loop) */}
+          <div className="lg:sticky lg:top-6 lg:self-start">
             <SmeTestChat />
           </div>
         </div>

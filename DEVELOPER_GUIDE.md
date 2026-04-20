@@ -114,6 +114,7 @@ You're ready.
 | [07](./docs/07-deploy-to-vercel.md) | Deploy to Vercel | First deploy + ops settings |
 | [08](./docs/08-extending.md) | Extensions | Auth, persistence, observability — the Phase 4 backlog |
 | [09](./docs/09-collaboration.md) | Collaboration | How you and the SME work together |
+| [10](./docs/10-research-mode.md) | Research mode | Storing + analyzing conversations to improve the bot (Phase 4 #5) |
 
 ---
 

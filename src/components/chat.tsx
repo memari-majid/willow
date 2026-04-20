@@ -8,21 +8,46 @@ import { Composer } from "@/components/composer";
 import { CrisisBanner } from "@/components/crisis-banner";
 import { MessageBubble } from "@/components/message-bubble";
 import { StarterPrompts } from "@/components/starter-prompts";
+import { SuggestionChips } from "@/components/suggestion-chips";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 
 /**
  * Top-level chat client. Owns useChat() state, scroll behavior, and
  * decides when to show the crisis banner / starter chips / empty
- * state.
+ * state / follow-up suggestion chips.
  *
  * Junior dev: this is the file to read after `route.ts`. It is the
  * client-side companion of the server endpoint.
  */
 export function Chat({ starters }: { starters: string[] }) {
   const [input, setInput] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+
   const { messages, sendMessage, status, stop, error, regenerate } =
     useChat<WillowUIMessage>({
       transport: new DefaultChatTransport({ api: "/api/chat" }),
+      onFinish: async ({ messages: finalMessages }) => {
+        // Fetch follow-up suggestions for the latest assistant turn.
+        // Best-effort: failures here just mean no chips show up, the
+        // chat itself is unaffected.
+        setSuggestionsLoading(true);
+        try {
+          const res = await fetch("/api/suggestions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: finalMessages }),
+          });
+          if (res.ok) {
+            const data = (await res.json()) as { suggestions: string[] };
+            setSuggestions(data.suggestions ?? []);
+          }
+        } catch {
+          /* silent — suggestions are optional */
+        } finally {
+          setSuggestionsLoading(false);
+        }
+      },
     });
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -31,24 +56,26 @@ export function Chat({ starters }: { starters: string[] }) {
       top: scrollRef.current.scrollHeight,
       behavior: "smooth",
     });
-  }, [messages, status]);
+  }, [messages, status, suggestions]);
 
   const isEmpty = messages.length === 0;
   const lastAssistant = [...messages]
     .reverse()
     .find((m) => m.role === "assistant");
   const showCrisisBanner = Boolean(lastAssistant?.metadata?.crisisDetected);
+  const showSuggestions =
+    status === "ready" && messages.length > 0 && !isEmpty;
 
-  function handleSubmit() {
-    const text = input.trim();
-    if (!text) return;
+  function handleSend(text: string) {
+    setSuggestions([]);
     sendMessage({ text });
     setInput("");
   }
 
-  function handleStarter(text: string) {
-    sendMessage({ text });
-    setInput("");
+  function handleSubmit() {
+    const text = input.trim();
+    if (!text) return;
+    handleSend(text);
   }
 
   return (
@@ -58,13 +85,21 @@ export function Chat({ starters }: { starters: string[] }) {
         className="min-h-0 flex-1 overflow-y-auto rounded-2xl border border-border/40 bg-background/60 px-4 py-6 sm:px-6"
       >
         {isEmpty ? (
-          <EmptyState starters={starters} onPick={handleStarter} />
+          <EmptyState starters={starters} onPick={handleSend} />
         ) : (
           <div className="mx-auto flex max-w-2xl flex-col gap-4">
             {messages.map((m) => (
               <MessageBubble key={m.id} message={m} />
             ))}
             {status === "submitted" && <ThinkingDots />}
+            {showSuggestions && (
+              <SuggestionChips
+                suggestions={suggestions}
+                loading={suggestionsLoading && suggestions.length === 0}
+                onPick={handleSend}
+                className="ml-10"
+              />
+            )}
             {error && (
               <div className="text-center text-xs text-muted-foreground">
                 Something went wrong.{" "}
