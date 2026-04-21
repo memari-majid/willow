@@ -96,79 +96,79 @@ The bibliography mirrors this structure with eleven labelled sections
 ## Publication plan
 
 The paper is a scoping literature review plus research agenda — no
-implementation, no human-subjects data. That shape constrains which
-venues are realistic: archival ML/AI main tracks expect empirical
-results, so the primary targets are HCI, health-informatics, and
-digital-mental-health venues that explicitly welcome scoping reviews,
-position papers, and agenda-setting work. US-based venues only, as
-agreed with the author.
+implementation, no human-subjects data. That shape is a natural fit
+for a **journal article type** (scoping review, viewpoint,
+perspective, survey), and a poor fit for archival ML/AI conference
+main tracks that expect a built system and empirical results. The
+plan is therefore **journal-first**, with a conference presentation
+reserved as an optional parallel track for visibility once the
+journal version is under review or in press.
 
-Status snapshot is current as of **April 2026**. Check each venue's
-official CFP before submitting; deadlines shift.
+Status snapshot is current as of **April 2026**. Check each
+journal's current author guidelines before submitting; article-type
+names and turnaround windows change.
 
-### Tier 1 — realistic primary targets (2026 cycle)
+### Tier 1 — primary journal targets
 
-| Venue | Location | Deadline | Why it fits |
+| Journal | Fit | Article type | Why it fits |
 |---|---|---|---|
-| **AAAI 2027 main track** (or co-located US workshop on AI for health / AI for social good) | conference in Montréal; workshops typically US-hosted | Abstract **25 Jul 2026**, paper **1 Aug 2026** | Decide-pillar contextual-bandit/RL framing maps cleanly to AAAI reviewers; a scoping review fits better in an AI-for-health workshop than in the main track |
-| **ML4H 2026 Symposium** (AHLI, co-located with NeurIPS) | US-hosted satellite expected | ~**Sep 2026** (follows 2025 pattern) | Preliminary-work friendly; explicitly accepts position and methodology papers; health-ML reviewer pool |
-| **CSCW 2026 rolling / PACM HCI** | Salt Lake City, UT (Oct 10–14, 2026) | Rolling track opens **later in 2026**; accepted papers presented at a future CSCW | Best archival fit for the digital-therapeutic-alliance and engagement framing; journal-style rolling review suits a scoping review |
+| **JMIR Mental Health** | strongest topical fit | Review / Viewpoint | Open access, digital-mental-health reviewer pool, publishes chatbot and JITAI work routinely; a scoping review + agenda is directly in scope |
+| **npj Digital Medicine** (Nature Portfolio) | highest prestige | Review Article / Perspective | Cross-disciplinary AI-in-health audience; reviews on conversational AI and adaptive interventions are in scope; ambitious but the Sense/Decide/Act framing and feasibility matrix are the right shape |
 
-### Tier 2 — fallback targets (2027 cycle)
+### Tier 2 — fallback journal targets
 
-| Venue | Location | Expected deadline | Notes |
+| Journal | Fit | Article type | Notes |
 |---|---|---|---|
-| **CHIL 2027** (AHLI Conference on Health, Inference, and Learning) | US-hosted | ~**Feb 2027** | "Impact and Society" track accepts non-empirical scoping work |
-| **MLHC 2027** (Machine Learning for Healthcare) | US-hosted | ~**Apr 2027** | Clinical Abstracts track is a lower-friction path for a preliminary agenda |
-| **IEEE ICHI 2027** | US-hosted | ~**Sep 2026 early-bird / Jan 2027 main** | Health-informatics audience; IEEE conference format already matches |
-| **AMIA 2027 Annual Symposium** | US | ~**Mar 2027** | Informatics reviewer pool; strong fit for JITAI / adaptive-intervention framing |
-| **CHI 2027 — Demos, BoF, Related Contributions** | Pittsburgh, PA (May 10–14, 2027) | **TBD** | No full-paper track in 2027, but Related Contributions and BoF are realistic for agenda-setting work |
+| **JMIR mHealth and uHealth** | strong | Review / Viewpoint | JMIR-family sister journal; good fit if the Decide pillar (JITAI/MRT/bandits) is foregrounded over the mental-health framing |
+| **ACM Transactions on Computing for Healthcare (HEALTH)** | strong | Survey article | ACM computing audience; the feasibility-assessment table and subsystem taxonomy map naturally to a survey article; longer page budget suits the full three-pillar synthesis |
 
-### Tier 3 — already passed for 2026
+### Optional parallel conference venue (for visibility only)
 
-For audit trail. These closed before this plan was written; watch
-their 2027 cycles:
+A conference presentation is not the archival home for this paper,
+but one US venue is a realistic low-cost parallel — talk/poster
+versions do not consume the journal's novelty budget:
 
-- CHI 2026 (Barcelona — non-US; event already happened)
-- CSCW 2026 main deadline (May 2025)
-- CHIL 2026 (Seattle — Feb 2026 deadline)
-- MLHC 2026 (Baltimore — Apr 17, 2026 deadline)
-- IEEE ICHI 2026 (Minneapolis — deadline closed)
-- AMIA 2026 Annual Symposium (Dallas — Mar 2026 deadline)
-- Society for Digital Mental Health 2026 (Mar 2026 deadline)
+- **CSCW 2026 rolling / PACM HCI** — journal-style rolling review
+  track opens later in 2026. If the JMIR/npj submission is in
+  review when CSCW rolling opens, a shorter, HCI-framed version
+  (digital-therapeutic-alliance + engagement material) is an
+  option — but only if it does not create self-plagiarism risk
+  with the journal version.
 
 ### Sequencing
 
-1. **Now → Aug 1, 2026.** Polish `main.tex`, tighten the
-   feasibility table, and submit to an **AAAI 2027** co-located
-   health-AI workshop (or the main track if the reviewers' bar for
-   non-empirical work is met that cycle). Parallel-prep an
-   **ML4H 2026** version with health-ML framing foregrounded.
-2. **Sep–Oct 2026.** If AAAI/ML4H outcomes are negative, pivot to
-   **CSCW rolling** once the track opens; the paper's Act-pillar
-   and digital-therapeutic-alliance material is the best match for
-   that reviewer pool. Submission is journal-style, so no fixed
-   deadline.
-3. **Early 2027.** If still unplaced, target **CHIL 2027 Impact
-   and Society track** (Feb) and **AMIA 2027** (Mar). File a
-   **CHI 2027 Related Contribution** in parallel — low-cost, and
-   Pittsburgh is a natural audience for the HCI framing.
-4. **Ongoing.** When the Decide-first prototype and the
-   micro-randomized trial called for in the agenda are actually
-   executed, the empirical follow-up is a strong fit for **MLHC**,
-   **CHIL Models and Methods**, or **AAAI main track** — at which
-   point this scoping review becomes the cited prior work, not the
-   submission.
+1. **May–Jun 2026.** Tighten `main.tex` against JMIR author
+   guidelines (abstract structure, PRISMA-ScR checklist appendix,
+   reporting of search strategy). Submit to **JMIR Mental Health**
+   as the primary target — topical fit is strongest and turnaround
+   is typically 6–12 weeks to first decision.
+2. **If JMIR Mental Health rejects or desk-rejects.** Revise once
+   based on reviewer comments (or scope-fit comments), then submit
+   to **npj Digital Medicine** as a Review/Perspective. Expect a
+   higher desk-rejection rate; have an npj-formatted version
+   pre-drafted before the JMIR decision arrives.
+3. **If npj Digital Medicine rejects.** Pivot to **ACM TOCH** for
+   the survey framing (longer, more technical, computing-audience)
+   or **JMIR mHealth and uHealth** for the mHealth framing — pick
+   whichever reviewer comments make more defensible.
+4. **Ongoing.** When the Decide-first prototype and micro-randomized
+   trial called for in the agenda are actually executed, the
+   empirical follow-up is a strong fit for **npj Digital Medicine
+   Original Research**, **JAMA Network Open**, or **NEJM AI** — at
+   which point this scoping review becomes the cited prior work,
+   not the submission.
 
 ### Out of scope for this plan
 
-- Non-US venues (EMBC Toronto, ACII Puebla, CHI Barcelona, EMNLP
-  Budapest, NeurIPS Sydney, BHI Hong Kong, AAAI Montréal venue
-  itself) — excluded per author preference.
-- Pay-to-publish "conference" listings with no visible peer review —
-  excluded on quality grounds regardless of geography.
-- Clinical-psychology society meetings (APA, SBM, ABCT) — possible
-  future targets but outside this paper's computational framing.
+- Conference main tracks that expect a built system (CHI, CSCW
+  main deadline, AAAI main, MLHC, CHIL, ICHI) — wrong shape for a
+  scoping review + agenda; saved for the empirical follow-up paper.
+- Pay-to-publish journals and predatory "MDPI-adjacent" titles —
+  excluded on quality grounds.
+- Clinical-psychology society journals (e.g., Behaviour Research
+  and Therapy, JMIR Human Factors for qualitative framing) —
+  possible future targets but farther from this paper's
+  computational framing.
 
 ## Relationship to the project plan
 
