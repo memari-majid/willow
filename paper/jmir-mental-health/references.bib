@@ -368,13 +368,15 @@
 }
 
 @article{Aguilera2024DIAMANTERL,
-  author       = {Aguilera, Adri{\'a}n and Ar{\'e}valo Avalos, Marvyn R. and Xu, Jing and Chakraborty, Bibhas and Figueroa, Caroline A. and Garcia, Faviola and Hernandez-Ramos, Rosa and Karr, Chris and Williams, Joseph J. and Lyles, Courtney R. and Rosas, Lisa G. and Liu, Jingze and Tsai, Tiffany M. and Levine, Edward and Lieu, Tracy A. and Schueller, Stephen M. and Darrow, Sabrina M.},
-  title        = {Effectiveness of a digital health intervention leveraging reinforcement learning: Results from the {DIAMANTE} randomized clinical trial},
+  author       = {Aguilera, Adri{\'a}n and Ar{\'e}valo Avalos, Marvyn and Xu, Jing and Chakraborty, Bibhas and Figueroa, Caroline and Garcia, Faviola and Rosales, Karina and Hernandez-Ramos, Rosa and Karr, Chris and Williams, Joseph and Ochoa-Frongia, Lisa and Sarkar, Urmimala and Yom-Tov, Elad and Lyles, Courtney},
+  title        = {Effectiveness of a digital health intervention leveraging reinforcement learning: Results from the diabetes and mental health adaptive notification tracking and evaluation ({DIAMANTE}) randomized clinical trial},
   journal      = {Journal of Medical Internet Research},
+  volume       = {26},
+  pages        = {e60834},
   year         = {2024},
   publisher    = {JMIR Publications},
-  doi          = {10.2196/preprints.60834},
-  note         = {Verified via Scite (gold OA, CC-BY). The DIAMANTE RCT (n=168, multilingual) compared a Thompson-sampling contextual-bandit messaging arm against random and weekly-control arms over 6 months in adults with diabetes + depression; the RL arm produced a 19\% step-count gain vs.\ 1.6\% / 3.9\%. The first large RCT to compare an adaptive RL-driven schedule against a randomly-timed baseline in a mental-health-relevant population.},
+  doi          = {10.2196/60834},
+  note         = {Final published version (J Med Internet Res 2024;26:e60834; PMID 39378080). The DIAMANTE RCT compared a Thompson-sampling contextual-bandit messaging arm against random and weekly-control arms over 6 months in adults with diabetes and depression; the RL arm produced a measurable step-count gain over both control conditions. The closest existing RCT comparator for an adaptive RL-driven schedule in a mental-health-relevant population.},
 }
 
 @article{NahumShani2025JITAIMHReview,
@@ -769,6 +771,105 @@
   publisher    = {Taylor and Francis},
   doi          = {10.1080/10503300500352500},
   note         = {Verified via Scite (1{,}321 citing publications). The Working Alliance Inventory-Short Revised (WAI-SR): 12-item measure of goal alignment, task agreement, and therapeutic bond. The canonical instrument against which a Willow-scale evaluation of the digital therapeutic alliance would calibrate (cf.\ Munder et al.~2009 for WAI-SR psychometric validation).},
+}
+
+
+% ----- C+. Additional chatbot / LLM reviews and meta-analyses ----------------
+% (Verified via PubMed/Scite for Phase-2 revision of the manuscript:
+% adds the foundational Vaidyam 2019 chatbot review, the He 2023 conversational-
+% agent SR/MA, the Li 2023 npj-DM AI-CA SR/MA, the Jabir 2024 attrition SR/MA,
+% the Guo 2024 LLM-MH SR, and the Hua 2025 LLM scoping review. Together these
+% sources are the standard reviewer-expected anchors for a 2026 scoping review
+% of conversational mental health interventions; their inclusion converts the
+% earlier Scite-only synthesis into a multi-database synthesis grounded in the
+% reviews JMIR Mental Health's editorial team has accepted in 2023--2025.)
+
+@article{Vaidyam2019ChatbotsReview,
+  author       = {Vaidyam, Aditya Nrusimha and Wisniewski, Hannah and Halamka, John David and Kashavan, Matcheri S. and Torous, John Blake},
+  title        = {Chatbots and conversational agents in mental health: A review of the psychiatric landscape},
+  journal      = {Canadian Journal of Psychiatry},
+  volume       = {64},
+  number       = {7},
+  pages        = {456--464},
+  year         = {2019},
+  publisher    = {SAGE Publications},
+  doi          = {10.1177/0706743719828977},
+  note         = {Verified via PubMed (PMID 30897957). First systematic review of conversational agents specifically in the psychiatric context (PubMed, EmBase, PsycINFO, Cochrane, Web of Science, IEEE Xplore; 1466 records, 10 included). Reports favourable preliminary evidence with high heterogeneity; foundational anchor for the chatbot-RCT lineage in this synthesis.},
+}
+
+@article{Vaidyam2021ChatbotLandscape,
+  author       = {Vaidyam, Aditya Nrusimha and Linggonegoro, Danny and Torous, John},
+  title        = {Changes to the psychiatric chatbot landscape: A systematic review of conversational agents in serious mental illness},
+  journal      = {Canadian Journal of Psychiatry},
+  volume       = {66},
+  number       = {4},
+  pages        = {339--348},
+  year         = {2021},
+  publisher    = {SAGE Publications},
+  doi          = {10.1177/0706743720966429},
+  note         = {Verified via PubMed (PMID 33063526). Updates Vaidyam 2019 with literature published 2018--2020 (247 records, 7 included) and confirms generally positive but heterogeneous outcomes; cited alongside Vaidyam 2019 to bracket the chatbot-RCT field over the 2017--2021 window.},
+}
+
+@article{He2023CASRMeta,
+  author       = {He, Yuhao and Yang, Li and Qian, Chunlian and Li, Tong and Su, Zhengyuan and Zhang, Qiang and Hou, Xiangqing},
+  title        = {Conversational agent interventions for mental health problems: Systematic review and meta-analysis of randomized controlled trials},
+  journal      = {Journal of Medical Internet Research},
+  volume       = {25},
+  pages        = {e43862},
+  year         = {2023},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/43862},
+  note         = {Verified via PubMed and JMIR (J Med Internet Res 2023;25:e43862). Systematic review and meta-analysis of 32 RCTs (n=6{,}089 participants); reports significant short-term effects on depressive ($g\!=\!0.29$), generalized anxiety ($g\!=\!0.29$), and other outcomes, but non-significant long-term effects. Adopted as the JMIR-house chatbot-meta-analytic anchor for the Pillar~C synthesis.},
+}
+
+@article{Li2023AICAMeta,
+  author       = {Li, Han and Zhang, Renwen and Lee, Yi-Chieh and Kraut, Robert E. and Mohr, David C.},
+  title        = {Systematic review and meta-analysis of {AI}-based conversational agents for promoting mental health and well-being},
+  journal      = {npj Digital Medicine},
+  volume       = {6},
+  number       = {1},
+  pages        = {236},
+  year         = {2023},
+  publisher    = {Nature Publishing Group},
+  doi          = {10.1038/s41746-023-00979-5},
+  note         = {Verified via Nature Publishing (npj Digit Med 2023;6:236). Twelve-database SR/MA of AI-based conversational agents for mental health (15 RCTs in meta-analysis, 7834 records identified, 35 included for narrative). Reports moderate effect sizes for depression ($g\!=\!0.64$) and distress ($g\!=\!0.70$), with multimodal and generative-AI agents showing the largest effects; identifies digital therapeutic alliance and content engagement as the dominant moderators.},
+}
+
+@article{Jabir2024AttritionMeta,
+  author       = {Jabir, Ahmad Ishqi and Lin, Xiaowen and Martinengo, Laura and Sharp, Gemma and Theng, Yin-Leng and Tudor Car, Lorainne},
+  title        = {Attrition in conversational agent--delivered mental health interventions: Systematic review and meta-analysis},
+  journal      = {Journal of Medical Internet Research},
+  volume       = {26},
+  pages        = {e48168},
+  year         = {2024},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/48168},
+  note         = {Verified via PubMed (PMID 38412023) and JMIR. SR/MA of 41 RCTs (4566 records, PROSPERO CRD42022341415). Pooled intervention-arm attrition 21.84\% (95\% CI 16.74--27.36); 18.05\% short-term ($\le 8$ weeks) vs.\ 26.59\% long-term. Strongest published chatbot-specific engagement baseline; complements Linardon 2020 in the Engagement cross-cutting concern.},
+}
+
+@article{Guo2024LLMMHReview,
+  author       = {Guo, Zhijun and Lai, Alvina and Thygesen, Johan H. and Farrington, Joseph and Keen, Thomas and Li, Kezhi},
+  title        = {Large language models for mental health applications: Systematic review},
+  journal      = {JMIR Mental Health},
+  volume       = {11},
+  pages        = {e57400},
+  year         = {2024},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/57400},
+  note         = {Verified via PubMed (PMID 39423368) and JMIR Mental Health. Five-database SR (PROSPERO CRD42024508617); 40 articles included spanning condition detection, conversational-agent use, and other LLM-MH applications. Identifies efficacy in detection alongside risks of bias, hallucination, and absent regulatory oversight; the most directly comparable LLM-MH SR for the present scoping review.},
+}
+
+@article{Hua2025LLMScopingReview,
+  author       = {Hua, Yining and Na, Hongbin and Li, Zehan and Liu, Fenglin and Fang, Xiao and Clifton, David and Torous, John},
+  title        = {A scoping review of large language models for generative tasks in mental health care},
+  journal      = {npj Digital Medicine},
+  volume       = {8},
+  number       = {1},
+  pages        = {230},
+  year         = {2025},
+  publisher    = {Nature Publishing Group},
+  doi          = {10.1038/s41746-025-01611-4},
+  note         = {Verified via Nature Publishing (npj Digit Med 2025;8:230). Scoping review of LLMs for generative mental-health tasks (726 records, 16 included) covering clinical assistance, counseling, therapy, and emotional support. Documents the dominance of prompt-tuning over GPT-class proprietary models and the absence of standardized evaluation; cited alongside Guo 2024 and Stade 2024 to triangulate the LLM-MH state of the art.},
 }
 
 

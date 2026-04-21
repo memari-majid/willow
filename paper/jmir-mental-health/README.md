@@ -1,24 +1,57 @@
-# Willow Literature Review (LaTeX)
+# Willow Paper — JMIR Mental Health submission
 
-This is the **canonical literature review** for the Willow project. It
-positions Willow's actual innovation — a learned, theory-grounded,
+This directory contains the **scoping literature review** for the
+Willow project, framed and packaged for submission to
+**[JMIR Mental Health](https://mental.jmir.org/)** as a *Review*
+(scoping literature review) article.
+
+It positions Willow's actual innovation — a learned, theory-grounded,
 scheduled check-in workflow (**Sense → Decide → Act**) — against the
-Just-in-Time Adaptive Intervention (JITAI), micro-randomized-trial,
-and digital-mental-health-chatbot literatures.
+just-in-time adaptive intervention (JITAI), micro-randomized-trial,
+conversational-mental-health-chatbot, and digital-therapeutic-alliance
+literatures.
 
 The chatbot itself is the *delivery substrate*. The synthesis defines
 five operational criteria (C1–C5) for an integrated check-in system,
 shows that no peer-reviewed system jointly satisfies them today, and
 provides a subsystem-by-subsystem feasibility analysis for the gap.
 
-## Contents
+## What's in this folder
 
 | File | Purpose |
 |---|---|
-| `main.tex` | The full survey (sections, tables, citations) |
+| `main.tex` | The full submission manuscript (IMRD format, structured abstract, JMIR end matter) |
 | `references.bib` | Bibliography. Every entry has a Scite-verified DOI when available |
+| `appendix-1-prisma-scr-checklist.md` | **Multimedia Appendix 1** — PRISMA-ScR (22-item) reporting checklist |
+| `appendix-2-search-strategy.md` | **Multimedia Appendix 2** — Full per-query Boolean search strategy |
+| `cover-letter.md` | Cover letter for the submission portal |
+| `figure1.png` | Figure 2 in the manuscript — proposed agentic-workflow architecture (Sense → Decide → Act loop). Figure 1 (PRISMA-ScR study-selection flow) is generated inline by TikZ in `main.tex`. |
 | `Makefile` | One-command build (`make`) using `latexmk` + `biber` |
 | `README.md` | This file |
+
+## How the paper is framed for JMIR Mental Health
+
+The manuscript follows JMIR's required structure for *Review* article
+types:
+
+- **Article type stated** above the title ("Review (Scoping Literature Review)").
+- **Structured abstract** (max 450 words) with the five JMIR headers:
+  Background / Objective / Methods / Results / Conclusions, written to
+  PRISMA-A guidance.
+- **Manuscript body in IMRD format**: Introduction, Methods, Results,
+  Discussion. The pillar (Sense / Decide / Act) and cross-cutting
+  syntheses are subsections of *Results*; the integration gap (C1–C5)
+  and feasibility analysis close the *Results* section.
+- **Discussion** uses the JMIR-required subsection headers: Principal
+  Results, Comparison with Prior Work, Limitations, Conclusions.
+- **End matter** complete: Acknowledgments, Funding Statement,
+  Conflicts of Interest, Data Availability, Authors' Contributions,
+  Abbreviations, AI Usage Statement, Ethics Statement.
+- **Multimedia Appendices** include the PRISMA-ScR checklist and the
+  full search strategy.
+- **Reference style**: numbered, citation-order (Vancouver / AMA-aligned)
+  via `biblatex style=numeric-comp`. JMIR's typesetting team
+  normalizes to AMA Manual of Style 11th edition at acceptance.
 
 ## Build
 
@@ -37,7 +70,7 @@ If you don't have a local TeX install,
 [Overleaf](https://www.overleaf.com) opens this folder verbatim —
 upload `main.tex` and `references.bib`. No external `.cls` or `.sty`
 files are required (the paper uses the standard `article` class plus
-biblatex `style=ieee`).
+`biblatex style=numeric-comp`).
 
 ## Adding a new citation
 
@@ -48,11 +81,11 @@ biblatex `style=ieee`).
    Include the DOI and a short `note` field with the source (Scite,
    citing-publications count, OA status, snapshot date for industry
    pieces).
-3. Cite in `main.tex` with `\cite{Key}` or `\autocite{Key}` (preferred
-   for narrative flow).
+3. Cite in `main.tex` with `\cite{Key}` (preferred for AMA-style
+   numbered references).
 4. Rebuild with `make`.
 
-## How this paper is organised
+## How the synthesis is organized
 
 The synthesis follows a **Sense → Decide → Act** loop:
 
@@ -83,8 +116,6 @@ The bibliography mirrors this structure with eleven labelled sections
   `note` field documents the Scite verification; this is suppressed
   from the printed bibliography via `\AtEveryBibitem{\clearfield{note}}`
   but kept in source as a provenance trail.
-- **Working draft until further notice.** Tag `Phase 0`, `Phase 1`,
-  etc. in commit messages so the survey's growth is auditable.
 - **Industry / press snapshots are dated, never load-bearing.** Use them
   only for commercial-landscape commentary; never as the load-bearing
   source for a scientific claim.
