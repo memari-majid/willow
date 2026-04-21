@@ -93,6 +93,83 @@ The bibliography mirrors this structure with eleven labelled sections
   remains the SME's space to choose which DOIs to import for Willow's
   in-product evidence base.
 
+## Publication plan
+
+The paper is a scoping literature review plus research agenda — no
+implementation, no human-subjects data. That shape is a natural fit
+for a **journal article type** (scoping review, viewpoint,
+perspective, survey), and a poor fit for archival ML/AI conference
+main tracks that expect a built system and empirical results. The
+plan is therefore **journal-first**, with a conference presentation
+reserved as an optional parallel track for visibility once the
+journal version is under review or in press.
+
+Status snapshot is current as of **April 2026**. Check each
+journal's current author guidelines before submitting; article-type
+names and turnaround windows change.
+
+### Tier 1 — primary journal targets
+
+| Journal | Fit | Article type | Why it fits |
+|---|---|---|---|
+| **JMIR Mental Health** | strongest topical fit | Review / Viewpoint | Open access, digital-mental-health reviewer pool, publishes chatbot and JITAI work routinely; a scoping review + agenda is directly in scope |
+| **npj Digital Medicine** (Nature Portfolio) | highest prestige | Review Article / Perspective | Cross-disciplinary AI-in-health audience; reviews on conversational AI and adaptive interventions are in scope; ambitious but the Sense/Decide/Act framing and feasibility matrix are the right shape |
+
+### Tier 2 — fallback journal targets
+
+| Journal | Fit | Article type | Notes |
+|---|---|---|---|
+| **JMIR mHealth and uHealth** | strong | Review / Viewpoint | JMIR-family sister journal; good fit if the Decide pillar (JITAI/MRT/bandits) is foregrounded over the mental-health framing |
+| **ACM Transactions on Computing for Healthcare (HEALTH)** | strong | Survey article | ACM computing audience; the feasibility-assessment table and subsystem taxonomy map naturally to a survey article; longer page budget suits the full three-pillar synthesis |
+
+### Optional parallel conference venue (for visibility only)
+
+A conference presentation is not the archival home for this paper,
+but one US venue is a realistic low-cost parallel — talk/poster
+versions do not consume the journal's novelty budget:
+
+- **CSCW 2026 rolling / PACM HCI** — journal-style rolling review
+  track opens later in 2026. If the JMIR/npj submission is in
+  review when CSCW rolling opens, a shorter, HCI-framed version
+  (digital-therapeutic-alliance + engagement material) is an
+  option — but only if it does not create self-plagiarism risk
+  with the journal version.
+
+### Sequencing
+
+1. **May–Jun 2026.** Tighten `main.tex` against JMIR author
+   guidelines (abstract structure, PRISMA-ScR checklist appendix,
+   reporting of search strategy). Submit to **JMIR Mental Health**
+   as the primary target — topical fit is strongest and turnaround
+   is typically 6–12 weeks to first decision.
+2. **If JMIR Mental Health rejects or desk-rejects.** Revise once
+   based on reviewer comments (or scope-fit comments), then submit
+   to **npj Digital Medicine** as a Review/Perspective. Expect a
+   higher desk-rejection rate; have an npj-formatted version
+   pre-drafted before the JMIR decision arrives.
+3. **If npj Digital Medicine rejects.** Pivot to **ACM TOCH** for
+   the survey framing (longer, more technical, computing-audience)
+   or **JMIR mHealth and uHealth** for the mHealth framing — pick
+   whichever reviewer comments make more defensible.
+4. **Ongoing.** When the Decide-first prototype and micro-randomized
+   trial called for in the agenda are actually executed, the
+   empirical follow-up is a strong fit for **npj Digital Medicine
+   Original Research**, **JAMA Network Open**, or **NEJM AI** — at
+   which point this scoping review becomes the cited prior work,
+   not the submission.
+
+### Out of scope for this plan
+
+- Conference main tracks that expect a built system (CHI, CSCW
+  main deadline, AAAI main, MLHC, CHIL, ICHI) — wrong shape for a
+  scoping review + agenda; saved for the empirical follow-up paper.
+- Pay-to-publish journals and predatory "MDPI-adjacent" titles —
+  excluded on quality grounds.
+- Clinical-psychology society journals (e.g., Behaviour Research
+  and Therapy, JMIR Human Factors for qualitative framing) —
+  possible future targets but farther from this paper's
+  computational framing.
+
 ## Relationship to the project plan
 
 The single source of truth for "what's done, what's next" is
