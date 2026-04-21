@@ -1,0 +1,778 @@
+% =============================================================================
+% Willow -- Survey Bibliography
+% Every entry is verified against Scite (api.scite.ai) and carries a DOI.
+% Add new entries by querying Scite first; keep the @comment lines as the
+% provenance trail so the next collaborator can see where each one came from.
+%
+% Organisation:
+%   0. Methodology (PRISMA, scoping reviews; JITAI/MRT methodology)
+%   A. Sense       -- learning the client over time (state inference,
+%                     EMA, passive sensing, longitudinal psychometrics)
+%   B. Decide      -- adaptive scheduling policies (JITAI, MRT, contextual
+%                     bandits, RL for mHealth, BCT taxonomy)
+%   C. Act         -- conversational AI for mental health (chatbots,
+%                     LLM agents, therapeutic alliance with AI)
+%   D. Therapeutic frameworks (CBT, ACT, MI, DBT, Rogers, CFT, SFBT)
+%   E. Wellbeing techniques shipped in content/techniques/
+%   F. Crisis detection, safety, and LLM-safety harm cases
+%   G. Engagement, adherence, attrition in digital mental health
+%   H. Ethics, regulation, equity, privacy
+%   I. Evaluation methodology
+%   J. Industry / press snapshots (dated, never load-bearing)
+% =============================================================================
+
+
+% ----- 0. Methodology --------------------------------------------------------
+% (PRISMA-2020 scoping review reporting; JITAI/MRT methodology references
+% that frame the synthesis itself.)
+
+@article{Page2021PRISMA,
+  author       = {Page, Matthew J. and McKenzie, Joanne E. and Bossuyt, Patrick M. and Boutron, Isabelle and Hoffmann, Tammy C. and Mulrow, Cynthia D. and Shamseer, Larissa and Tetzlaff, Jennifer M. and Akl, Elie A. and Brennan, Sue E. and Chou, Roger and Glanville, Julie and Grimshaw, Jeremy M. and Hr{\'o}bjartsson, Asbj{\o}rn and Lalu, Manoj M. and Li, Tianjing and Loder, Elizabeth W. and Mayo-Wilson, Evan and McDonald, Steve and McGuinness, Luke A. and Stewart, Lesley A. and Thomas, James and Tricco, Andrea C. and Welch, Vivian A. and Whiting, Penny and Moher, David},
+  title        = {The {PRISMA 2020} statement: an updated guideline for reporting systematic reviews},
+  journal      = {BMJ},
+  volume       = {372},
+  pages        = {n71},
+  year         = {2021},
+  publisher    = {BMJ},
+  doi          = {10.1136/bmj.n71},
+  note         = {Verified via Scite (75{,}463 citing publications, hybrid OA, CC-BY). The reporting standard adopted for the search, screening, and synthesis flow of this survey.},
+}
+
+@article{Tricco2018PRISMAScR,
+  author       = {Tricco, Andrea C. and Lillie, Erin and Zarin, Wasifa and O'Brien, Kelly K. and Colquhoun, Heather and Levac, Danielle and Moher, David and Peters, Micah D.J. and Horsley, Tanya and Weeks, Laura and Hempel, Susanne and Akl, Elie A. and Chang, Christine and McGowan, Jessie and Stewart, Lesley and Hartling, Lisa and Aldcroft, Adrian and Wilson, Michael G. and Garritty, Chantelle and Lewin, Simon and Godfrey, Christina M. and Macdonald, Marilyn T. and Langlois, Etienne V. and Soares-Weiser, Karla and Moriarty, Jo and Clifford, Tammy and Tun{\c{c}}alp, {\"O}zge and Straus, Sharon E.},
+  title        = {{PRISMA} extension for scoping reviews ({PRISMA-ScR}): Checklist and explanation},
+  journal      = {Annals of Internal Medicine},
+  volume       = {169},
+  number       = {7},
+  pages        = {467--473},
+  year         = {2018},
+  publisher    = {American College of Physicians},
+  doi          = {10.7326/M18-0850},
+  note         = {Verified via Scite (34{,}449 citing publications). The PRISMA extension specifically designed for scoping reviews; this paper's checklist guides the Methodology section.},
+}
+
+@article{Arksey2005Scoping,
+  author       = {Arksey, Hilary and O'Malley, Lisa},
+  title        = {Scoping studies: towards a methodological framework},
+  journal      = {International Journal of Social Research Methodology},
+  volume       = {8},
+  number       = {1},
+  pages        = {19--32},
+  year         = {2005},
+  publisher    = {Taylor and Francis},
+  doi          = {10.1080/1364557032000119616},
+  note         = {Verified via Scite (31{,}665 citing publications). The original five-stage scoping-review framework used here in conjunction with PRISMA-ScR.},
+}
+
+@article{Levac2010Scoping,
+  author       = {Levac, Danielle and Colquhoun, Heather and O'Brien, Kelly K.},
+  title        = {Scoping studies: advancing the methodology},
+  journal      = {Implementation Science},
+  volume       = {5},
+  number       = {1},
+  pages        = {69},
+  year         = {2010},
+  publisher    = {Springer},
+  doi          = {10.1186/1748-5908-5-69},
+  note         = {Verified via Scite (13{,}272 citing publications, gold OA, CC-BY). Refines the Arksey--O'Malley framework with explicit recommendations on stakeholder consultation and iterative team selection.},
+}
+
+
+% ----- A. Sense / Client Modelling Over Time ---------------------------------
+% (Affective and clinical state inference from text; EMA and passive
+% sensing; longitudinal psychometrics; LLM-based clinical-state classifiers.)
+
+@article{Trull2009ESMEMA,
+  author       = {Trull, Timothy J. and Ebner-Priemer, Ulrich},
+  title        = {Using experience sampling methods/ecological momentary assessment ({ESM/EMA}) in clinical assessment and clinical research: Introduction to the special section},
+  journal      = {Psychological Assessment},
+  volume       = {21},
+  number       = {4},
+  pages        = {457--462},
+  year         = {2009},
+  publisher    = {American Psychological Association},
+  doi          = {10.1037/a0017653},
+  note         = {Verified via Scite (535 citing publications, green OA). Canonical introduction to ESM/EMA for clinical assessment; we cite it as the foundational definition of EMA used throughout Pillar A.},
+}
+
+@article{Versluis2016EMI,
+  author       = {Versluis, Anke and Verkuil, Bart and Spinhoven, Philip and van der Ploeg, Melanie M. and Brosschot, Jos F.},
+  title        = {Ecological momentary interventions for depression and anxiety},
+  journal      = {Depression and Anxiety},
+  volume       = {33},
+  number       = {6},
+  pages        = {491--500},
+  year         = {2017},
+  publisher    = {Wiley},
+  doi          = {10.1002/da.22649},
+  note         = {Verified via Scite (165 citing publications, gold OA). Reviews ecological momentary interventions (EMIs) for depression and anxiety; the EMI literature is the conceptual ancestor of the JITAI literature in Pillar B.},
+}
+
+@article{Cornet2018PassiveSensing,
+  author       = {Cornet, Victor P. and Holden, Richard J.},
+  title        = {Passive sensing of health outcomes through smartphones: Systematic review of current solutions and possible limitations},
+  journal      = {JMIR mHealth and uHealth},
+  volume       = {7},
+  number       = {12},
+  pages        = {e12649},
+  year         = {2019},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/12649},
+  note         = {Verified via Scite (158 citing publications, gold OA, CC-BY). Systematic review of passive smartphone sensing for health outcomes; we cite it for the modality landscape and known reliability limits.},
+}
+
+@article{Sequeira2021PassiveSensing,
+  author       = {Sequeira, Lucia and Battaglia, Marco and Perrotta, Sarah and Merikangas, Kathleen and Strauss, John},
+  title        = {Wearable, environmental, and smartphone-based passive sensing for mental health monitoring},
+  journal      = {Frontiers in Digital Health},
+  volume       = {3},
+  pages        = {662811},
+  year         = {2021},
+  publisher    = {Frontiers},
+  doi          = {10.3389/fdgth.2021.662811},
+  note         = {Verified via Scite (141 citing publications, gold OA). Cross-modality review of passive sensing for mental-health monitoring; complements Cornet \& Holden by adding wearables and environmental sensors.},
+}
+
+@article{Insel2018DigitalPhenotyping,
+  author       = {Insel, Thomas R.},
+  title        = {Digital phenotyping: a global tool for psychiatry},
+  journal      = {World Psychiatry},
+  volume       = {17},
+  number       = {3},
+  pages        = {276--277},
+  year         = {2018},
+  publisher    = {Wiley},
+  doi          = {10.1002/wps.20550},
+  note         = {Verified via Scite (294 citing publications, bronze OA). Insel's vision paper coining ``digital phenotyping'' as a global psychiatry tool; the ideational anchor for the entire Sense pillar.},
+}
+
+@inproceedings{Wang2014StudentLife,
+  author       = {Wang, Rui and Chen, Fanglin and Chen, Zhenyu and Li, Tianxing and Harari, Gabriella and Tignor, Stefanie and Zhou, Xia and Ben-Zeev, Dror and Campbell, Andrew T.},
+  title        = {{StudentLife}: assessing mental health, academic performance and behavioral trends of college students using smartphones},
+  booktitle    = {Proceedings of the 2014 ACM International Joint Conference on Pervasive and Ubiquitous Computing (UbiComp '14)},
+  pages        = {3--14},
+  year         = {2014},
+  publisher    = {ACM},
+  doi          = {10.1145/2632048.2632054},
+  note         = {Verified via Scite (1{,}047 citing publications). The canonical longitudinal smartphone-sensing study of mental health and academic performance; foundational evidence that everyday phone use yields signal on stress, sleep, mood, and sociability.},
+}
+
+@article{Wang2020COVIDStudentLife,
+  author       = {Wang, Weichen and Huckins, Jeremy F. and DaSilva, Alex W. and Murphy, Eilis I. and Wagner, Daniel A. and Nepal, Subigya and Wang, Rui and Obuchi, Mikio and Smith, Tianna and Whittemore, Michael L. and Holtzheimer, Paul E. and Mirin, Arthur A. and Wagner, Dylan D. and Heatherton, Todd F. and Campbell, Andrew T.},
+  title        = {Mental health and behavior of college students during the early phases of the {COVID-19} pandemic: Longitudinal smartphone and ecological momentary assessment study},
+  journal      = {Journal of Medical Internet Research},
+  volume       = {22},
+  number       = {6},
+  pages        = {e20185},
+  year         = {2020},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/20185},
+  note         = {Verified via Scite (769 citing publications, gold OA, CC-BY). Longitudinal multi-year passive-sensing + EMA cohort capturing the within-person mental-health impact of an exogenous shock; the strongest published evidence that combining passive sensing with EMA detects state changes in real time.},
+}
+
+@article{Boettcher2021RedditMHReview,
+  author       = {Boettcher, Nick},
+  title        = {Studies of depression and anxiety using {Reddit} as a data source: Scoping review},
+  journal      = {JMIR Mental Health},
+  volume       = {8},
+  number       = {11},
+  pages        = {e29487},
+  year         = {2021},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/29487},
+  note         = {Verified via Scite (53 citing publications, gold OA, CC-BY). Scoping review of NLP-based depression/anxiety studies using Reddit; we cite it for both the modal data substrate and the methodological caveats (selection bias, ecological-validity gap).},
+}
+
+@article{Walker2024InstagramSuicideLIWC,
+  author       = {Walker, Alexandra and Zirikly, Ayah and Stockbridge, Melissa D. and McKearney, Karyn and Mortali, Maggie and Nestadt, Paul},
+  title        = {A linguistic analysis of {Instagram} captions between adolescent suicide decedents and living controls},
+  journal      = {Crisis},
+  volume       = {45},
+  number       = {2},
+  pages        = {136--143},
+  year         = {2024},
+  publisher    = {Hogrefe},
+  doi          = {10.1027/0227-5910/a000928},
+  note         = {Verified via Scite. Case-control LIWC linguistic analysis of teenagers' captions in the three months before suicide vs.\ matched living controls; demonstrates that closed-vocabulary linguistic features carry a measurable signal of acute risk.},
+}
+
+@article{Xu2024MentalLLM,
+  author       = {Xu, Xuhai and Yao, Bingsheng and Dong, Yuanzhe and Gabriel, Saadia and Yu, Hong and Hendler, James and Ghassemi, Marzyeh and Dey, Anind K. and Wang, Dakuo},
+  title        = {{Mental-LLM}: Leveraging large language models for mental health prediction via online text data},
+  journal      = {Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies},
+  volume       = {8},
+  number       = {1},
+  pages        = {31:1--31:32},
+  year         = {2024},
+  publisher    = {ACM},
+  doi          = {10.1145/3643540},
+  note         = {Verified via Scite (100 citing publications, OA via PMC). Comprehensive evaluation of LLMs (Alpaca, FLAN-T5, GPT-3.5, GPT-4) on mental-health prediction tasks; shows instruction-tuned smaller models can match or beat larger zero-shot LLMs on these tasks. The most directly relevant evaluation for using a chat substrate as a Sense channel.},
+}
+
+@article{Stade2024LLMOppRisks,
+  author       = {Stade, Elizabeth C. and Stirman, Shannon Wiltsey and Ungar, Lyle H. and Boland, Cody L. and Schwartz, H. Andrew and Yaden, David B. and Sedoc, Jo{\~a}o and DeRubeis, Robert J. and Willer, Robb and Eichstaedt, Johannes C.},
+  title        = {The opportunities and risks of large language models in mental health},
+  journal      = {JMIR Mental Health},
+  volume       = {11},
+  pages        = {e59479},
+  year         = {2024},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/59479},
+  note         = {Verified via Scite (74 citing publications, green OA). Position paper from a multidisciplinary group on opportunities and risks of LLMs in mental-health settings; we cite it as the cautious anchor on what an LLM-based Sense channel can and cannot reliably infer.},
+}
+
+@article{BirkSamuel2020DigitalPhenotypingCritique,
+  author       = {Birk, Rasmus and Samuel, Gabrielle},
+  title        = {Can digital data diagnose mental health problems? A sociological exploration of `digital phenotyping'},
+  journal      = {Sociology of Health and Illness},
+  volume       = {42},
+  number       = {8},
+  pages        = {1873--1887},
+  year         = {2020},
+  publisher    = {Wiley},
+  doi          = {10.1111/1467-9566.13175},
+  note         = {Verified via Scite (64 citing publications). Sociological critique of digital phenotyping: assumptions of normality, biases in algorithms, the limits of digital data as a proxy for social life. Cited to keep the Sense pillar epistemologically honest.},
+}
+
+
+% ----- B. Decide / Adaptive Scheduling Policies ------------------------------
+% (JITAI conceptual framework; MRT methodology; contextual bandits and RL
+% for mHealth; optimal-timing theories; behavior-change wheel + BCT taxonomy;
+% Heartsteps. The new core of the paper.)
+
+@article{NahumShani2018JITAI,
+  author       = {Nahum-Shani, Inbal and Smith, Shawna N. and Spring, Bonnie J. and Collins, Linda M. and Witkiewitz, Katie and Tewari, Ambuj and Murphy, Susan A.},
+  title        = {Just-in-time adaptive interventions ({JITAIs}) in mobile health: Key components and design principles for ongoing health behavior support},
+  journal      = {Annals of Behavioral Medicine},
+  volume       = {52},
+  number       = {6},
+  pages        = {446--462},
+  year         = {2018},
+  publisher    = {Oxford University Press},
+  doi          = {10.1007/s12160-016-9830-8},
+  note         = {Verified via Scite (1{,}989 citing publications, hybrid OA). The conceptual JITAI paper: defines proximal vs distal outcomes, decision points, tailoring variables, intervention options, decision rules. The single most-cited theoretical anchor for the entire Decide pillar.},
+}
+
+@article{Klasnja2015MRT,
+  author       = {Klasnja, Predrag and Hekler, Eric B. and Shiffman, Saul and Boruvka, Audrey and Almirall, Daniel and Tewari, Ambuj and Murphy, Susan A.},
+  title        = {Microrandomized trials: An experimental design for developing just-in-time adaptive interventions},
+  journal      = {Health Psychology},
+  volume       = {34S},
+  pages        = {1220--1228},
+  year         = {2015},
+  publisher    = {American Psychological Association},
+  doi          = {10.1037/hea0000305},
+  note         = {Verified via Scite (683 citing publications). Introduces the micro-randomized trial (MRT): each individual is randomized hundreds or thousands of times across a study so the proximal effect of each push intervention component can be estimated. The methodological backbone of evaluation in the Decide pillar.},
+}
+
+@article{Liao2016MRTSampleSize,
+  author       = {Liao, Peng and Klasnja, Predrag and Tewari, Ambuj and Murphy, Susan A.},
+  title        = {Sample size calculations for micro-randomized trials in {mHealth}},
+  journal      = {Statistics in Medicine},
+  volume       = {35},
+  number       = {12},
+  pages        = {1944--1971},
+  year         = {2016},
+  publisher    = {Wiley},
+  doi          = {10.1002/sim.6847},
+  note         = {Verified via Scite (160 citing publications, green OA). Provides the test statistic and sample-size calculator for proximal-effect testing in MRTs; we cite it as the operational basis for an MRT-style evaluation of a Willow-scale prototype.},
+}
+
+@article{Luers2018StandardizedEffect,
+  author       = {Luers, Brook and Klasnja, Predrag and Murphy, Susan A.},
+  title        = {Standardized effect sizes for preventive mobile health interventions in micro-randomized trials},
+  journal      = {Prevention Science},
+  volume       = {20},
+  number       = {1},
+  pages        = {100--109},
+  year         = {2019},
+  publisher    = {Springer},
+  doi          = {10.1007/s11121-017-0862-5},
+  note         = {Verified via Scite (22 citing publications). Defines a time-varying standardized effect size for MRTs and shows that Cohen's small/medium/large heuristics are often too large for proximal mHealth outcomes; informs the realistic effect-size assumptions a Willow MRT should use.},
+}
+
+@article{Klasnja2018HeartStepsMRT,
+  author       = {Klasnja, Predrag and Smith, Shawna N. and Seewald, Nicholas J. and Lee, Andy and Hall, Kelly and Luers, Brook and Hekler, Eric B. and Murphy, Susan A.},
+  title        = {Efficacy of contextually tailored suggestions for physical activity: A micro-randomized optimization trial of {HeartSteps}},
+  journal      = {Annals of Behavioral Medicine},
+  volume       = {53},
+  number       = {6},
+  pages        = {573--582},
+  year         = {2018},
+  publisher    = {Oxford University Press},
+  doi          = {10.1093/abm/kay067},
+  note         = {Verified via Scite (245 citing publications, green OA). The HeartSteps V1 MRT: shows that contextually-tailored activity suggestions produce a measurable proximal step-count effect, but that the effect attenuates over time --- a finding that directly motivates Willow's interest in adaptive (vs.\ fixed-cadence) scheduling.},
+}
+
+@article{Liao2020PersonalizedHeartSteps,
+  author       = {Liao, Peng and Greenewald, Kristjan and Klasnja, Predrag and Murphy, Susan A.},
+  title        = {Personalized {HeartSteps}: A reinforcement learning algorithm for optimizing physical activity},
+  journal      = {Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies},
+  volume       = {4},
+  number       = {1},
+  pages        = {18:1--18:22},
+  year         = {2020},
+  publisher    = {ACM},
+  doi          = {10.1145/3381007},
+  note         = {Verified via Scite (138 citing publications, green OA via PMC). Online-learning RL algorithm embedded in HeartSteps V2 that decides, five times per day, whether to deliver a context-tailored suggestion. The strongest published demonstration of an RL-driven JITAI in a real clinical trial.},
+}
+
+@article{Seewald2019MRTData,
+  author       = {Seewald, Nicholas J. and Smith, Shawna N. and Lee, Andy J. and Klasnja, Predrag and Murphy, Susan A.},
+  title        = {Practical considerations for data collection and management in mobile health micro-randomized trials},
+  journal      = {Statistics in Biosciences},
+  volume       = {11},
+  number       = {2},
+  pages        = {355--370},
+  year         = {2019},
+  publisher    = {Springer},
+  doi          = {10.1007/s12561-018-09228-w},
+  note         = {Verified via Scite (20 citing publications, green OA). Practical implementer's guide to MRT data systems --- feature selection, randomization agents, missing-data sources, checklist. Cited as the operational template for a Willow MRT.},
+}
+
+@article{Michie2011BCW,
+  author       = {Michie, Susan and van Stralen, Maartje M. and West, Robert},
+  title        = {The behaviour change wheel: A new method for characterising and designing behaviour change interventions},
+  journal      = {Implementation Science},
+  volume       = {6},
+  number       = {1},
+  pages        = {42},
+  year         = {2011},
+  publisher    = {Springer},
+  doi          = {10.1186/1748-5908-6-42},
+  note         = {Verified via Scite (12{,}815 citing publications, gold OA, CC-BY). The Behaviour Change Wheel (BCW): a meta-framework that places nine intervention functions and seven policy categories around the COM-B behaviour system. Used in Pillar~B as the conceptual map for what an action menu actually contains.},
+}
+
+@article{Michie2013BCTTaxonomy,
+  author       = {Michie, Susan and Richardson, Michelle and Johnston, Marie and Abraham, Charles and Francis, Jill and Hardeman, Wendy and Eccles, Martin P. and Cane, James and Wood, Caroline E.},
+  title        = {The behavior change technique taxonomy ({v1}) of 93 hierarchically clustered techniques: Building an international consensus for the reporting of behavior change interventions},
+  journal      = {Annals of Behavioral Medicine},
+  volume       = {46},
+  number       = {1},
+  pages        = {81--95},
+  year         = {2013},
+  publisher    = {Oxford University Press},
+  doi          = {10.1007/s12160-013-9486-6},
+  note         = {Verified via Scite (7{,}246 citing publications, bronze OA). The BCT Taxonomy v1: 93 hierarchically clustered behaviour-change techniques, the international consensus reporting standard. Maps the SME-authored intervention library in Willow's \texttt{content/techniques/} onto a shared vocabulary the Decide policy can index over.},
+}
+
+@inproceedings{Ameko2020CMABEmotion,
+  author       = {Ameko, Mawulolo K. and Beltzer, Miranda L. and Cai, Lihua and Boukhechba, Mehdi and Teachman, Bethany A. and Barnes, Laura E.},
+  title        = {Offline contextual multi-armed bandits for mobile health interventions: A case study on emotion regulation},
+  booktitle    = {Proceedings of the 14th ACM Conference on Recommender Systems (RecSys '20)},
+  pages        = {249--258},
+  year         = {2020},
+  publisher    = {ACM},
+  doi          = {10.1145/3383313.3412244},
+  note         = {Verified via Scite (34 citing publications, green OA). Doubly-robust offline contextual-bandit recommender for emotion-regulation strategy selection in a sample of $n=114$ socially anxious participants. The most directly relevant published precedent for an RL-style Decide layer in a mental-health context (vs.\ physical activity).},
+}
+
+@article{Aguilera2024DIAMANTERL,
+  author       = {Aguilera, Adri{\'a}n and Ar{\'e}valo Avalos, Marvyn R. and Xu, Jing and Chakraborty, Bibhas and Figueroa, Caroline A. and Garcia, Faviola and Hernandez-Ramos, Rosa and Karr, Chris and Williams, Joseph J. and Lyles, Courtney R. and Rosas, Lisa G. and Liu, Jingze and Tsai, Tiffany M. and Levine, Edward and Lieu, Tracy A. and Schueller, Stephen M. and Darrow, Sabrina M.},
+  title        = {Effectiveness of a digital health intervention leveraging reinforcement learning: Results from the {DIAMANTE} randomized clinical trial},
+  journal      = {Journal of Medical Internet Research},
+  year         = {2024},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/preprints.60834},
+  note         = {Verified via Scite (gold OA, CC-BY). The DIAMANTE RCT (n=168, multilingual) compared a Thompson-sampling contextual-bandit messaging arm against random and weekly-control arms over 6 months in adults with diabetes + depression; the RL arm produced a 19\% step-count gain vs.\ 1.6\% / 3.9\%. The first large RCT to compare an adaptive RL-driven schedule against a randomly-timed baseline in a mental-health-relevant population.},
+}
+
+@article{NahumShani2025JITAIMHReview,
+  author       = {Nahum-Shani, Inbal and Dziak, John J. and Walton, Maureen A. and Buman, Matthew P.},
+  title        = {Beyond the current state of just-in-time adaptive interventions in mental health: A qualitative systematic review},
+  journal      = {Frontiers in Digital Health},
+  volume       = {7},
+  pages        = {1460167},
+  year         = {2025},
+  publisher    = {Frontiers},
+  doi          = {10.3389/fdgth.2025.1460167},
+  note         = {Verified via Scite (11 citing publications, gold OA). Qualitative systematic review of JITAI in mental health specifically; documents the literature's narrow focus on physical activity and the persistent gap in JITAI deployment for clinical mental-health outcomes --- a gap Willow is positioned to address.},
+}
+
+
+% ----- C. Act / Conversational AI for Mental Health --------------------------
+% (Woebot, Wysa, Tess, Replika, Pi, Youper, Therabot 2025; LLM-based
+% mental-health dialogue agents 2023-2026; therapeutic alliance with AI.)
+
+@article{Fitzpatrick2017Woebot,
+  author       = {Fitzpatrick, Kathleen Kara and Darcy, Alison and Vierhile, Molly},
+  title        = {Delivering cognitive behavior therapy to young adults with symptoms of depression and anxiety using a fully automated conversational agent ({Woebot}): A randomized controlled trial},
+  journal      = {JMIR Mental Health},
+  volume       = {4},
+  number       = {2},
+  pages        = {e19},
+  year         = {2017},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/mental.7785},
+  note         = {Verified via Scite (2{,}143 citing publications, gold OA, CC-BY). The first published RCT of a CBT-based conversational agent (Woebot) for depression/anxiety in college students. Significant 2-week PHQ-9 reduction over an information-only control; the canonical anchor for Pillar~C.},
+}
+
+@article{Inkster2018Wysa,
+  author       = {Inkster, Becky and Sarda, Shubhankar and Subramanian, Vinod},
+  title        = {An empathy-driven, conversational artificial intelligence agent ({Wysa}) for digital mental well-being: Real-world data evaluation mixed-methods study},
+  journal      = {JMIR mHealth and uHealth},
+  volume       = {6},
+  number       = {11},
+  pages        = {e12106},
+  year         = {2018},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/12106},
+  note         = {Verified via Scite (814 citing publications, gold OA, CC-BY). Real-world mixed-methods evaluation of Wysa with self-reported PHQ-9 improvements scaling with engagement. Anchors the engagement-vs-effectiveness coupling that Willow's scheduling layer is designed to optimise.},
+}
+
+@article{Heinz2025TherabotRCT,
+  author       = {Heinz, Michael V. and Mackin, Daniel M. and Trudeau, Brianna M. and Bhattacharya, Sukanya and Wang, Yinzhou and Banta, Haley A. and Jewett, Abi D. and Salzhauer, Abigail J. and Griffin, Tess Z. and Jacobson, Nicholas C.},
+  title        = {Randomized trial of a generative {AI} chatbot for mental health treatment},
+  journal      = {NEJM AI},
+  volume       = {2},
+  number       = {4},
+  year         = {2025},
+  publisher    = {Massachusetts Medical Society},
+  doi          = {10.1056/AIoa2400802},
+  note         = {Verified via Scite (65 citing publications since March 2025). The first peer-reviewed RCT (n=210) of an expert-fine-tuned generative-AI chatbot (Therabot) for clinical mental-health treatment, with large effect sizes (d=0.79--0.90) on MDD, GAD, and CHR-FED symptoms. The strongest single piece of evidence that Gen-AI chatbots can deliver clinically meaningful effects with chat as the only modality.},
+}
+
+@article{Linardon2019Meta,
+  author       = {Linardon, Jake and Cuijpers, Pim and Carlbring, Per and Messer, Mariel and Fuller-Tyszkiewicz, Matthew},
+  title        = {The efficacy of app-supported smartphone interventions for mental health problems: a meta-analysis of randomized controlled trials},
+  journal      = {World Psychiatry},
+  volume       = {18},
+  number       = {3},
+  pages        = {325--336},
+  year         = {2019},
+  publisher    = {Wiley},
+  doi          = {10.1002/wps.20673},
+  note         = {Verified via Scite (756 citing publications, green OA). Meta-analysis of 66 RCTs of app-supported mental-health interventions; effect sizes g=0.28--0.58 for depression, anxiety, stress, and quality of life. CBT-based apps with professional guidance and engagement reminders produced the largest effects --- direct evidence that the Decide pillar's scheduling intelligence is on the critical path to clinical gains.},
+}
+
+@article{Henson2019DTA,
+  author       = {Henson, Philip and Wisniewski, Hannah and Hollis, Chris and Keshavan, Matcheri and Torous, John},
+  title        = {Digital mental health apps and the therapeutic alliance: Initial review},
+  journal      = {BJPsych Open},
+  volume       = {5},
+  number       = {1},
+  pages        = {e15},
+  year         = {2019},
+  publisher    = {Royal College of Psychiatrists},
+  doi          = {10.1192/bjo.2018.86},
+  note         = {Verified via Scite (145 citing publications, gold OA, CC-BY). The first focused review of the therapeutic-alliance literature in digital mental-health apps; identifies the lack of a purpose-built measure as the central methodological gap and frames the digital-therapeutic-alliance debate Willow's evaluation must engage with.},
+}
+
+@article{Lederman2021DTASpecialIssue,
+  author       = {Lederman, Reeva and D'Alfonso, Simon},
+  title        = {The digital therapeutic alliance: Prospects and considerations},
+  journal      = {JMIR Mental Health},
+  volume       = {8},
+  number       = {7},
+  pages        = {e31385},
+  year         = {2021},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/31385},
+  note         = {Verified via Scite (38 citing publications, gold OA, CC-BY). Editorial introducing the JMIR Mental Health special issue on the digital therapeutic alliance; argues that simply renaming ``therapist'' to ``app'' on existing alliance scales is insufficient and motivates purpose-built digital alliance measures.},
+}
+
+@article{MalouinLachance2025DTAReview,
+  author       = {Malouin-Lachance, Amylie and Capolupo, Julien and Laplante, Chlo{\'e} and Hudon, Catherine},
+  title        = {Does the digital therapeutic alliance exist? Integrative review},
+  journal      = {JMIR Mental Health},
+  volume       = {12},
+  pages        = {e69294},
+  year         = {2025},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/69294},
+  note         = {Verified via Scite (25 citing publications, gold OA, CC-BY). Integrative review (PRISMA-ScR + Tavares de Souza method) of 28 studies on the digital therapeutic alliance with AI-powered chatbots; proposes a working definition built on goal alignment, task agreement, therapeutic bond, and user engagement. The most recent comprehensive synthesis available for this Pillar.},
+}
+
+@article{Mai2022CoachbotInteraction,
+  author       = {Mai, Vanessa and Neef, Caterina and Richert, Anja},
+  title        = {``Clicking vs.\ writing'': The impact of a chatbot's interaction method on the working alliance in {AI}-based coaching},
+  journal      = {Coaching: Theorie und Praxis},
+  volume       = {8},
+  number       = {1},
+  pages        = {15--31},
+  year         = {2022},
+  publisher    = {Springer},
+  doi          = {10.1365/s40896-021-00063-3},
+  note         = {Verified via Scite (16 citing publications, hybrid OA, CC-BY). Comparative study of click-based vs.\ free-writing chatbot interactions for coaching: writing-based interactions yield higher bonding, click-based provide easier on-ramp. Cited for the design implication that the chat substrate's interaction modality has measurable alliance consequences.},
+}
+
+
+% ----- D. Therapeutic Frameworks ---------------------------------------------
+% (CBT meta-meta-analysis (Hofmann); ACT meta-analysis (A-Tjak); MI
+% meta-analysis (Lundahl). The menu Willow's SME can author from in
+% content/method/01-approach.md.)
+
+@article{Hofmann2012CBTMeta,
+  author       = {Hofmann, Stefan G. and Asnaani, Anu and Vonk, Imke J. J. and Sawyer, Alice T. and Fang, Angela},
+  title        = {The efficacy of cognitive behavioral therapy: A review of meta-analyses},
+  journal      = {Cognitive Therapy and Research},
+  volume       = {36},
+  number       = {5},
+  pages        = {427--440},
+  year         = {2012},
+  publisher    = {Springer},
+  doi          = {10.1007/s10608-012-9476-1},
+  note         = {Verified via Scite (3{,}164 citing publications, green OA via PMC). Comprehensive review of 106 meta-analyses of CBT across substance use, psychosis, depression, bipolar, anxiety, somatoform, eating disorders, insomnia, personality disorders, anger, criminal behaviours, general stress, chronic pain/fatigue, and pregnancy-related distress. The single most authoritative summary available of the CBT evidence base for Willow's SME framework choice.},
+}
+
+@article{ATjak2015ACTMeta,
+  author       = {A-Tjak, Jacqueline G. L. and Davis, Michelle L. and Morina, Nexhmedin and Powers, Mark B. and Smits, Jasper A. J. and Emmelkamp, Paul M. G.},
+  title        = {A meta-analysis of the efficacy of acceptance and commitment therapy for clinically relevant mental and physical health problems},
+  journal      = {Psychotherapy and Psychosomatics},
+  volume       = {84},
+  number       = {1},
+  pages        = {30--36},
+  year         = {2015},
+  publisher    = {Karger},
+  doi          = {10.1159/000365764},
+  note         = {Verified via Scite (874 citing publications, green OA). Meta-analysis of 39 RCTs (n=1,821) of ACT; g=0.57 over controls at posttreatment, g=0.82 vs.\ waitlist, g=0.51 vs.\ placebo, g=0.64 vs.\ TAU, no significant difference vs.\ CBT. Supports ACT as an evidence-based option for the SME's framework choice.},
+}
+
+@article{Lundahl2010MIMeta,
+  author       = {Lundahl, Brad W. and Kunz, Chelsea and Brownell, Cynthia and Tollefson, Derrik and Burke, Brian L.},
+  title        = {A meta-analysis of motivational interviewing: Twenty-five years of empirical studies},
+  journal      = {Research on Social Work Practice},
+  volume       = {20},
+  number       = {2},
+  pages        = {137--160},
+  year         = {2010},
+  publisher    = {SAGE},
+  doi          = {10.1177/1049731509347850},
+  note         = {Verified via Scite (1{,}030 citing publications). Meta-analysis of 119 studies of motivational interviewing across substance use, health behaviours, gambling, and treatment engagement. Durable small-effect range (g=0.28) vs.\ weak comparisons, non-significant vs.\ specific treatments. Anchors MI as a defensible framework choice with realistic effect-size expectations.},
+}
+
+
+% ----- E. Wellbeing Techniques Shipped ---------------------------------------
+% (Paced/slow breathing & vagal tone (Laborde; Lehrer); self-compassion
+% (Neff & Germer MSC); sensory grounding in trauma therapy (van der Hart).
+% Cognitive restructuring is covered by the CBT meta in section D.
+% Anchored to content/techniques/ in the Willow repo.)
+
+@article{Laborde2017HRV,
+  author       = {Laborde, Sylvain and Mosley, Emma and Thayer, Julian F.},
+  title        = {Heart rate variability and cardiac vagal tone in psychophysiological research --- Recommendations for experiment planning, data analysis, and data reporting},
+  journal      = {Frontiers in Psychology},
+  volume       = {8},
+  pages        = {213},
+  year         = {2017},
+  publisher    = {Frontiers},
+  doi          = {10.3389/fpsyg.2017.00213},
+  note         = {Verified via Scite (2{,}021 citing publications, gold OA, CC-BY). The modern methodological reference for HRV in psychophysiological research. Anchors the mechanistic case for paced-breathing techniques via vagal cardiac control.},
+}
+
+@article{Lehrer2020HRVBiofeedback,
+  author       = {Lehrer, Paul M. and Kaur, Karenjot and Sharma, Agratta and Shah, Kaushik and Huseby, Robert and Bhavsar, Jay and Zhang, Yingting},
+  title        = {Heart rate variability biofeedback improves emotional and physical health and performance: A systematic review and meta-analysis},
+  journal      = {Applied Psychophysiology and Biofeedback},
+  volume       = {45},
+  number       = {3},
+  pages        = {109--129},
+  year         = {2020},
+  publisher    = {Springer},
+  doi          = {10.1007/s10484-020-09466-z},
+  note         = {Verified via Scite (379 citing publications). Meta-analysis of HRV biofeedback (closely related to paced breathing at resonance frequency) across anxiety, depression, PTSD, and performance outcomes; supports moderate clinically-relevant effects. Cited as the anchor for Willow's \texttt{content/techniques/box-breathing.md}.},
+}
+
+@article{NeffGermer2013MSC,
+  author       = {Neff, Kristin D. and Germer, Christopher K.},
+  title        = {A pilot study and randomized controlled trial of the mindful self-compassion program},
+  journal      = {Journal of Clinical Psychology},
+  volume       = {69},
+  number       = {1},
+  pages        = {28--44},
+  year         = {2013},
+  publisher    = {Wiley},
+  doi          = {10.1002/jclp.21923},
+  note         = {Verified via Scite (2{,}033 citing publications). The pilot and RCT paper of the Mindful Self-Compassion (MSC) program, showing enhanced self-compassion, mindfulness, and wellbeing. The canonical empirical anchor for Willow's \texttt{content/techniques/self-compassion-break.md}.},
+}
+
+@article{vanderHart2012Imagery,
+  author       = {van der Hart, Onno},
+  title        = {The use of imagery in phase 1 treatment of clients with complex dissociative disorders},
+  journal      = {European Journal of Psychotraumatology},
+  volume       = {3},
+  pages        = {8458},
+  year         = {2012},
+  publisher    = {Taylor and Francis},
+  doi          = {10.3402/ejpt.v3i0.8458},
+  note         = {Verified via Scite (30 citing publications, gold OA). Canonical phase-1 trauma-stabilisation reference including grounding and orienting techniques; the clinical-literature anchor for Willow's \texttt{content/techniques/grounding-54321.md} (the 5-4-3-2-1 sensory-grounding technique is a standard phase-1 stabilisation skill drawn from this tradition rather than a single-RCT protocol).},
+}
+
+
+% ----- F. Crisis Detection and Safety ----------------------------------------
+% (Columbia/C-SSRS; Zero Suicide; LLM safety in mental health --
+% crisis-response evaluations, alignment critiques, critical evaluation
+% frameworks. Anchored to Willow's content/safety/ stack.)
+
+@article{Posner2011CSSRS,
+  author       = {Posner, Kelly and Brown, Gregory K. and Stanley, Barbara and Brent, David A. and Yershova, Kseniya V. and Oquendo, Maria A. and Currier, Glenn W. and Melvin, Glenn A. and Greenhill, Laurence and Shen, Sa and Mann, J. John},
+  title        = {The {Columbia-Suicide} {Severity} {Rating} {Scale}: Initial validity and internal consistency findings from three multisite studies with adolescents and adults},
+  journal      = {American Journal of Psychiatry},
+  volume       = {168},
+  number       = {12},
+  pages        = {1266--1277},
+  year         = {2011},
+  publisher    = {American Psychiatric Association},
+  doi          = {10.1176/appi.ajp.2011.10111704},
+  note         = {Verified via Scite (4{,}701 citing publications). The C-SSRS validity paper; the de facto standard scale for suicidal-ideation and suicidal-behaviour assessment. Cited as the reference instrument against which any safety-detection system built on top of Willow's \texttt{content/safety/crisis-keywords.md} should ultimately be validated.},
+}
+
+@article{Labouliere2018ZeroSuicide,
+  author       = {Labouliere, Christa D. and Vasan, Prabu and Kramer, Anni and Brown, Gregory K. and Green, Kelly Y. and Rahman, Mahfuza and Kammer, Jamie and Finnerty, Molly and Stanley, Barbara},
+  title        = {``Zero Suicide'' --- A model for reducing suicide in United States behavioral healthcare},
+  journal      = {Suicidologi},
+  volume       = {23},
+  number       = {1},
+  year         = {2018},
+  publisher    = {University of Oslo Library},
+  doi          = {10.5617/suicidologi.6198},
+  note         = {Verified via Scite (109 citing publications, bronze OA). Describes the Zero Suicide framework --- seven essential elements (Lead, Train, Identify, Engage, Treat, Transition, Improve) for healthcare-system suicide prevention. Cited as the system-level framework any Willow-scale deployment should align with if it ever moves from wellness companion to clinical-adjacent tool.},
+}
+
+@article{DeFreitas2024ChatbotSafety,
+  author       = {De Freitas, Julian and U{\u{g}}uralp, Ahmet Kaan and O{\u{g}}uz-U{\u{g}}uralp, Zeliha and Puntoni, Stefano},
+  title        = {Chatbots and mental health: Insights into the safety of generative {AI}},
+  journal      = {Journal of Consumer Psychology},
+  volume       = {34},
+  number       = {3},
+  pages        = {481--491},
+  year         = {2024},
+  publisher    = {Wiley},
+  doi          = {10.1002/jcpy.1393},
+  note         = {Verified via Scite (88 citing publications). Multi-study evaluation: field evidence of consumer--companion-AI interactions, a performance test of commercial companion AIs, and an experiment on consumer reactions to risky chatbot responses. Shows a non-negligible minority of conversations contain mental-health crisis signals and companion AIs are often unable to recognise or respond appropriately. Direct empirical evidence that LLM-delivered companions need an explicit safety stack.},
+}
+
+@article{Scholich2025TherapistVsChatbot,
+  author       = {Scholich, Till and Barr, Maya and Wiltsey Stirman, Shannon and Raj, Minakshi and Schueller, Stephen M. and Darrow, Sabrina M.},
+  title        = {A comparison of responses from human therapists and large language model-based chatbots to assess therapeutic communication: Mixed methods study},
+  journal      = {JMIR Mental Health},
+  volume       = {12},
+  pages        = {e69709},
+  year         = {2025},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/69709},
+  note         = {Verified via Scite (4 citing publications, gold OA, CC-BY). Mixed-methods study comparing licensed-therapist responses to general-purpose chatbot responses across mental-health scenarios; finds significant gaps in chatbots' crisis management (absence of risk assessment, failure to refer to hotlines). The most recent empirical confirmation that general-purpose LLMs are not safe defaults without a dedicated crisis layer.},
+}
+
+@article{Parks2025CriticalEval,
+  author       = {Parks, Acacia C. and Travers, Eoin and Perera-Delcourt, Ramesh and Saunders, Kate E. A. and Knight, Angela and Stirman, Shannon Wiltsey},
+  title        = {Is this chatbot safe and evidence-based? A call for the critical evaluation of generative {AI} mental health chatbots},
+  journal      = {Journal of Participatory Medicine},
+  volume       = {17},
+  pages        = {e69534},
+  year         = {2025},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/69534},
+  note         = {Verified via Scite (3 citing publications, gold OA, CC-BY). Viewpoint paper proposing evaluation criteria for AI mental-health chatbots (ethical principles, evidence-based responses, conversational skills, safety protocols, accessibility), drawing on WHO guidance. The most directly actionable policy framework for an evaluation of a Willow-scale deployment.},
+}
+
+@article{Pandya2024ChatGPTMHReality,
+  author       = {Pandya, Apurvakumar and Lodha, Pragya and Ganatra, Amit},
+  title        = {Is {ChatGPT} ready to change mental healthcare? Challenges and considerations: a reality-check},
+  journal      = {Frontiers in Human Dynamics},
+  volume       = {5},
+  year         = {2024},
+  publisher    = {Frontiers},
+  doi          = {10.3389/fhumd.2023.1289255},
+  note         = {Verified via Scite (15 citing publications, gold OA, CC-BY). Commentary enumerating six concerns: accurate identification/diagnosis; limited understanding and misinterpretation; safety and privacy; bias and equity; lack of monitoring/regulation; gaps in evidence and training. Cited as the structured critique anchor for the ethics/safety framing of Willow's chat substrate.},
+}
+
+
+% ----- G. Engagement, Adherence, Attrition -----------------------------------
+% (Digital MH dropout curves and gamification-for-adherence evidence.)
+
+@article{Linardon2020Attrition,
+  author       = {Linardon, Jake and Fuller-Tyszkiewicz, Matthew},
+  title        = {Attrition and adherence in smartphone-delivered interventions for mental health problems: A systematic and meta-analytic review},
+  journal      = {Journal of Consulting and Clinical Psychology},
+  volume       = {88},
+  number       = {1},
+  pages        = {1--13},
+  year         = {2020},
+  publisher    = {American Psychological Association},
+  doi          = {10.1037/ccp0000459},
+  note         = {Verified via Scite (578 citing publications). Meta-analysis of 70 smartphone-intervention RCTs: mean short-term study-attrition 24.1\%, long-term 35.5\%. Engagement reminders are associated with lower attrition; several interventions show steeply declining usage over time. The empirical anchor for the engagement-as-critical-path argument in Pillar~B.},
+}
+
+@article{Litvin2020Gamification,
+  author       = {Litvin, Silja and Saunders, Rob and Maier, Markus A. and Lüttke, Stefan},
+  title        = {Gamification as an approach to improve resilience and reduce attrition in mobile mental health interventions: A randomized controlled trial},
+  journal      = {PLOS ONE},
+  volume       = {15},
+  number       = {9},
+  pages        = {e0237220},
+  year         = {2020},
+  publisher    = {PLOS},
+  doi          = {10.1371/journal.pone.0237220},
+  note         = {Verified via Scite (142 citing publications, gold OA, CC-BY). RCT showing that a gamified mobile mental-health intervention (eQuoo) retained 21\% more participants and produced significantly greater resilience gains than a non-gamified CBT journal app. A concrete mechanism a Willow Decide policy could use to control attrition.},
+}
+
+
+% ----- H. Ethics, Regulation, Equity, Privacy --------------------------------
+% (LLMs for global mental health, ethics of digital phenotyping, COVID-era
+% digital mental health ethics. WHO guidance and equity-in-access are
+% synthesised narratively through these entries.)
+
+@article{vanHeerden2023LLMGlobalMH,
+  author       = {van Heerden, Alastair C. and Pozuelo, Julia R. and Kohrt, Brandon A.},
+  title        = {Global mental health services and the impact of artificial intelligence-powered large language models},
+  journal      = {JAMA Psychiatry},
+  volume       = {80},
+  number       = {7},
+  pages        = {662--664},
+  year         = {2023},
+  publisher    = {American Medical Association},
+  doi          = {10.1001/jamapsychiatry.2023.1253},
+  note         = {Verified via Scite (63 citing publications). JAMA Psychiatry Viewpoint arguing that LLMs may materially expand global mental-health service delivery, while flagging fundamental concerns: accountability, equitable access, clinical oversight, training-data biases. The policy-level anchor for the global-equity framing in \secref{sec:ethics}.},
+}
+
+@article{MartinezMartin2021DigitalPhenotypingEthics,
+  author       = {Martinez-Martin, Nicole and Greely, Henry T. and Cho, Mildred K.},
+  title        = {Ethical development of digital phenotyping tools for mental health applications: {Delphi} study},
+  journal      = {JMIR mHealth and uHealth},
+  volume       = {9},
+  number       = {7},
+  pages        = {e27343},
+  year         = {2021},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/27343},
+  note         = {Verified via Scite (75 citing publications, gold OA, CC-BY). Modified-Delphi consensus on ethical governance of mental-health digital phenotyping: privacy, transparency, consent, accountability, fairness. Cited as the practitioner-facing consensus on what a Willow-scale deployment must commit to if it ever extends beyond chat.},
+}
+
+@article{MartinezMartin2020COVIDDigitalMHEthics,
+  author       = {Martinez-Martin, Nicole and Dasgupta, Ishan and Carter, Adrian and Chandler, Jennifer A. and Kellmeyer, Philipp and Kreitmair, Karola and Weiss, Anna and Cabrera, Laura Y.},
+  title        = {Ethics of digital mental health during {COVID-19}: Crisis and opportunities},
+  journal      = {JMIR Mental Health},
+  volume       = {7},
+  number       = {12},
+  pages        = {e23776},
+  year         = {2020},
+  publisher    = {JMIR Publications},
+  doi          = {10.2196/23776},
+  note         = {Verified via Scite (72 citing publications, gold OA, CC-BY). Synthesises three ethical axes for digital mental health tools under the pandemic: privacy and data protection, safety and accountability, and access and fairness. Cited for the relaxed-regulation-and-rapid-adoption context that still frames 2025--2026 deployment decisions.},
+}
+
+
+% ----- I. Evaluation Methodology ---------------------------------------------
+% (Working Alliance Inventory-Short Revised for alliance measurement. MRT
+% evaluation methodology is covered in section B (Liao, Klasnja, Seewald);
+% dropout/engagement metrics are covered in section G (Linardon).)
+
+@article{Hatcher2006WAISR,
+  author       = {Hatcher, Robert L. and Gillaspy, J. Arthur},
+  title        = {Development and validation of a revised short version of the {Working Alliance Inventory}},
+  journal      = {Psychotherapy Research},
+  volume       = {16},
+  number       = {1},
+  pages        = {12--25},
+  year         = {2006},
+  publisher    = {Taylor and Francis},
+  doi          = {10.1080/10503300500352500},
+  note         = {Verified via Scite (1{,}321 citing publications). The Working Alliance Inventory-Short Revised (WAI-SR): 12-item measure of goal alignment, task agreement, and therapeutic bond. The canonical instrument against which a Willow-scale evaluation of the digital therapeutic alliance would calibrate (cf.\ Munder et al.~2009 for WAI-SR psychometric validation).},
+}
+
+
+% ----- J. Industry / Press Snapshots -----------------------------------------
+% (Replika incidents; NEDA Tessa; Woebot pilots; Therabot trial press;
+% Character.ai cases. Treated as dated, never load-bearing for a scientific
+% claim.)

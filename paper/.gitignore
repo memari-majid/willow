@@ -1,0 +1,36 @@
+# =============================================================================
+# Willow -- paper/ build artefacts
+# Scoped here so the root .gitignore stays focused on the Next.js app.
+# =============================================================================
+
+# --- LaTeX intermediates -----------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# latexmk failure artefacts
+*-SAVE-ERROR
+
+# Built PDFs (uncomment to exclude; for now we ship the rendered survey)
+# survey/*.pdf
+
+# --- Reference manager caches -----------------------------------------------
+.zotero/
+*.bib.bak
