@@ -10,8 +10,9 @@
 > a request would require you to write clinical content, build the
 > structure that lets the SME write it themselves.
 >
-> **Reusing this stack for another agent chatbot?** Start at
-> [`agent-chatbot-playbook.md`](./agent-chatbot-playbook.md) — RAG, tools, env, and phased checklist.
+> **Reusing this stack for another agent chatbot?** Read
+> [`technology-stack-and-costs.md`](./technology-stack-and-costs.md) (choices + costs),
+> then [`agent-chatbot-playbook.md`](./agent-chatbot-playbook.md) (step-by-step reuse).
 
 ---
 
@@ -37,7 +38,7 @@
                               ▼
             ┌──────────────────────────────────────┐
             │   src/app/chat/page.tsx              │  live chat
-            │   src/app/sme/page.tsx               │  SME dashboard
+            │   src/app/sources/page.tsx           │  knowledge status
             └──────────────────────────────────────┘
 ```
 
@@ -57,16 +58,15 @@ Goal: clone, run, send a message, deploy a tiny edit. ~90 minutes.
 
 ```bash
 git clone https://github.com/memari-majid/willow
-cd willow
+cd willow/web
 npm install
-cp .env.example .env.local
+cp config/env.example .env.local
 vercel link                       # pick the existing project
-vercel env pull .env.local        # provisions VERCEL_OIDC_TOKEN
+vercel env pull .env.local        # provisions VERCEL_OIDC_TOKEN + DATABASE_URL
 npm run dev
 ```
 
-Open http://localhost:3000. Hit `/`, `/chat`, `/sme` to see the
-three pages.
+Open http://localhost:3000. Hit `/`, `/chat`, `/sources`, `/settings`.
 
 ### 2. Send a real message
 
@@ -108,6 +108,8 @@ You're ready.
 
 | Topic | When you need it |
 |---|---|
+| [**Technology stack & costs**](./technology-stack-and-costs.md) | **Choosing stack, estimating spend, voice roadmap, building similar apps** |
+| [Agent chatbot playbook](./agent-chatbot-playbook.md) | Fork Willow for a new domain companion |
 | [Getting started](./getting-started.md) | First-time install or troubleshooting |
 | [Architecture](./architecture.md) | Understanding the codebase end-to-end |
 | [AI Gateway](./ai-gateway.md) | Auth, failover, cost tracking |

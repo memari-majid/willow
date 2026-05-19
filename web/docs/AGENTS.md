@@ -32,9 +32,11 @@ This is a Next.js 16 + AI SDK v6 project. Human docs live under `web/docs/` (`sm
 
 ## Building a similar agent chatbot (reuse this repo)
 
-Read **[`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)** first. It documents:
+Read **[`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md)** for stack choices, cost estimates, and voice (TTS) roadmap.
 
-- Knowledge stack (protocol + tone + safety + RAG)
+Read **[`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)** for step-by-step reuse. It documents:
+
+- Knowledge stack (protocol + tone + safety + RAG + user memory)
 - Neon/pgvector ingest and hybrid retrieval
 - AI SDK tools / agent orchestrator pattern
 - Vercel env checklist and “spin up new companion” phases
@@ -58,6 +60,7 @@ All paths below are under `web/` (the app root):
 - `content/` — SME-edited Markdown. Read by `src/lib/content.ts`.
   - `cbt_companion_instructions.md` — CBT protocol (what to do).
   - `cbt_companion_tone_and_persona.md` — warm-competent voice (how to sound).
+  - `persona/` — age_band + locale overlays (personalization).
 - `src/app/` — Next.js routes (App Router).
 - `src/components/` — React UI (`chat/`, `auth/`, `ui/`).
 - `src/lib/` — db, rag, safety, ai, auth helpers.

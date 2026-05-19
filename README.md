@@ -24,6 +24,7 @@ Open http://localhost:3000 — sign in at `/sign-in`, then chat at `/chat`.
 | [`web/content/persona/`](./web/content/persona/) | Age/locale persona overlays (personalization) |
 | [`web/docs/`](./web/docs/) | Human docs — start with [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md) |
 | [`web/docs/developer/agent-chatbot-playbook.md`](./web/docs/developer/agent-chatbot-playbook.md) | **Reuse guide** — RAG, agents, tools, new companions |
+| [`web/docs/developer/technology-stack-and-costs.md`](./web/docs/developer/technology-stack-and-costs.md) | **Stack choices, costs, voice roadmap** |
 | [`web/docs/AGENTS.md`](./web/docs/AGENTS.md) | Rules for AI agents in this repo |
 | [`web/config/`](./web/config/) | ESLint, Vitest, Drizzle, env template |
 | [`web/scripts/`](./web/scripts/) | RAG ingest and other tooling |
@@ -44,6 +45,8 @@ Required production env vars (Vercel → Settings → Environment Variables):
 Auth uses **JWT sessions** with the credentials provider (database sessions are not supported for email/password in Auth.js v5).
 
 Optional: `VOYAGE_API_KEY` (rerank), Upstash KV (rate limits), `PERSONALIZATION_ENABLED=false` to disable memory features.
+
+**Documentation:** [`web/docs/developer/technology-stack-and-costs.md`](./web/docs/developer/technology-stack-and-costs.md) — full stack rationale, cost scenarios, and voice (TTS) roadmap.
 
 After deploy, smoke-test: `/`, `/sources`, `/sign-in`, `/api/auth/session` (should return `{}` when logged out, not a 500).
 

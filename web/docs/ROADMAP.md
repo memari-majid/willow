@@ -155,17 +155,18 @@ from real conversations.
 - [x] Core env on Vercel: `DATABASE_URL`, `AUTH_SECRET`, `AUTH_URL`. Optional: `VOYAGE_API_KEY` (rerank), Upstash KV, Blob.
 - [ ] Expand [`tests/safety-regression.spec.ts`](./tests/safety-regression.spec.ts) toward the full regression list in the build spec.
 
-**Reuse guide for future chatbots:** [`docs/developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)
+**Reuse guide for future chatbots:** [`docs/developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md) · **Stack + costs:** [`docs/developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md)
 
 ### Later backlog (post–CBT v1)
 
 | Priority | Feature | Owner | Reference |
 |---|---|---|---|
-| 1 | R&D / Research mode | Dev + SME | [`docs/developer/research-mode.md`](./developer/research-mode.md) |
-| 2 | AI Elements / richer transcript UX | Dev | [`docs/developer/extending.md`](./developer/extending.md) |
-| 3 | Multi-language `content/` | SME + Dev | extending.md |
-| 4 | Optional Clerk / IdP if institution requires it | Dev | [`docs/cbt/decisions.md`](./cbt/decisions.md) |
-| 5 | CMS instead of GitHub edits | Dev | extending.md |
+| 1 | **Natural AI voice (TTS read-aloud)** | Dev | [`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md) § Voice |
+| 2 | R&D / Research mode | Dev + SME | [`docs/developer/research-mode.md`](./developer/research-mode.md) |
+| 3 | AI Elements / richer transcript UX | Dev | [`docs/developer/extending.md`](./developer/extending.md) |
+| 4 | Multi-language `content/` | SME + Dev | extending.md |
+| 5 | Optional Clerk / IdP if institution requires it | Dev | [`docs/cbt/decisions.md`](./cbt/decisions.md) |
+| 6 | CMS instead of GitHub edits | Dev | extending.md |
 
 ---
 

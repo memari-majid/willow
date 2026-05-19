@@ -97,4 +97,5 @@ Everything else: stay on the gateway.
 
 ## Next
 
+→ [Technology stack & costs](./technology-stack-and-costs.md) — full platform comparison + voice  
 → [04 — Content folder](../shared/content-folder.md)

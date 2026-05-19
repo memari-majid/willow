@@ -47,4 +47,4 @@ Set `PERSONALIZATION_ENABLED=false` in the deployment environment to disable mem
 - Persona overlays: `content/persona/age_band/`, `content/persona/locale/`
 - Feature flag: `src/lib/personalization/flags.ts`
 
-See also [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md) (knowledge stack §5).
+See also [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md) (knowledge stack §5) and [`../developer/technology-stack-and-costs.md`](../developer/technology-stack-and-costs.md) (memory layer + costs).

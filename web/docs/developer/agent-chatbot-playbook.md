@@ -12,17 +12,20 @@ Use this when you fork Willow or start a **new companion** with the same archite
 |---|---|---|
 | UI + API | Next.js 16 App Router, AI SDK v6 | `src/app/`, `src/components/chat/` |
 | LLM routing | Vercel AI Gateway (`provider/model` strings) | `src/lib/ai/model.ts`, `src/app/api/chat/route.ts` |
-| Auth + sessions | Auth.js v5 + Drizzle adapter | `src/auth.ts`, `src/app/sign-in/` |
+| Auth + sessions | Auth.js v5 + **JWT** (credentials provider) | `src/auth.ts`, `src/app/sign-in/` |
 | Database | Neon Postgres (Marketplace) | `src/lib/db/`, `drizzle/` |
 | RAG storage | pgvector `vector(1024)` + HNSW | `document_chunks` in `drizzle/0000_init.sql` |
 | Embeddings | Voyage `voyage-3-large` (direct or via Gateway) | `src/lib/rag/embed.ts`, `voyage-client.ts` |
 | Retrieval | Hybrid vector + FTS + optional rerank | `src/lib/rag/retrieve.ts` |
 | Agent tools | AI SDK `tool()` + Zod schemas | `src/lib/ai/tools/` |
 | Safety | Keyword prescreen + Haiku classifier + crisis bypass | `src/lib/safety/`, `src/lib/ai/safety.ts` |
+| Personalization | Memory, prefs, summaries, persona overlays | `src/lib/memory/`, `src/app/settings/`, `content/persona/` |
 | Knowledge status | `/sources` page | `src/app/sources/`, `knowledge-sources.ts` |
 | Ingest CLI | PDF → chunks → embed → Neon | `scripts/ingest.ts` |
 
-**Runtime:** Node.js serverless on Vercel (not Edge) — required for Drizzle, Auth.js database sessions, and predictable Neon HTTP driver behavior.
+**Runtime:** Node.js serverless on Vercel (not Edge) — required for Drizzle, Auth.js JWT + Postgres, and predictable Neon HTTP driver behavior.
+
+**Stack rationale & costs:** [`technology-stack-and-costs.md`](./technology-stack-and-costs.md)
 
 ---
 
@@ -47,10 +50,13 @@ flowchart TB
     User[User message] --> Chat[/api/chat]
     Chat --> Safe[Safety prescreen + classifier]
     Safe --> RAG[retrieveContext]
-    RAG --> Neon
+    Safe --> Mem[recallMemories + prefs]
+    RAG --> Neon[(Neon)]
+    Mem --> Neon
     RAG --> Prompt[buildCbtSystemPrompt + user context + retrieved_context]
-    Prompt --> Agent[streamText + tools]
-    Agent --> Persist[(messages + retrieved_chunk_ids)]
+    Mem --> Prompt
+    Prompt --> Agent[streamText + CBT + memory tools]
+    Agent --> Persist[(messages + memories + summaries)]
   end
 
   Instructions --> Prompt
@@ -181,12 +187,13 @@ POST { messages, conversationId, model?, temperature? }
   → rate limit (optional Upstash)
   → loadContent()
   → Stage A: keyword / regex crisis → crisisUiResponse (no main model)
-  → Stage B: Haiku classifier → red? crisis · yellow? turn note
+  → Stage B: Haiku classifier (+ preference signal if personalization on) → red? crisis · yellow? turn note
   → insertSafetyEvent
-  → parallel: retrieveContext(lastUserText) + buildUserContextBlock(userId)
-  → buildCbtSystemPrompt + turnNote + userContext + formatRetrievedChunks
+  → parallel: retrieveContext(lastUserText) + recallMemories + buildUserContextBlock
+  → buildCbtSystemPrompt(+ persona overlay) + turnNote + userContext + formatRetrievedChunks
+  → makeAgentTools (CBT + memory when PERSONALIZATION_ENABLED)
   → streamText({ model, system, messages, tools, stopWhen })
-  → onFinish: persistConversationMessages + retrieved_chunk_ids
+  → onFinish: persistConversationMessages + maybeSummarizeConversation
 ```
 
 Copy this file first when spinning a new domain; swap `buildCbtSystemPrompt`, tools factory, and safety thresholds.
@@ -280,8 +287,10 @@ npm run build     # needs DATABASE_URL + AUTH_SECRET in env
 
 Manual:
 
-- [ ] `/sources` — all four knowledge rows sensible
+- [ ] `/sources` — protocol, tone, RAG status (five knowledge sources if personalization on)
 - [ ] Sign in → `/chat` — stream works
+- [ ] `/settings` — preferences load when signed in
+- [ ] `/api/auth/session` — 200 (not 500) when logged out
 - [ ] Domain question → reply uses book/protocol (not generic therapy-speak)
 - [ ] Crisis phrase → crisis path, not coaching
 - [ ] Neon: `SELECT retrieved_chunk_ids FROM messages ORDER BY created_at DESC LIMIT 3`
@@ -295,7 +304,7 @@ Manual:
 | Neon + pgvector vs Pinecone | One DB, Vercel Marketplace, fine for &lt;10k chunks | Dedicated vector DB at scale |
 | Paragraph chunking + heuristics | Fast ingest, no manual curation DB | Chapter-aware chunks + SME manifest |
 | Gateway for embeddings | No separate Voyage billing setup on Vercel | Always use `VOYAGE_API_KEY` |
-| Auth.js + Postgres vs Clerk | Self-hosted sessions, teaching-friendly | Clerk Marketplace if enterprise SSO needed |
+| Auth.js + JWT + Postgres vs Clerk | Self-hosted, credentials auth, no per-MAU fee | Clerk Marketplace if enterprise SSO needed |
 | Node runtime | Drizzle + Auth predictability | Edge only after explicit audit |
 
 Full rationale: [`../cbt/decisions.md`](../cbt/decisions.md).
@@ -304,6 +313,7 @@ Full rationale: [`../cbt/decisions.md`](../cbt/decisions.md).
 
 ## Related docs
 
+- [**Technology stack & costs**](./technology-stack-and-costs.md) — choices, alternatives, voice, pricing scenarios
 - [`architecture.md`](./architecture.md) — shorter file map + request flow
 - [`ai-gateway.md`](./ai-gateway.md) — Gateway model strings and OIDC
 - [`add-a-tool.md`](./add-a-tool.md) — step-by-step tool addition

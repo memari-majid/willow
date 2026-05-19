@@ -22,7 +22,7 @@ two-week onboarding plus the weekly cycle once Willow is live.
 | Understand the whole job | [`sme/GUIDE.md`](./sme/GUIDE.md) |
 | Add a new wellbeing exercise | [`sme/add-a-technique.md`](./sme/add-a-technique.md) |
 | Edit Willow's content | jump straight into [`../content/`](../content/) — every file is plain Markdown |
-| See what's still placeholder | open `/sme` in the running app |
+| See what's still placeholder | open `/sources` in the running app |
 
 You can ignore everything under `developer/`.
 
@@ -41,6 +41,7 @@ everything in between.
 |---|---|
 | First-time setup | [`developer/getting-started.md`](./developer/getting-started.md) |
 | Mental model of the codebase | [`developer/architecture.md`](./developer/architecture.md) |
+| **Technology choices, costs, voice roadmap** | **[`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md)** |
 | **Reuse stack for new agent chatbots** | **[`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)** |
 | Configure / understand the AI Gateway | [`developer/ai-gateway.md`](./developer/ai-gateway.md) |
 | Give the AI a tool (function call) | [`developer/add-a-tool.md`](./developer/add-a-tool.md) |
@@ -93,6 +94,7 @@ docs/
 │   ├── getting-started.md
 │   ├── architecture.md
 │   ├── agent-chatbot-playbook.md   ← reuse Willow for new domain chatbots
+│   ├── technology-stack-and-costs.md ← stack choices, costs, voice roadmap
 │   ├── ai-gateway.md
 │   ├── add-a-tool.md
 │   ├── deploy-to-vercel.md
