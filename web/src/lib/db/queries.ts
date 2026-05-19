@@ -52,6 +52,27 @@ export async function createConversation(userId: string, title?: string) {
   return row!;
 }
 
+export async function renameConversation(
+  id: string,
+  userId: string,
+  title: string,
+) {
+  const [row] = await db
+    .update(conversations)
+    .set({ title, updatedAt: new Date() })
+    .where(and(eq(conversations.id, id), eq(conversations.userId, userId)))
+    .returning();
+  return row ?? null;
+}
+
+export async function deleteConversation(id: string, userId: string) {
+  const [row] = await db
+    .delete(conversations)
+    .where(and(eq(conversations.id, id), eq(conversations.userId, userId)))
+    .returning();
+  return row ?? null;
+}
+
 export async function listMessages(conversationId: string) {
   return db
     .select()

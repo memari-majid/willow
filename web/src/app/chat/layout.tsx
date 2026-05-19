@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { ChatShell } from "@/components/chat/chat-shell";
 import { getUserById } from "@/lib/db/queries";
 
 export const dynamic = "force-dynamic";
@@ -18,5 +19,5 @@ export default async function ChatAppLayout({
   if (!user?.onboardingCompletedAt) {
     redirect("/onboarding");
   }
-  return children;
+  return <ChatShell userId={session.user.id}>{children}</ChatShell>;
 }

@@ -33,6 +33,13 @@ export async function rerank(
     }),
   });
   if (!res.ok) {
+    // Rate limits or billing gates — fall back to merge order so chat still works.
+    if (res.status === 429 || res.status === 402 || res.status === 403) {
+      return documents.map((_, index) => ({
+        index,
+        score: 1 - index * 0.001,
+      }));
+    }
     const err = await res.text();
     throw new Error(`Voyage rerank failed: ${res.status} ${err}`);
   }

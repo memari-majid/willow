@@ -147,6 +147,7 @@ from real conversations.
 | 11 | **Personalization v1** — prefs, semantic memory, summaries, persona overlays, `/settings/*` | ✅ |
 | 12 | **Chat performance** — Haiku default, prompt caching, conditional RAG, gated pref signal, 3 tool steps | ✅ |
 | 13 | **Conversational follow-ups** — removed reply-chip UX; assistant ends each turn with one grounded question | ✅ |
+| 14 | **Multi-conversation UI** — sidebar, new chat, hybrid trim, auto-extract cross-thread memories | ✅ |
 
 **Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 

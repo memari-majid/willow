@@ -23,7 +23,7 @@ Run with `PERSONALIZATION_ENABLED` on (default):
 1. **Name recall** — tell Willow your preferred name; start a new thread; confirm `<user_longitudinal_context>` identity block includes it.
 2. **Preference applied next turn** — say “be more direct”; next reply should acknowledge and use shorter, clearer sentences.
 3. **Forgotten on request** — ask Willow to remember a fact, then “forget that” via tool or Settings → Memory delete; confirm it no longer appears in context.
-4. **Summary after 20 msgs** — exceed `SUMMARY_MESSAGE_THRESHOLD` in one thread; check `conversation_summaries` row and rolling summary in prompt.
+4. **Summary after 12 msgs** — exceed `SUMMARY_MESSAGE_THRESHOLD` (12) in one thread; check `conversation_summaries` row and rolling summary in prompt.
 5. **Persona overlay** — user with `ageBand: 18_24` gets `content/persona/age_band/18_24.md` appended to system prompt.
 
 ## Follow-up question style (manual)
@@ -34,6 +34,13 @@ Run after any prompt or UX change to chat behavior:
 2. **No reply chips** — after the assistant finishes, the UI shows no "Or reply with" chips (empty-state starters on a new thread are fine).
 3. **Technique grounding** — ask "Can you walk me through a thought record?" → assistant asks one situation-focused question aligned with the book's first step, not a multi-item questionnaire.
 4. **Natural elicitation** — mid thought-record flow, assistant asks for the next field (e.g. automatic thought, 0–10 rating) one at a time, referencing what the user already shared.
+
+## Multi-conversation (manual)
+
+1. **New chat** — sidebar **New chat** → empty state with starter chips; previous thread unchanged in sidebar.
+2. **Switch threads** — open an older conversation from sidebar; messages match that thread only.
+3. **Cross-thread recall** — in thread A say "My name is Sam and I'm a teacher"; start **New chat**; ask "what do you remember about me?" — reply references name/job (via auto-extract or `remember_fact`).
+4. **Auto-title** — after second message in a new thread, sidebar title updates from "New conversation".
 
 See [`memory.md`](./memory.md) for retention and privacy guarantees.
 

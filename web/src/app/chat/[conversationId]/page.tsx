@@ -2,10 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { ChatMenuButton } from "@/components/chat/conversation-sidebar";
 import { Chat } from "@/components/chat/chat";
 import { SafetyDisclaimer } from "@/components/chat/safety-disclaimer";
 import { SignOutButton } from "@/components/auth/sign-out-button";
-import { WillowMark } from "@/components/willow-mark";
 import { getConversation, listMessages } from "@/lib/db/queries";
 import { dbRowsToUiMessages } from "@/lib/db/persist-messages";
 import { loadContent } from "@/lib/content";
@@ -40,13 +40,19 @@ export default async function ChatConversationPage({ params }: Props) {
   const initialMessages = dbRowsToUiMessages(rows);
 
   return (
-    <div className="flex h-[100svh] flex-col">
+    <div className="flex h-full min-h-0 flex-col">
       <header className="border-b border-border/40">
-        <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
-          <Link href="/" className="opacity-90 hover:opacity-100">
-            <WillowMark />
-          </Link>
-          <div className="flex items-center gap-3">
+        <div className="flex w-full items-center justify-between gap-2 px-4 py-3 sm:px-6">
+          <div className="flex min-w-0 items-center gap-2">
+            <ChatMenuButton />
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium">
+                {convo.title?.trim() || "New conversation"}
+              </p>
+              <p className="text-[10px] text-muted-foreground">CBT companion</p>
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
             <Link
               href="/settings"
               className="hidden text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:inline"
@@ -59,19 +65,16 @@ export default async function ChatConversationPage({ params }: Props) {
             >
               Sources
             </Link>
-            <span className="hidden text-xs text-muted-foreground md:inline">
-              CBT companion
-            </span>
             <SignOutButton />
           </div>
         </div>
       </header>
 
-      <div className="mx-auto w-full max-w-3xl px-4 pt-4 sm:px-6">
+      <div className="px-4 pt-4 sm:px-6">
         <SafetyDisclaimer />
       </div>
 
-      <div className="mx-auto w-full max-w-3xl flex-1 min-h-0 px-4 py-4 sm:px-6">
+      <div className="min-h-0 flex-1 px-4 py-4 sm:px-6">
         <Chat
           starters={content.starters}
           conversationId={conversationId}

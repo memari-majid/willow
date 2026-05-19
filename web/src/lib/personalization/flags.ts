@@ -8,4 +8,4 @@ export const MEMORY_TTL_MS = 365 * 24 * 60 * 60 * 1000;
 
 export const MAX_MEMORIES_PER_USER = 100;
 
-export const SUMMARY_MESSAGE_THRESHOLD = 20;
+export const SUMMARY_MESSAGE_THRESHOLD = 12;

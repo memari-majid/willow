@@ -32,7 +32,7 @@ willow/                          ← repo root: README.md only
 
 Legacy `/sme` routes redirect to `/sources`.
 
-**Chat UX:** Empty-state starter chips (`content/conversation-starters.md`) seed a new thread only. After each assistant turn, the user types freely — no AI-generated reply chips. The assistant itself ends with one grounded follow-up question (see `content/cbt_companion_instructions.md` § Follow-up question style).
+**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. `/chat` opens the most recent thread. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
 
 ## Request flow (authenticated chat)
 
@@ -45,9 +45,10 @@ Browser (useChat + DefaultChatTransport)
     → red? crisis · yellow? turn instruction · block memory writes on yellow
     → insertSafetyEvent (non-keyword path)
     → parallel: safety + gated pref signal + prepareTurnContext + persona overlay
+    → trimHistory (last 40 msgs) + rolling summary in user context
     → buildCbtSystemPrompt; static block uses Anthropic prompt cache
     → streamText (Haiku + tools, stopWhen stepCountIs(3))
-    → onFinish: persist messages + maybeSummarizeConversation (green path)
+    → onFinish: persist messages + maybeSummarize + maybeAutoExtract + maybeAutoTitle (green path)
 ```
 
 ## RAG flow (per turn)

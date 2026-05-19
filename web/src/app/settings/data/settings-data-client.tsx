@@ -54,8 +54,8 @@ export function SettingsDataClient() {
       <div className="mt-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4">
         <h2 className="text-sm font-medium text-destructive">Delete account</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Permanently removes your profile, conversations, mood data, memories,
-          and preferences.
+          Permanently removes your profile, conversations (and per-thread
+          summaries), mood data, memories, and preferences.
         </p>
         <Button
           type="button"

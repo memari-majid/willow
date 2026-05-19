@@ -10,7 +10,9 @@ import {
 
 import { auth } from "@/auth";
 import { buildChatModelMessages } from "@/lib/ai/chat-messages";
+import { maybeAutoTitleConversation } from "@/lib/ai/auto-title";
 import { prepareTurnContext } from "@/lib/ai/prepare-turn-context";
+import { trimHistory } from "@/lib/ai/trim-history";
 import { makeAgentTools } from "@/lib/ai/tools/agent-tools";
 import {
   applyPreferenceSignal,
@@ -30,6 +32,7 @@ import { loadContent, loadPersonaOverlay } from "@/lib/content";
 import { getConversation, getUserById } from "@/lib/db/queries";
 import { persistConversationMessages } from "@/lib/db/persist-messages";
 import { insertSafetyEvent } from "@/lib/db/queries";
+import { maybeAutoExtractMemories } from "@/lib/memory/auto-extract";
 import { maybeSummarizeConversation } from "@/lib/memory/summarize";
 import { isPersonalizationEnabled } from "@/lib/personalization/flags";
 import { formatRetrievedChunks } from "@/lib/rag/retrieve";
@@ -173,7 +176,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { retrieved, userContext } = turnContext;
+  const { retrieved, userContext, summary } = turnContext;
 
   const baseSystem = buildCbtSystemPrompt(content, personaOverlay);
   const turnNotes: string[] = [];
@@ -207,12 +210,14 @@ export async function POST(req: Request) {
     blockMemoryWrites,
   });
 
+  const { trimmed } = trimHistory(messages, summary);
+
   const result = streamText({
     model: chosenModel,
     messages: buildChatModelMessages({
       staticSystem,
       dynamicSystem,
-      conversationMessages: await convertToModelMessages(messages),
+      conversationMessages: await convertToModelMessages(trimmed),
     }),
     tools,
     stopWhen: stepCountIs(MAX_AGENT_TOOL_STEPS),
@@ -252,7 +257,22 @@ export async function POST(req: Request) {
         void maybeSummarizeConversation({ conversationId, userId }).catch(
           (e) => logger.warn({ err: e }, "memory.summarize_failed"),
         );
+        void maybeAutoExtractMemories({ conversationId, userId }).catch((e) =>
+          logger.warn({ err: e }, "memory.auto_extract_failed"),
+        );
       }
+
+      const firstUser = messages.find((m) => m.role === "user");
+      const firstUserText = firstUser
+        ? extractMessageText(firstUser)
+        : "";
+      void maybeAutoTitleConversation({
+        conversationId,
+        userId,
+        currentTitle: convo.title,
+        firstUserMessage: firstUserText,
+        messageCount: finalMessages.length,
+      }).catch(() => {});
     },
   });
 }
