@@ -9,8 +9,12 @@ import {
 } from "ai";
 
 import { auth } from "@/auth";
-import { makeCbtTools } from "@/lib/ai/tools/cbt-tools";
+import { makeAgentTools } from "@/lib/ai/tools/agent-tools";
 import { buildUserContextBlock } from "@/lib/ai/prompt-builder";
+import {
+  applyPreferenceSignal,
+  detectPreferenceSignal,
+} from "@/lib/ai/preference-signal";
 import {
   CBT_CONVERSATION_MODEL,
   FALLBACK_MODELS,
@@ -19,10 +23,13 @@ import {
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 import { detectCrisis } from "@/lib/ai/safety";
 import { buildCbtSystemPrompt } from "@/lib/ai/system-prompt";
-import { loadContent } from "@/lib/content";
-import { getConversation } from "@/lib/db/queries";
+import { loadContent, loadPersonaOverlay } from "@/lib/content";
+import { getConversation, getUserById } from "@/lib/db/queries";
 import { persistConversationMessages } from "@/lib/db/persist-messages";
 import { insertSafetyEvent } from "@/lib/db/queries";
+import { recallMemories } from "@/lib/memory/recall";
+import { maybeSummarizeConversation } from "@/lib/memory/summarize";
+import { isPersonalizationEnabled } from "@/lib/personalization/flags";
 import { formatRetrievedChunks, retrieveContext } from "@/lib/rag/retrieve";
 import { classifyUserMessage } from "@/lib/safety/classifier";
 import { crisisUiResponse } from "@/lib/safety/crisis-response";
@@ -52,6 +59,7 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
   const userId = session.user.id;
+  const personalizationOn = isPersonalizationEnabled();
 
   const content = await loadContent();
   const lastUserText = extractLastUserText(messages);
@@ -106,7 +114,12 @@ export async function POST(req: Request) {
   }
 
   const recentContext = recentContextForSafety(messages);
-  const safety = await classifyUserMessage(lastUserText, recentContext);
+  const [safety, prefSignal] = await Promise.all([
+    classifyUserMessage(lastUserText, recentContext),
+    personalizationOn
+      ? detectPreferenceSignal(lastUserText)
+      : Promise.resolve({ detected: false as const, kind: "none" as const }),
+  ]);
 
   if (safety.riskLevel === "red") {
     logger.info({ userId, risk: "red" }, "safety.classifier_red");
@@ -137,29 +150,70 @@ export async function POST(req: Request) {
     reviewedByHuman: false,
   });
 
+  let preferenceAck: string | null = null;
+  if (personalizationOn && prefSignal.detected) {
+    preferenceAck = await applyPreferenceSignal(
+      userId,
+      prefSignal,
+      conversationId,
+    );
+  }
+
   let retrieved: Awaited<ReturnType<typeof retrieveContext>> = [];
   let userContext = "";
   try {
-    ;[retrieved, userContext] = await Promise.all([
+    const recallPromise =
+      personalizationOn && lastUserText
+        ? recallMemories(userId, lastUserText)
+        : Promise.resolve([]);
+
+    const [ragResult, recalled] = await Promise.all([
       retrieveContext(lastUserText, {}),
-      buildUserContextBlock(userId),
+      recallPromise,
     ]);
+    retrieved = ragResult;
+    userContext = await buildUserContextBlock({
+      userId,
+      conversationId,
+      recalledMemories: recalled,
+    });
   } catch (e) {
     logger.warn({ err: e }, "rag.retrieve_failed");
+    try {
+      userContext = await buildUserContextBlock({ userId, conversationId });
+    } catch {
+      userContext = await buildUserContextBlock(userId);
+    }
   }
 
-  const baseSystem = buildCbtSystemPrompt(content);
-  const turnNote =
-    safety.riskLevel === "yellow"
-      ? "\n\n<turn_instruction>The safety layer has flagged this turn as elevated concern. Slow down. Acknowledge directly. Avoid pushing toward a technique. Gently offer the safety pathway.</turn_instruction>"
-      : "";
+  let personaOverlay = "";
+  if (personalizationOn) {
+    const user = await getUserById(userId);
+    personaOverlay = await loadPersonaOverlay({
+      ageBand: user?.ageBand,
+      locale: user?.locale,
+    });
+  }
+
+  const baseSystem = buildCbtSystemPrompt(content, personaOverlay);
+  const turnNotes: string[] = [];
+  if (safety.riskLevel === "yellow") {
+    turnNotes.push(
+      "<turn_instruction>The safety layer has flagged this turn as elevated concern. Slow down. Acknowledge directly. Avoid pushing toward a technique. Gently offer the safety pathway.</turn_instruction>",
+    );
+  }
+  if (preferenceAck) {
+    turnNotes.push(`<turn_instruction>${preferenceAck}</turn_instruction>`);
+  }
 
   const system = [
     baseSystem,
-    turnNote,
+    turnNotes.join("\n\n"),
     userContext,
     formatRetrievedChunks(retrieved),
-  ].join("\n\n");
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 
   const chosenModel = isAllowedModel(model) ? model : CBT_CONVERSATION_MODEL;
   const chosenTemperature =
@@ -167,7 +221,13 @@ export async function POST(req: Request) {
       ? clampTemperature(temperature, 0.7)
       : 0.7;
 
-  const tools = makeCbtTools({ userId, conversationId });
+  const blockMemoryWrites = safety.riskLevel === "yellow";
+
+  const tools = makeAgentTools({
+    userId,
+    conversationId,
+    blockMemoryWrites,
+  });
 
   const result = streamText({
     model: chosenModel,
@@ -205,6 +265,12 @@ export async function POST(req: Request) {
         });
       } catch (e) {
         logger.error({ err: e }, "persist.messages_failed");
+      }
+
+      if (personalizationOn && safety.riskLevel === "green") {
+        void maybeSummarizeConversation({ conversationId, userId }).catch(
+          (e) => logger.warn({ err: e }, "memory.summarize_failed"),
+        );
       }
     },
   });

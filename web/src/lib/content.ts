@@ -360,3 +360,58 @@ export function isReadyForUsers(content: WillowContent): boolean {
     .filter((s) => required.has(s.relativePath))
     .every((s) => s.ready);
 }
+
+const PERSONA_DIR = path.join(CONTENT_DIR, "persona");
+
+/** Map user locale (e.g. US, es-ES) to overlay filename stem. */
+function localeOverlayFile(locale: string | null | undefined): string | null {
+  if (!locale) return null;
+  const normalized = locale.replace("_", "-");
+  if (normalized.startsWith("es")) return "es-ES";
+  if (normalized.startsWith("fr")) return "fr-FR";
+  return null;
+}
+
+/**
+ * Load age_band + locale persona overlays for injection after the default tone doc.
+ * Returns merged markdown (overlay sections win on conflict — later content appended).
+ */
+export async function loadPersonaOverlay(args: {
+  ageBand?: string | null;
+  locale?: string | null;
+}): Promise<string> {
+  const parts: string[] = [];
+
+  if (args.ageBand) {
+    const agePath = path.join(PERSONA_DIR, "age_band", `${args.ageBand}.md`);
+    try {
+      parts.push(await fs.readFile(agePath, "utf8"));
+    } catch {
+      /* optional overlay */
+    }
+  }
+
+  const localeFile = localeOverlayFile(args.locale);
+  if (localeFile) {
+    const localePath = path.join(PERSONA_DIR, "locale", `${localeFile}.md`);
+    try {
+      parts.push(await fs.readFile(localePath, "utf8"));
+    } catch {
+      /* optional overlay */
+    }
+  }
+
+  return parts.filter(Boolean).join("\n\n");
+}
+
+/** @internal — test helper for overlay path resolution */
+export function resolvePersonaOverlayPaths(args: {
+  ageBand?: string | null;
+  locale?: string | null;
+}): string[] {
+  const out: string[] = [];
+  if (args.ageBand) out.push(`persona/age_band/${args.ageBand}.md`);
+  const localeFile = localeOverlayFile(args.locale);
+  if (localeFile) out.push(`persona/locale/${localeFile}.md`);
+  return out;
+}

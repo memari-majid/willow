@@ -62,18 +62,21 @@ flowchart TB
 
 ---
 
-## Knowledge stack (four sources)
+## Knowledge stack (five sources)
 
-Willow combines four knowledge types on every turn. Replicate this split for new chatbots:
+Willow combines five knowledge types on every turn. Replicate this split for new chatbots:
 
-| Source | Role | Willow file | Injected as |
+| Source | Role | Willow file / table | Injected as |
 |---|---|---|---|
 | **Protocol** | What the agent should *do* (flows, tools, boundaries) | `content/cbt_companion_instructions.md` | Top of system prompt |
-| **Persona / tone** | How it should *sound* | `content/cbt_companion_tone_and_persona.md` | System prompt section |
+| **Persona / tone** | How it should *sound* (+ age/locale overlays) | `content/cbt_companion_tone_and_persona.md`, `content/persona/` | System prompt section |
 | **Safety** | Crisis keywords, disclaimers, resources | `content/safety/*` | Prescreen + prompt prepend |
 | **RAG corpus** | Domain reference text (book, manual, SOP) | PDF → `document_chunks` | `<retrieved_context>` per turn |
+| **User memory** | Structured + semantic recall per user | `user_preferences`, `user_memories`, `conversation_summaries` | `<user_longitudinal_context>` per turn |
 
-Assembly entry point: [`src/lib/ai/system-prompt.ts`](../../src/lib/ai/system-prompt.ts) (`buildCbtSystemPrompt`). Chat orchestrator: [`src/app/api/chat/route.ts`](../../src/app/api/chat/route.ts).
+Assembly entry point: [`src/lib/ai/system-prompt.ts`](../../src/lib/ai/system-prompt.ts) (`buildCbtSystemPrompt`). User context + memory recall: [`src/lib/ai/prompt-builder.ts`](../../src/lib/ai/prompt-builder.ts). Chat orchestrator: [`src/app/api/chat/route.ts`](../../src/app/api/chat/route.ts).
+
+**Rollout:** set `PERSONALIZATION_ENABLED=false` to disable memory tools, recall, summarization, and preference signal while keeping schema in place.
 
 ### Prompt block order (keep this order for new domains)
 

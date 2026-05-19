@@ -113,6 +113,38 @@ function renderOutput(name: string, output: unknown, input?: unknown) {
           </ul>
         </div>
       );
+    case "remember_fact":
+      return o.ok === false ? (
+        <div className="text-destructive">{String(o.error ?? "Not saved")}</div>
+      ) : (
+        <div>
+          Willow saved: {String(inp.content ?? o.content ?? "")}
+          {o.id ? (
+            <div className="font-mono text-[10px] opacity-70">
+              id: {String(o.id)}
+            </div>
+          ) : null}
+        </div>
+      );
+    case "update_preference":
+      return o.ok === false ? (
+        <div className="text-destructive">{String(o.error ?? "Not updated")}</div>
+      ) : (
+        <div>Preference updated — {String(inp.key ?? o.key ?? "")}</div>
+      );
+    case "forget_fact":
+      return o.ok === false ? (
+        <div className="text-destructive">{String(o.error ?? "Not removed")}</div>
+      ) : (
+        <div>Memory forgotten</div>
+      );
+    case "propose_preference_update":
+      return (
+        <div>
+          Proposed preference change — review in{" "}
+          <span className="text-primary">Settings → Memory</span>
+        </div>
+      );
     default:
       return (
         <pre className="max-h-40 overflow-auto whitespace-pre-wrap text-[10px]">

@@ -12,6 +12,7 @@ Engineering docs for the Phase 4 CBT extension. **Runtime prompt content** lives
 | [`build-spec.md`](./build-spec.md) | Full architecture, schemas, build order (agent-oriented) |
 | [`decisions.md`](./decisions.md) | Willow-specific deviations from the build spec |
 | [`safety.md`](./safety.md) | Two-stage safety + admin audit path |
+| [`memory.md`](./memory.md) | User memory, preferences, retention, `/settings` |
 | [`eval.md`](./eval.md) | Vitest suites and CBT fidelity eval notes |
 | [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md) | **Reuse stack** — RAG, tools, env, new companion checklist |
 

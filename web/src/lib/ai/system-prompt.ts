@@ -18,7 +18,10 @@ import type { CheckIn, Technique, WillowContent } from "@/lib/content";
  * CBT companion prompt: SME-owned crisis resources + disclosures first,
  * then the Sokol & Fox–grounded protocol from `content/cbt_companion_instructions.md`.
  */
-export function buildCbtSystemPrompt(content: WillowContent): string {
+export function buildCbtSystemPrompt(
+  content: WillowContent,
+  personaOverlay?: string,
+): string {
   if (!content.cbtCompanionInstructions.trim()) {
     throw new Error("Missing content/cbt_companion_instructions.md");
   }
@@ -44,6 +47,13 @@ export function buildCbtSystemPrompt(content: WillowContent): string {
           "# TONE & PERSONA — WARM-COMPETENT REGISTER (binding)",
           "The protocol above defines what to do. This section defines how to sound. Target warm-competent: the user feels safe, treated as a capable adult, and trusts that you know the work. Warmth without softness; directness without coldness. Avoid comforting-bot failure modes named below.",
           content.cbtCompanionToneAndPersona,
+          ...(personaOverlay?.trim()
+            ? [
+                "# PERSONA OVERLAY — USER-SPECIFIC (binding when present)",
+                "The overlay below adjusts tone for this user's age band and locale. When it conflicts with the default tone section above, follow the overlay.",
+                personaOverlay.trim(),
+              ]
+            : []),
         ]
       : []),
 

@@ -144,6 +144,9 @@ from real conversations.
 | 8 | Longitudinal context block in prompt (`prompt-builder.ts`) | ✅ |
 | 9 | `/admin/safety` review queue | ✅ |
 | 10 | Vitest safety/tool/RAG format tests + CI workflow | ✅ |
+| 11 | **Personalization v1** — prefs, semantic memory, summaries, persona overlays, `/settings/*` | ✅ |
+
+**Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 
 ### Still SME / ops dependent
 

@@ -10,6 +10,10 @@ vercel --prod # promote to production
 That's it. Your site is live, and the AI Gateway OIDC token is auto-
 refreshed for production traffic — no manual env vars needed.
 
+**Post-deploy smoke test:** open `/`, `/sources`, `/sign-in`. `GET /api/auth/session`
+should return `{}` when logged out (not HTTP 500). Sign in requires JWT sessions
+(credentials provider) — see `src/auth.ts`.
+
 ## What just happened
 
 1. The Vercel CLI uploaded your code.
@@ -33,6 +37,8 @@ Open `https://vercel.com/{team}/{project}/settings`:
 
 | Section | What to do |
 |---|---|
+| **General → Root Directory** | Must be **`web`**. If builds fail with “Couldn't find any `pages` or `app` directory”, this was reset to `.` — set it back to `web`. |
+| **Environment Variables** | `DATABASE_URL`, `AUTH_SECRET` (all environments), `AUTH_URL=https://willowspace.dev` (production). |
 | **AI Gateway** | Confirm the gateway is enabled. Set a monthly budget and an alert email. |
 | **AI Gateway → Rate Limits** | Set per-user RPM (e.g. 20) and daily token cap (e.g. 100K) once you have auth. |
 | **Functions** | Leave defaults; `maxDuration = 30` in `route.ts` is plenty. |

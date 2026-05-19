@@ -21,6 +21,7 @@ Open http://localhost:3000 — sign in at `/sign-in`, then chat at `/chat`.
 |---|---|
 | [`web/src/`](./web/src/) | Application code (routes, components, lib) |
 | [`web/content/`](./web/content/) | SME-owned Markdown (clinical words) |
+| [`web/content/persona/`](./web/content/persona/) | Age/locale persona overlays (personalization) |
 | [`web/docs/`](./web/docs/) | Human docs — start with [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md) |
 | [`web/docs/developer/agent-chatbot-playbook.md`](./web/docs/developer/agent-chatbot-playbook.md) | **Reuse guide** — RAG, agents, tools, new companions |
 | [`web/docs/AGENTS.md`](./web/docs/AGENTS.md) | Rules for AI agents in this repo |
@@ -30,7 +31,21 @@ Open http://localhost:3000 — sign in at `/sign-in`, then chat at `/chat`.
 
 ## Deploy (Vercel)
 
-Set the project **Root Directory** to `web` in the Vercel dashboard (or link from `web/` with `vercel link`).
+Set the project **Root Directory** to `web` in the Vercel dashboard (Settings → General). If builds fail with “Couldn't find any `pages` or `app` directory”, this was reset to `.` — set it back to `web`.
+
+Required production env vars (Vercel → Settings → Environment Variables):
+
+| Variable | Notes |
+|---|---|
+| `DATABASE_URL` | Neon Postgres (auto from Marketplace integration) |
+| `AUTH_SECRET` | `openssl rand -base64 32` — **Production, Preview, and Development** |
+| `AUTH_URL` | `https://willowspace.dev` (production only; optional locally) |
+
+Auth uses **JWT sessions** with the credentials provider (database sessions are not supported for email/password in Auth.js v5).
+
+Optional: `VOYAGE_API_KEY` (rerank), Upstash KV (rate limits), `PERSONALIZATION_ENABLED=false` to disable memory features.
+
+After deploy, smoke-test: `/`, `/sources`, `/sign-in`, `/api/auth/session` (should return `{}` when logged out, not a 500).
 
 ## Live
 

@@ -153,6 +153,66 @@ export const messages = pgTable(
 
 // ─── Longitudinal state ───
 
+export const userPreferences = pgTable("user_preferences", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  formality: text("formality"),
+  directness: integer("directness"),
+  pace: text("pace"),
+  language: text("language").default("en"),
+  preferredPronouns: text("preferred_pronouns"),
+  avoidList: text("avoid_list").array(),
+  techniqueAffinity: jsonb("technique_affinity"),
+  updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+});
+
+export const userMemories = pgTable(
+  "user_memories",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    kind: text("kind").notNull(),
+    content: text("content").notNull(),
+    source: text("source").notNull(),
+    conversationId: uuid("conversation_id").references(() => conversations.id, {
+      onDelete: "set null",
+    }),
+    embedding: vector("embedding", { dimensions: 1024 }),
+    pinned: boolean("pinned").default(false).notNull(),
+    expiresAt: timestamp("expires_at", { mode: "date" }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    userIdx: index("user_memories_user_idx").on(t.userId, t.createdAt),
+    embeddingIdx: index("user_memories_embedding_idx").using(
+      "hnsw",
+      t.embedding.op("vector_cosine_ops"),
+    ),
+  }),
+);
+
+export const conversationSummaries = pgTable(
+  "conversation_summaries",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    conversationId: uuid("conversation_id")
+      .references(() => conversations.id, { onDelete: "cascade" })
+      .notNull(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    summary: text("summary").notNull(),
+    uptoMessageId: uuid("upto_message_id"),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    convIdx: index("conv_sum_idx").on(t.conversationId, t.createdAt),
+  }),
+);
+
 export const moodRatings = pgTable(
   "mood_ratings",
   {

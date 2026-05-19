@@ -10,6 +10,12 @@ This document records **intentional divergences** from [`build-spec.md`](./build
 ## Auth
 
 - The original Willow ROADMAP mentioned **Clerk** for Phase 4. The mental-health posture and self-hosted session story led to **Auth.js v5 + Drizzle adapter + Postgres** instead. Clerk remains a valid future option but is not the default path.
+- **JWT sessions** (not database sessions): Auth.js v5 credentials provider requires `session: { strategy: "jwt" }`. User rows still live in Postgres; JWT carries `user.id` for chat and settings.
+
+## Personalization (v1)
+
+- Per-user memory, preferences, and conversation summaries — see [`memory.md`](./memory.md). Gated by `PERSONALIZATION_ENABLED` (default on).
+- Persona overlays in `content/persona/age_band/` and `locale/` merge onto the default tone doc at runtime.
 
 ## Runtime
 

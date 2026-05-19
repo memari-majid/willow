@@ -48,6 +48,12 @@ export default async function ChatConversationPage({ params }: Props) {
           </Link>
           <div className="flex items-center gap-3">
             <Link
+              href="/settings"
+              className="hidden text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:inline"
+            >
+              Settings
+            </Link>
+            <Link
               href="/sources"
               className="hidden text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:inline"
             >
