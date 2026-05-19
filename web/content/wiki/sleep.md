@@ -2,7 +2,7 @@
 title: Sleep
 slug: sleep
 category: problem
-summary: Worry-at-bedtime, body tension, and behavioral habits — CBT-aligned sleep hygiene without medical sleep advice.
+summary: Worry-at-bedtime, body tension, and behavioral habits — aligned with cognitive behavioral therapy sleep hygiene without medical sleep advice.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review
@@ -27,7 +27,7 @@ quotes:
 
 Poor sleep and low mood or anxiety often **feed each other**. At night, there are fewer distractions — automatic thoughts and worries can amplify. That does not mean you are "broken"; it means the [cognitive model](/wiki/concepts/cognitive-model) is running with less external input.
 
-## CBT-aligned approaches (non-medical)
+## aligned with cognitive behavioral therapy approaches (non-medical)
 
 ### Worry off the pillow
 

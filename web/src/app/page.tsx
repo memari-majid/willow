@@ -14,12 +14,12 @@ export default function HomePage() {
       <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-12 px-6 py-12 text-center">
         <div className="space-y-5">
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            A CBT practice companion.
+            A cognitive behavioral therapy practice companion.
           </h1>
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Willow helps you practice cognitive behavioral skills in
             conversation — warm and direct, not saccharine. Grounded in a
-            clinical CBT guide, written instructions, and retrieved book
+            clinical cognitive behavioral therapy guide, written instructions, and retrieved book
             context when available. Not therapy. Not a crisis service.
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function HomePage() {
             href="/wiki"
             className="underline underline-offset-4 hover:text-foreground"
           >
-            CBT Wiki
+            Cognitive behavioral therapy wiki
           </Link>
           {" — book-grounded guides. "}
           <Link

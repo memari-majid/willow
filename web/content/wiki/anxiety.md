@@ -2,7 +2,7 @@
 title: Anxiety
 slug: anxiety
 category: problem
-summary: How anxious worry shows up in thoughts and body, and which CBT skills help you examine predictions without avoiding life.
+summary: How anxious worry shows up in thoughts and body, and which cognitive behavioral therapy skills help you examine predictions without avoiding life.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review
@@ -34,7 +34,7 @@ Common patterns include:
 - **Catastrophic error** — "If it goes wrong, I won't recover" when you have coped before.
 - **Resource error** — "I can't handle it" when you have skills, people, or past evidence you are ignoring.
 
-CBT does not ask you to pretend you feel calm. It helps you **test the thoughts driving the alarm** and choose responses that match reality more closely.
+cognitive behavioral therapy does not ask you to pretend you feel calm. It helps you **test the thoughts driving the alarm** and choose responses that match reality more closely.
 
 ## What helps (techniques)
 

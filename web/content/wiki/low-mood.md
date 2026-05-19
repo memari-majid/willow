@@ -2,7 +2,7 @@
 title: Low mood
 slug: low-mood
 category: problem
-summary: When motivation drops and withdrawal feeds the loop — behavioral activation and thought work grounded in standard CBT for depression.
+summary: When motivation drops and withdrawal feeds the loop — behavioral activation and thought work grounded in standard cognitive behavioral therapy for depression.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review
@@ -26,7 +26,7 @@ quotes:
 
 Low mood often creates a predictable cycle: you feel drained → you do less → you have fewer experiences of pleasure or accomplishment → you predict the future will feel just as flat → you do even less. The thoughts ("What's the point?", "I can't do anything right") are **real experiences**, but they are not always accurate forecasts.
 
-CBT targets both sides of the loop:
+cognitive behavioral therapy targets both sides of the loop:
 
 - **Behavior** — gently re-introducing activity before motivation shows up.
 - **Cognition** — examining the thoughts that justify withdrawal and all-or-nothing labels.

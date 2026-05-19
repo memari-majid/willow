@@ -20,17 +20,17 @@ export type KnowledgeSourceDetail = {
 export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   {
     slug: "cbt-protocol",
-    title: "CBT session protocol",
+    title: "Cognitive behavioral therapy session protocol",
     citation:
       "Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     lead:
-      "The session protocol translates a standard clinician's CBT guide into rules Willow follows on every turn. It defines what Willow is (a structured practice partner), what it will and will not do, how a conversation should flow, and which evidence-based techniques to use — always with the goal of helping you build skills you can use on your own.",
+      "The session protocol translates a standard clinician's cognitive behavioral therapy guide into rules Willow follows on every turn. It defines what Willow is (a structured practice partner), what it will and will not do, how a conversation should flow, and which evidence-based techniques to use — always with the goal of helping you build skills you can use on your own.",
     sections: [
       {
         title: "Role and identity",
         paragraphs: [
-          "Willow is a CBT-informed support companion — not a therapist. It teaches the cognitive model, walks you through standard CBT exercises, and helps you practice skills between human sessions or on your own.",
-          "The guiding idea from the source material is that CBT's most powerful contribution is helping people learn effective coping skills and build confidence so they can eventually be their own therapist. Every interaction is meant to leave you slightly more capable of doing this work yourself.",
+          "Willow is a cognitive behavioral therapy–informed support companion — not a therapist. It teaches the cognitive model, walks you through standard cognitive behavioral therapy exercises, and helps you practice skills between human sessions or on your own.",
+          "The guiding idea from the source material is that cognitive behavioral therapy's most powerful contribution is helping people learn effective coping skills and build confidence so they can eventually be their own therapist. Every interaction is meant to leave you slightly more capable of doing this work yourself.",
         ],
       },
       {
@@ -132,7 +132,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
     slug: "communication-style",
     title: "Communication style",
     lead:
-      "The communication style guide defines how Willow speaks — not just what it knows. It keeps replies warm-direct and steady: like a capable coach or respected teacher whose warmth serves the work, not performative comfort. This layer loads alongside the CBT protocol on every turn.",
+      "The communication style guide defines how Willow speaks — not just what it knows. It keeps replies warm-direct and steady: like a capable coach or respected teacher whose warmth serves the work, not performative comfort. This layer loads alongside the cognitive behavioral therapy protocol on every turn.",
     sections: [
       {
         title: "Persona in plain language",
@@ -156,7 +156,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "Anti-patterns Willow avoids",
         paragraphs: [
-          "These patterns sound caring but are corrosive in a CBT context. The style guide explicitly forbids them.",
+          "These patterns sound caring but are corrosive in a cognitive behavioral therapy context. The style guide explicitly forbids them.",
         ],
         bullets: [
           "Performative empathy — \"Oh, that sounds SO hard, I can only imagine…\" instead of acknowledging and moving toward the work.",
@@ -187,7 +187,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "One grounded question per turn",
         paragraphs: [
-          "Every Willow reply ends with exactly one question in its own voice — not a list, not \"reply with…\", not pre-written options. The question reflects something specific you just said, then asks the next CBT step that fits: situation → body → automatic thought → emotion → evidence → reframe → action.",
+          "Every Willow reply ends with exactly one question in its own voice — not a list, not \"reply with…\", not pre-written options. The question reflects something specific you just said, then asks the next cognitive behavioral therapy step that fits: situation → body → automatic thought → emotion → evidence → reframe → action.",
           "If you are winding down or have reached a natural close, the question can be light (\"Want to leave it there for today?\") — still one question, never a menu.",
         ],
       },
@@ -204,7 +204,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "Active on every turn",
         paragraphs: [
-          "The full voice and persona specification loads with the CBT protocol on every chat turn. Together they shape not just what Willow knows, but how it asks, reflects, and guides you through exercises.",
+          "The full voice and persona specification loads with the cognitive behavioral therapy protocol on every chat turn. Together they shape not just what Willow knows, but how it asks, reflects, and guides you through exercises.",
         ],
       },
     ],
@@ -215,7 +215,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
     citation:
       "Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     lead:
-      "Willow's technique guidance is grounded in a standard clinician's CBT guide — not generic internet advice. The full text is split into searchable passages so Willow can pull the sections that match what you are working on, keeping wording and steps faithful to the same material therapists use in training.",
+      "Willow's technique guidance is grounded in a standard clinician's cognitive behavioral therapy guide — not generic internet advice. The full text is split into searchable passages so Willow can pull the sections that match what you are working on, keeping wording and steps faithful to the same material therapists use in training.",
     sections: [
       {
         title: "What this layer is",
@@ -310,7 +310,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "Relationship to the other layers",
         paragraphs: [
-          "Retrieval supplements the fixed CBT protocol and communication style — it does not replace them. Safety guardrails still run first; crisis language never waits for retrieval. The protocol defines what Willow will and will not do; retrieval supplies book-faithful detail for techniques within that scope.",
+          "Retrieval supplements the fixed cognitive behavioral therapy protocol and communication style — it does not replace them. Safety guardrails still run first; crisis language never waits for retrieval. The protocol defines what Willow will and will not do; retrieval supplies book-faithful detail for techniques within that scope.",
         ],
       },
     ],
@@ -324,7 +324,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "What runs on every message",
         paragraphs: [
-          "Before Willow generates a CBT reply, your message passes through safety checks. Required disclaimers and boundary rules are also loaded into the model context so Willow knows it is a companion, not a clinician.",
+          "Before Willow generates a cognitive behavioral therapy reply, your message passes through safety checks. Required disclaimers and boundary rules are also loaded into the model context so Willow knows it is a companion, not a clinician.",
         ],
         bullets: [
           "Stage one — fast keyword and pattern prescreen (~1 ms). High-signal phrases for suicidal ideation, self-harm, and similar crisis language are matched conservatively: false positives are preferred over missed signals.",
@@ -335,7 +335,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
       {
         title: "Red — immediate crisis response",
         paragraphs: [
-          "When crisis language is detected (either by keywords or the classifier), Willow skips the normal CBT reply and returns a deterministic crisis-oriented response. The main model is not called for that turn.",
+          "When crisis language is detected (either by keywords or the classifier), Willow skips the normal cognitive behavioral therapy reply and returns a deterministic crisis-oriented response. The main model is not called for that turn.",
         ],
         bullets: [
           "Acknowledges what you said directly and calmly — no panic, no wall of numbers as the first line.",
@@ -352,9 +352,9 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
         ],
       },
       {
-        title: "Green — normal CBT flow",
+        title: "Green — normal cognitive behavioral therapy flow",
         paragraphs: [
-          "When no safety concern is detected, Willow proceeds with the full CBT protocol, communication style, and (when available) book retrieval. Safety events are still logged for human review when flagged yellow or red.",
+          "When no safety concern is detected, Willow proceeds with the full cognitive behavioral therapy protocol, communication style, and (when available) book retrieval. Safety events are still logged for human review when flagged yellow or red.",
         ],
       },
       {

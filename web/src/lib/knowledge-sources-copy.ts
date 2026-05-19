@@ -6,7 +6,7 @@
 export const KNOWLEDGE_PAGE = {
   title: "What guides Willow's replies",
   intro:
-    "Willow is a CBT practice companion — not a therapist. Every reply is shaped by written clinical rules, a fixed communication style, safety guardrails, and (when indexed) retrieved passages from a standard CBT clinician's guide.",
+    "Willow is a cognitive behavioral therapy practice companion — not a therapist. Every reply is shaped by written clinical rules, a fixed communication style, safety guardrails, and (when indexed) retrieved passages from a standard cognitive behavioral therapy clinician's guide.",
   footer:
     "Crisis keywords, required disclaimers, and escalation paths are checked before each reply. When your message matches a technique or concept from the reference text, the most relevant passages are added to the model's context so answers stay grounded in the same material clinicians use.",
 } as const;
@@ -22,13 +22,13 @@ export const KNOWLEDGE_SOURCE_SLUGS = {
 export const KNOWLEDGE_SOURCES = {
   protocol: {
     slug: KNOWLEDGE_SOURCE_SLUGS.protocol,
-    title: "CBT session protocol",
+    title: "Cognitive behavioral therapy session protocol",
     description:
       "Rules derived from Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy — translated for chat. Covers the cognitive model (situation → thought → feeling → behavior), session flow from mood check through homework, thought records, Socratic questioning, common thinking errors, behavioral activation, worry postponement, and firm limits on diagnosis, medication, unsupervised exposure, and trauma processing.",
     readyDetail: (chars: number) =>
-      `${chars.toLocaleString()} characters of protocol loaded — session structure, CBT tools, and safety boundaries active on every turn.`,
+      `${chars.toLocaleString()} characters of protocol loaded — session structure, cognitive behavioral therapy tools, and safety boundaries active on every turn.`,
     pendingDetail:
-      "Protocol text not loaded. Chat cannot run the full CBT companion flow until this is configured.",
+      "Protocol text not loaded. Chat cannot run the full cognitive behavioral therapy companion flow until this is configured.",
   },
   tone: {
     slug: KNOWLEDGE_SOURCE_SLUGS.tone,

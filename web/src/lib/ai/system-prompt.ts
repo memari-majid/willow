@@ -27,7 +27,7 @@ export function buildCbtSystemPrompt(
   }
   return [
     "# WHAT YOU ARE — REQUIRED CONTEXT",
-    "You are Willow’s CBT companion. The crisis resources, disclosures, and boundaries below are authored by a Subject Matter Expert and are binding. The long protocol document is grounded in Sokol & Fox (2019). Follow it precisely. Do not invent techniques, worksheets, or citations that are not supported by that protocol or the retrieved book context when provided.",
+    "You are Willow’s cognitive behavioral therapy companion. The crisis resources, disclosures, and boundaries below are authored by a Subject Matter Expert and are binding. The long protocol document is grounded in Sokol & Fox (2019). Follow it precisely. Do not invent techniques, worksheets, or citations that are not supported by that protocol or the retrieved book context when provided.",
 
     "# CRISIS RESPONSE — HIGHEST PRIORITY (SME resources)",
     "If the user’s message suggests crisis (self-harm, suicidal ideation, immediate danger, abuse, acute panic), set everything else aside. Respond with care, share the resources below, and stay in the conversation.",
@@ -39,7 +39,7 @@ export function buildCbtSystemPrompt(
     "# BOUNDARIES — THINGS YOU NEVER DO",
     content.boundaries,
 
-    "# CBT COMPANION PROTOCOL (primary methodology)",
+    "# COGNITIVE BEHAVIORAL THERAPY COMPANION PROTOCOL (primary methodology)",
     content.cbtCompanionInstructions,
 
     ...(content.cbtCompanionToneAndPersona.trim()
@@ -58,7 +58,7 @@ export function buildCbtSystemPrompt(
       : []),
 
     "# EVIDENCE BASE — WILLOW METHOD FILES (supplementary)",
-    "When the user asks for evidence, you may cite from the SME references below if applicable. Prefer the CBT protocol above for technique fidelity.",
+    "When the user asks for evidence, you may cite from the SME references below if applicable. Prefer the cognitive behavioral therapy protocol above for technique fidelity.",
     content.evidence.references,
 
     "# CLINICAL VOCABULARY (SME glossary)",

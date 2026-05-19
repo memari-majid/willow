@@ -60,7 +60,9 @@ export default async function ChatConversationPage({
               <p className="truncate text-sm font-medium">
                 {convo.title?.trim() || "New conversation"}
               </p>
-              <p className="text-[10px] text-muted-foreground">CBT companion</p>
+              <p className="text-[10px] text-muted-foreground">
+                Cognitive behavioral therapy companion
+              </p>
             </div>
           </div>
           <div className="hidden shrink-0 items-center gap-3 md:flex">

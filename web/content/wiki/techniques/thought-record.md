@@ -2,7 +2,7 @@
 title: Thought record (Go Time)
 slug: thought-record
 category: technique
-summary: The core CBT worksheet — one situation at a time, from trigger through evidence to Rethink, Relax, and Respond.
+summary: The core cognitive behavioral therapy worksheet — one situation at a time, from trigger through evidence to Rethink, Relax, and Respond.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review
@@ -24,7 +24,7 @@ quotes:
 
 ## What it is
 
-The thought record is the **workhorse** CBT exercise. You take one activating situation — not your whole week — and map how your mind and body responded, then look at evidence and choose a next step.
+The thought record is the **workhorse** cognitive behavioral therapy exercise. You take one activating situation — not your whole week — and map how your mind and body responded, then look at evidence and choose a next step.
 
 In the guide this culminates in **Go Time**:
 

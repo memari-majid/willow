@@ -2,7 +2,7 @@
 title: The cognitive model
 slug: cognitive-model
 category: concept
-summary: The foundation of CBT — how situations, thoughts, feelings, body responses, and behaviors connect, and why changing thoughts starts with examination not argument.
+summary: The foundation of cognitive behavioral therapy — how situations, thoughts, feelings, body responses, and behaviors connect, and why changing thoughts starts with examination not argument.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review
@@ -23,7 +23,7 @@ quotes:
 
 ## The chain
 
-Every CBT conversation rests on one idea:
+Every cognitive behavioral therapy conversation rests on one idea:
 
 **Situation (trigger) → Automatic thought → Emotion + body response + behavior**
 
@@ -46,7 +46,7 @@ Willow may gently hypothesize a theme when a pattern shows up. That is an invita
 
 ## Examine, don't argue
 
-The clinical stance is critical: **you never win an argument with a distressed mind by telling it it is wrong.** CBT uses guided discovery — evidence, alternative explanations, and experiments — so **you** reach a more accurate or helpful conclusion.
+The clinical stance is critical: **you never win an argument with a distressed mind by telling it it is wrong.** cognitive behavioral therapy uses guided discovery — evidence, alternative explanations, and experiments — so **you** reach a more accurate or helpful conclusion.
 
 A thought can be:
 

@@ -24,7 +24,7 @@ export default async function OnboardingPage() {
       <div className="rounded-2xl border border-border/50 bg-card/40 p-6 shadow-sm">
         <h1 className="text-lg font-medium tracking-tight">Before we start</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Willow’s CBT companion is educational support, not therapy or crisis
+          Willow’s cognitive behavioral therapy companion is educational support, not therapy or crisis
           care. By continuing you confirm you are 18+ and agree to how we handle
           your account data (see project privacy docs).
         </p>

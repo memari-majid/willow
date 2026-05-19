@@ -22,7 +22,7 @@ chat_starter: I think my thoughts might be distorted — can we look at which pa
 
 ## What distortions are
 
-Under stress, the brain uses **efficient shortcuts**. Sometimes those shortcuts skew reality — CBT offers names for the skew so you can **notice and choose**.
+Under stress, the brain uses **efficient shortcuts**. Sometimes those shortcuts skew reality — cognitive behavioral therapy offers names for the skew so you can **notice and choose**.
 
 Willow uses distortion names **gently**, never as weapons. The goal is curiosity: "Is this a shortcut that's running right now?"
 

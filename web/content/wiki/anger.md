@@ -30,7 +30,7 @@ Anger frequently follows a **violated rule** — often phrased as a "should" abo
 - "They **should** respect me."
 - "This **shouldn't** be this hard."
 
-The feeling is real. CBT asks whether the **should** is costing you more than the situation itself.
+The feeling is real. cognitive behavioral therapy asks whether the **should** is costing you more than the situation itself.
 
 ## What helps
 

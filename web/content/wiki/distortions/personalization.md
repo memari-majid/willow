@@ -28,7 +28,7 @@ quotes:
 - "The team failed because of me."
 - "Their bad mood must be my fault."
 
-Sometimes you **did** contribute — CBT asks for **proportion**, not zero self-accountability.
+Sometimes you **did** contribute — cognitive behavioral therapy asks for **proportion**, not zero self-accountability.
 
 ## Pie chart technique
 

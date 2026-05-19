@@ -53,7 +53,7 @@ Call local emergency services — **911** (US/Canada), **999** (UK), **112** (EU
 
 ## What Willow does when crisis language appears
 
-Before the main CBT model runs, Willow prescreens messages for crisis signals. If you mention suicidal thoughts, self-harm, or similar:
+Before the main cognitive behavioral therapy model runs, Willow prescreens messages for crisis signals. If you mention suicidal thoughts, self-harm, or similar:
 
 1. Willow **acknowledges** what you said calmly and directly.
 2. It **surfaces human resources** (like those above).

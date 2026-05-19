@@ -39,9 +39,12 @@ export default async function WikiHubPage({ searchParams }: Props) {
   return (
     <WikiPageShell backHref="/" backLabel="Home">
       <div className="space-y-3">
-        <h1 className="text-2xl font-semibold tracking-tight">CBT Wiki</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Cognitive behavioral therapy wiki
+        </h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Trusted, book-grounded explanations of CBT concepts and skills —
+          Trusted, book-grounded explanations of cognitive behavioral therapy
+          concepts and skills —
           organized by common concerns. Search matches wiki topics{" "}
           {searching ? "and passages from " : "and "}
           <em>Sokol &amp; Fox (2019)</em>.

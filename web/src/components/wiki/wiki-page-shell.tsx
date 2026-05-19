@@ -7,7 +7,7 @@ import { WillowMark } from "@/components/willow-mark";
 export function WikiPageShell({
   children,
   backHref = "/wiki",
-  backLabel = "CBT Wiki",
+  backLabel = "Cognitive behavioral therapy wiki",
 }: {
   children: React.ReactNode;
   backHref?: string;
@@ -53,7 +53,7 @@ export function WikiDisclaimer() {
     <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
       <p>
         This wiki is for <strong className="font-medium text-foreground">learning and reflection</strong>{" "}
-        — not diagnosis or treatment. Willow is a CBT practice companion,{" "}
+        — not diagnosis or treatment. Willow is a cognitive behavioral therapy practice companion,{" "}
         <strong className="font-medium text-foreground">not a therapist or crisis service</strong>.
         Summaries are grounded in{" "}
         <em>Sokol &amp; Fox (2019), The Comprehensive Clinician&apos;s Guide to Cognitive Behavioral Therapy</em>.

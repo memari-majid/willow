@@ -2,7 +2,7 @@
 title: Automatic thoughts
 slug: automatic-thoughts
 category: concept
-summary: Fast, often unquestioned sentences in the mind that link situations to emotion and behavior — the main lever in CBT work.
+summary: Fast, often unquestioned sentences in the mind that link situations to emotion and behavior — the main lever in cognitive behavioral therapy work.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
 review_status: draft
 reviewed_by: Developer draft — pending SME review

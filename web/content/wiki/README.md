@@ -1,4 +1,4 @@
-# CBT Wiki content
+# Cognitive behavioral therapy wiki content
 
 User-facing educational pages grounded in **Sokol & Fox (2019), *The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy***.
 

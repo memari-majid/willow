@@ -28,7 +28,7 @@ quotes:
 
 Some anxiety attaches to **one situation** (see [Anxiety](/wiki/anxiety)). **Worry** is often broader — repetitive "what if" loops that run in the background and feel urgent even when nothing is happening right now.
 
-The CBT frame: worry can feel like problem-solving, but it often **rehearses catastrophes without producing a plan**.
+The cognitive behavioral therapy frame: worry can feel like problem-solving, but it often **rehearses catastrophes without producing a plan**.
 
 ## Skills that help
 

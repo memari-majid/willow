@@ -28,7 +28,7 @@ quotes:
 - "I feel guilty, so I must have done something wrong."
 - "I feel terrified, so danger must be imminent."
 
-Feelings are **valid experiences** — CBT distinguishes that from **accuracy** of the linked thought.
+Feelings are **valid experiences** — cognitive behavioral therapy distinguishes that from **accuracy** of the linked thought.
 
 ## Useful frame
 

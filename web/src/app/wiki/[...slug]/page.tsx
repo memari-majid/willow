@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = await getWikiPage(pathSlug);
   if (!page) return { title: "Not found — Willow Wiki" };
   return {
-    title: `${page.title} — CBT Wiki`,
+    title: `${page.title} — Cognitive behavioral therapy wiki`,
     description: page.summary,
   };
 }

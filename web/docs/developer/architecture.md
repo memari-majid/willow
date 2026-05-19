@@ -25,7 +25,7 @@ willow/                          ← repo root: README.md only
 ## Surfaces
 
 - **`/`** — landing; links to `/wiki` and `/sources`
-- **`/wiki`** — CBT Wiki hub (problem-first topics, book-grounded summaries, RAG excerpts)
+- **`/wiki`** — Cognitive behavioral therapy wiki hub (problem-first topics, book-grounded summaries, RAG excerpts)
 - **`/wiki/[...slug]`** — topic pages from `content/wiki/`; **Try with Willow** → `/chat/start?prompt=…`
 - **`/sources`** — protocol, tone, embedded book chunks (DB), RAG chunk count (no auth)
 - **`/sign-in` → `/onboarding` → `/chat/[conversationId]`** — Auth.js users; persisted Neon threads

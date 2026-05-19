@@ -2,7 +2,7 @@
 
 > A gentle space to talk things through.
 
-Willow is a **CBT practice companion** — an AI chatbot for everyday reflection and structured exercises. It is **not** a therapist, doctor, or crisis service.
+Willow is a **cognitive behavioral therapy practice companion** — an AI chatbot for everyday reflection and structured exercises. It is **not** a therapist, doctor, or crisis service.
 
 This repository keeps **only this file at the root**. Everything else lives under [`web/`](./web/) — the Next.js app, SME content, docs, scripts, and tests.
 
@@ -12,7 +12,7 @@ Each chat turn follows a fixed pipeline:
 
 1. **Safety first** — Keyword and classifier prescreens run before the main model. Crisis language gets an immediate crisis response; elevated risk blocks memory writes.
 2. **Context assembly** — Willow loads your preferences, recalled memories, a rolling summary of the current thread, and (when configured) relevant passages from the clinical reference book via hybrid RAG search.
-3. **Guided reply** — **Claude Haiku 4.5** streams a response shaped by SME-authored protocol and tone docs in [`web/content/`](./web/content/). The model can call CBT tools (mood check, thought record, goal setting, etc.).
+3. **Guided reply** — **Claude Haiku 4.5** streams a response shaped by SME-authored protocol and tone docs in [`web/content/`](./web/content/). The model can call cognitive behavioral therapy tools (mood check, thought record, goal setting, etc.).
 4. **Persist & learn** — Messages save to Postgres. On safe turns, Willow may summarize the thread, auto-title it, and extract durable facts for cross-conversation recall.
 
 **Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
@@ -21,21 +21,21 @@ Each chat turn follows a fixed pipeline:
 
 | Layer | Detail page |
 |---|---|
-| CBT session protocol | [willowspace.dev/sources/cbt-protocol](https://willowspace.dev/sources/cbt-protocol) |
+| Cognitive behavioral therapy session protocol | [willowspace.dev/sources/cbt-protocol](https://willowspace.dev/sources/cbt-protocol) |
 | Communication style | [willowspace.dev/sources/communication-style](https://willowspace.dev/sources/communication-style) |
 | Clinical reference text | [willowspace.dev/sources/clinical-reference](https://willowspace.dev/sources/clinical-reference) |
 | Passage retrieval | [willowspace.dev/sources/passage-retrieval](https://willowspace.dev/sources/passage-retrieval) |
 | Safety guardrails | [willowspace.dev/sources/safety-guardrails](https://willowspace.dev/sources/safety-guardrails) |
 
-**CBT Wiki:** Browse **23** book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) — problems (anxiety, worry, low mood, …), techniques, thinking patterns, and safety. Hybrid search matches wiki pages and indexed guide passages.
+**Cognitive behavioral therapy wiki:** Browse **23** book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) — problems (anxiety, worry, low mood, …), techniques, thinking patterns, and safety. Hybrid search matches wiki pages and indexed guide passages.
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 
 ## What guides Willow's replies
 
-Willow is a **CBT practice companion** — not a therapist. Replies are shaped by written clinical rules, a fixed communication style, safety guardrails, and retrieved passages from a standard CBT guide when indexed.
+Willow is a **cognitive behavioral therapy practice companion** — not a therapist. Replies are shaped by written clinical rules, a fixed communication style, safety guardrails, and retrieved passages from a standard cognitive behavioral therapy guide when indexed.
 
-### CBT session protocol
+### Cognitive behavioral therapy session protocol
 
 Rules derived from **Sokol & Fox (2019), *The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy*** — translated for chat. Covers the cognitive model (situation → thought → feeling → behavior), session flow from mood check through homework, thought records, Socratic questioning, common thinking errors, behavioral activation, worry postponement, and firm limits on diagnosis, medication, unsupervised exposure, and trauma processing.
 

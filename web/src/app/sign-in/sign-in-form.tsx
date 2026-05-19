@@ -48,7 +48,7 @@ export function SignInForm() {
       <div className="rounded-2xl border border-border/50 bg-card/40 p-6 shadow-sm">
         <h1 className="text-lg font-medium tracking-tight">Sign in</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          CBT companion — conversations are saved while your account exists.
+          Cognitive behavioral therapy companion — conversations are saved while your account exists.
         </p>
         <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="space-y-2">
