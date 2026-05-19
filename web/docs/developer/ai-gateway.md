@@ -22,23 +22,26 @@ handles authentication, routing, failover, and cost tracking.
 
 ## How it works in this code
 
-In `src/lib/ai/model.ts` we just have a string:
+In `src/lib/ai/model.ts` we define model strings:
 
 ```ts
-export const PRIMARY_MODEL = "openai/gpt-5.4" as const;
+export const CBT_CONVERSATION_MODEL = "anthropic/claude-haiku-4.5" as const;
+export const SAFETY_CLASSIFIER_MODEL = "anthropic/claude-haiku-4.5" as const;
+export const MAX_AGENT_TOOL_STEPS = 3;
+export const FALLBACK_MODELS = ["anthropic/claude-sonnet-4.6", "google/gemini-3-pro"] as const;
 ```
 
-In `src/app/api/chat/route.ts` we pass that string to `streamText`:
+In `src/app/api/chat/route.ts` we pass the conversation model to `streamText`:
 
 ```ts
 const result = streamText({
-  model: PRIMARY_MODEL,        // ← plain string, no provider import
-  system,
-  messages: await convertToModelMessages(messages),
+  model: chosenModel,            // ← plain string, no provider import
+  messages: chatModelMessages,   // static SME block uses Anthropic prompt cache
+  stopWhen: stepCountIs(MAX_AGENT_TOOL_STEPS),
   providerOptions: {
     gateway: {
       models: [...FALLBACK_MODELS],
-      tags: ["app:willow", "feature:chat"],
+      tags: ["app:willow", "feature:cbt-chat"],
     },
   },
 });
@@ -63,8 +66,8 @@ If you'd rather use a static key (CI, non-Vercel deploys), set
 ## Failover and routing
 
 `providerOptions.gateway.models: ["anthropic/claude-sonnet-4.6", ...]`
-in `route.ts` tells the gateway: "if `openai/gpt-5.4` is unavailable,
-try Claude, then Gemini." This is the kind of resilience you'd
+in `route.ts` tells the gateway: "if the primary model is unavailable,
+try Sonnet, then Gemini." This is the kind of resilience you'd
 otherwise build by hand.
 
 You can also pin to a provider list with `order` and `only` — see

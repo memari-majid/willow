@@ -45,7 +45,7 @@ flowchart TB
 
   subgraph models [Models per turn]
     Haiku[claude-haiku-4.5 chat + classifiers]
-    Haiku[claude-haiku-4.5 safety + pref signal]
+    Sonnet[claude-sonnet-4.6 gateway fallback]
     Sum[haiku conv summary every ~20 msgs]
   end
 
@@ -97,7 +97,7 @@ flowchart TB
 
 Willow passes **plain strings** like `anthropic/claude-haiku-4.5` to `streamText` / `generateText`. No provider SDK imports in app code.
 
-**Performance defaults (2026-05):** Haiku chat model, Anthropic **prompt caching** on the static SME block, **conditional RAG** (skip short check-ins), **regex-gated** preference signal, **3** max tool steps per turn. Override chat model via `CBT_CONVERSATION_MODEL` in `src/lib/ai/model.ts` or request body `model`.
+**Performance defaults (2026-05):** Haiku chat model, Anthropic **prompt caching** on the static SME block, **conditional RAG** (skip short check-ins), **regex-gated** preference signal, **3** max tool steps per turn. Change default in `src/lib/ai/model.ts` (`CBT_CONVERSATION_MODEL`) or pass `model` in the chat request body.
 
 | Call | Model (Willow default) | When |
 |---|---|---|
@@ -251,7 +251,7 @@ Assumptions for a **typical green-path turn** with personalization on:
 
 **~$0.002–0.008 per turn** with Haiku as main model (was ~$0.05–0.12 on Opus).
 
-**Higher-quality option:** Set `CBT_CONVERSATION_MODEL` to `anthropic/claude-sonnet-4.6` for complex technique coaching (~3× Haiku cost, still below Opus).
+**Higher-quality option:** Set `CBT_CONVERSATION_MODEL` in `src/lib/ai/model.ts` to `anthropic/claude-sonnet-4.6` for complex technique coaching (~3× Haiku cost, still below Opus).
 
 ### Amortized extras
 

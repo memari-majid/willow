@@ -283,7 +283,7 @@ Build a tone rubric and run it nightly against a fixed regression set of 50–10
 
 A response scoring below 3 on any axis is a flag. Below 2 on any axis is a regression — fail the build.
 
-Use Claude Opus 4.7 as the judge with a structured rubric prompt. This is a coarse signal, not ground truth; supplement with periodic human review of flagged samples by a CBT-trained clinician on the team.
+Use a capable model (e.g. Claude Sonnet 4.6) as the judge with a structured rubric prompt. This is a coarse signal, not ground truth; supplement with periodic human review of flagged samples by a CBT-trained clinician on the team.
 
 ## 10. Persona Drift Watch
 

@@ -18,7 +18,7 @@ This document is the source of truth for architecture, dependencies, file layout
 |---|---|---|
 | Framework | Next.js 16 (App Router, TypeScript) | First-class on Vercel; streaming + server components |
 | Hosting | Vercel | User constraint |
-| LLM | Anthropic Claude Opus 4.7 (primary) + Claude Haiku 4.5 (safety classifier) | Claude's guided-discovery style matches CBT stance; Haiku is fast enough for parallel safety checks |
+| LLM | Claude Haiku 4.5 (chat + classifiers); Sonnet 4.6 fallback via gateway | Fast default for latency/cost; see [`decisions.md`](./decisions.md) — original spec called for Opus 4.7 |
 | LLM SDK | Vercel AI SDK 6 (`ai`, `@ai-sdk/anthropic`) | Streaming + tool calling + React hooks |
 | LLM transport | Vercel AI Gateway | Unified gateway, prompt caching, observability, fallback routing |
 | Database | Neon Postgres (via Vercel Marketplace) | Vercel's recommended Postgres; native pgvector support |
@@ -33,7 +33,10 @@ This document is the source of truth for architecture, dependencies, file layout
 | Schema validation | Zod | Tool schemas, API inputs |
 
 **Cost-relevant notes for the agent:**
-- Use prompt caching aggressively (system prompt + retrieved chunks); the AI Gateway supports Anthropic's cache_control automatically.
+- Default chat model is **Haiku** (`CBT_CONVERSATION_MODEL` in `src/lib/ai/model.ts`); use Sonnet only if technique fidelity requires it.
+- Use prompt caching aggressively (static system prompt block); see `src/lib/ai/chat-messages.ts`.
+- Skip RAG on short check-ins (`src/lib/rag/should-retrieve.ts`); gate preference-signal Haiku with regex prescreen.
+- Cap tool steps at 3 per turn (`MAX_AGENT_TOOL_STEPS` in `model.ts`).
 - Cache the safety classifier's behavior with deterministic temperature 0.
 - Embed once, store, never re-embed unless the source corpus changes.
 
@@ -734,22 +737,15 @@ export async function POST(req: Request) {
 
   // 5. Build prompt with cache_control on the static parts
   const result = streamText({
-    model: anthropic('claude-opus-4-7'),
+    model: 'anthropic/claude-haiku-4.5', // via AI Gateway; see src/lib/ai/model.ts
     system: SYSTEM_PROMPT + turnInstruction,
     messages: [
-      // Cached: user context + retrieved chunks (refreshes per session)
-      {
-        role: 'system',
-        content: [
-          { type: 'text', text: userContext, providerOptions: { anthropic: { cacheControl: { type: 'ephemeral' } } } },
-          { type: 'text', text: formatRetrievedChunks(retrieved), providerOptions: { anthropic: { cacheControl: { type: 'ephemeral' } } } },
-        ],
-      },
-      ...convertToCoreMessages(messages),
+      // Cached: static SME block + dynamic user context + RAG (see chat-messages.ts)
+      ...buildChatModelMessages({ systemPrompt, userContext, ragBlock, history: messages }),
     ],
     tools: allTools(userId, conversationId),
-    stopWhen: stepCountIs(10),
-    temperature: 0.7,
+    stopWhen: stepCountIs(3),
+    temperature: 0.4,
     onFinish: async ({ text, toolCalls, toolResults }) => {
       await persistAssistantMessage({ conversationId, text, toolCalls, toolResults, retrievedChunkIds: retrieved.map(r => r.id), safetyFlag: safety.riskLevel });
     },
@@ -842,7 +838,7 @@ Block users who hit hard limits with a friendly message and instructions to reac
 
 4. **CBT fidelity eval** (`tests/eval-fixtures/`):
    - Adapted Cognitive Therapy Rating Scale (CTRS) prompts.
-   - Use Claude Opus 4.7 as judge with a structured rubric to score sample dialogues. This is a coarse proxy, not a substitute for clinical review.
+   - Use a capable model (e.g. Claude Sonnet 4.6) as judge with a structured rubric to score sample dialogues. This is a coarse proxy, not a substitute for clinical review.
    - Track CTRS score over time to catch regressions.
 
 ---

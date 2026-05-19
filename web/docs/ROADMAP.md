@@ -145,6 +145,7 @@ from real conversations.
 | 9 | `/admin/safety` review queue | ✅ |
 | 10 | Vitest safety/tool/RAG format tests + CI workflow | ✅ |
 | 11 | **Personalization v1** — prefs, semantic memory, summaries, persona overlays, `/settings/*` | ✅ |
+| 12 | **Chat performance** — Haiku default, prompt caching, conditional RAG, gated pref signal, 3 tool steps | ✅ |
 
 **Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 

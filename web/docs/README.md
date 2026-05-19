@@ -42,6 +42,7 @@ everything in between.
 | First-time setup | [`developer/getting-started.md`](./developer/getting-started.md) |
 | Mental model of the codebase | [`developer/architecture.md`](./developer/architecture.md) |
 | **Technology choices, costs, voice roadmap** | **[`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md)** |
+| **Chat latency / model tuning** | [`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md) § LLM · [`cbt/decisions.md`](./cbt/decisions.md) |
 | **Reuse stack for new agent chatbots** | **[`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)** |
 | Configure / understand the AI Gateway | [`developer/ai-gateway.md`](./developer/ai-gateway.md) |
 | Give the AI a tool (function call) | [`developer/add-a-tool.md`](./developer/add-a-tool.md) |

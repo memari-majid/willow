@@ -14,7 +14,8 @@ This is a Next.js 16 + AI SDK v6 project. Human docs live under `web/docs/` (`sm
    a plain `"provider/model"` string to the AI SDK's `streamText` /
    `generateText`. Do **not** import provider-specific SDKs
    (`@ai-sdk/openai`, `@ai-sdk/anthropic`) unless the user explicitly
-   asks. See `web/src/lib/ai/model.ts` for the current model.
+   asks. See `web/src/lib/ai/model.ts` — default chat is **Haiku 4.5**;
+   change `CBT_CONVERSATION_MODEL` there for quality upgrades.
 3. **Use AI SDK v6 APIs.** Some breaking changes from v5:
    - `parameters` → `inputSchema` in `tool()` definitions
    - `generateObject` / `streamObject` removed → use `generateText` /

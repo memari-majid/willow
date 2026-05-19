@@ -5,7 +5,7 @@ This document records **intentional divergences** from [`build-spec.md`](./build
 ## AI routing
 
 - **All chat and classifier LLM calls** use Vercel AI Gateway with plain `provider/model` strings (`anthropic/claude-haiku-4-5`, `anthropic/claude-sonnet-4-6`, etc.). We do **not** import `@ai-sdk/anthropic` in application code unless there is an explicit product requirement.
-- **Default chat model:** `anthropic/claude-haiku-4.5` in `CBT_CONVERSATION_MODEL` — optimized for latency and cost. Use Sonnet via env override if SME needs richer technique fidelity.
+- **Default chat model:** `anthropic/claude-haiku-4.5` in `CBT_CONVERSATION_MODEL` (`src/lib/ai/model.ts`) — optimized for latency and cost. Change the constant to Sonnet if SME needs richer technique fidelity.
 - **Latency:** Anthropic prompt caching on static system block; conditional RAG (`shouldRetrieveContext`); regex-gated preference signal; `MAX_AGENT_TOOL_STEPS = 3`.
 - **Voyage** embeddings use the **Voyage HTTP API** when `VOYAGE_API_KEY` is set. On Vercel (and locally after `vercel env pull`), embeddings also work via **AI Gateway** + `VERCEL_OIDC_TOKEN` (`voyage/voyage-3-large`). **Rerank-2** still requires `VOYAGE_API_KEY`; without it, retrieval uses merge-order fallback. See `src/lib/rag/voyage-client.ts` and [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md).
 

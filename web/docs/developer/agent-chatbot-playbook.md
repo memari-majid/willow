@@ -197,6 +197,21 @@ Copy this file first when spinning a new domain; swap `buildCbtSystemPrompt`, to
 
 ---
 
+## Latency and cost (implemented patterns)
+
+| Pattern | File | What it does |
+|---|---|---|
+| Fast default model | `src/lib/ai/model.ts` | `CBT_CONVERSATION_MODEL = anthropic/claude-haiku-4.5` |
+| Prompt caching | `src/lib/ai/chat-messages.ts` | Anthropic `cacheControl: ephemeral` on static SME system block |
+| Conditional RAG | `src/lib/rag/should-retrieve.ts` | Skip embed + pgvector on short check-ins |
+| Parallel turn prep | `src/lib/ai/prepare-turn-context.ts` | RAG + memory recall + user context in one `Promise.all` |
+| Gated pref signal | `src/lib/ai/preference-signal-prescreen.ts` | Regex before Haiku tone classifier |
+| Tool step cap | `src/lib/ai/model.ts` | `MAX_AGENT_TOOL_STEPS = 3` |
+
+Full cost scenarios: [`technology-stack-and-costs.md`](./technology-stack-and-costs.md). Intentional divergences from the original build spec: [`../cbt/decisions.md`](../cbt/decisions.md).
+
+---
+
 ## Environment variables (minimum)
 
 | Variable | Required | Purpose |
@@ -264,7 +279,8 @@ When an AI agent works on a **similar chatbot**, read in this order:
 | Task | Start here |
 |---|---|
 | Change what the bot says | `content/*.md` → `system-prompt.ts` |
-| Change retrieval | `src/lib/rag/retrieve.ts`, `scripts/ingest.ts` |
+| Change retrieval | `src/lib/rag/retrieve.ts`, `src/lib/rag/should-retrieve.ts`, `scripts/ingest.ts` |
+| Change chat latency / model | `src/lib/ai/model.ts`, `src/lib/ai/chat-messages.ts`, `src/lib/ai/prepare-turn-context.ts` |
 | Add agent tool | `src/lib/ai/tools/`, `tool-part.tsx` |
 | Change safety | `content/safety/`, `src/lib/safety/` |
 | DB schema | `src/lib/db/schema.ts` → `npm run db:generate` → migrate |

@@ -46,6 +46,8 @@ Auth uses **JWT sessions** with the credentials provider (database sessions are 
 
 Optional: `VOYAGE_API_KEY` (rerank), Upstash KV (rate limits), `PERSONALIZATION_ENABLED=false` to disable memory features.
 
+Default chat model is **Haiku 4.5** (`CBT_CONVERSATION_MODEL` in `web/src/lib/ai/model.ts`). For richer technique coaching, change it to `anthropic/claude-sonnet-4.6` and redeploy.
+
 **Documentation:** [`web/docs/developer/technology-stack-and-costs.md`](./web/docs/developer/technology-stack-and-costs.md) — full stack rationale, cost scenarios, and voice (TTS) roadmap.
 
 After deploy, smoke-test: `/`, `/sources`, `/sign-in`, `/api/auth/session` (should return `{}` when logged out, not a 500).

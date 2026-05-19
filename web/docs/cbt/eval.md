@@ -12,6 +12,7 @@ npm test
 - **`tests/rag-format.spec.ts`** — prompt formatting for retrieved chunks.
 - **`tests/personalization.spec.ts`** — PII guard, preference signal schema, persona overlay paths.
 - **`tests/memory-recall.spec.ts`** — memory tool input shapes + recall threshold constant.
+- **`tests/chat-performance.spec.ts`** — conditional RAG gating + preference-signal regex prescreen (no DB).
 
 **Tone regression (planned):** Section 9 of `content/cbt_companion_tone_and_persona.md` defines a five-axis rubric (warmth, directness, specificity, in-character, skill-orientation). Expand `tests/safety-regression.spec.ts` or add `tests/tone-regression.spec.ts` with fixed dialogues and an LLM-as-judge harness; fail CI on scores below threshold.
 
