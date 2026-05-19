@@ -195,6 +195,8 @@ POST { messages, conversationId, model?, temperature? }
 
 Copy this file first when spinning a new domain; swap `buildCbtSystemPrompt`, tools factory, and safety thresholds.
 
+**Client UX:** `StarterPrompts` on an empty thread only. Do not add post-turn reply chips that pre-write user messages — the model should ask one follow-up question per turn instead (protocol in `content/cbt_companion_instructions.md`).
+
 ---
 
 ## Latency and cost (implemented patterns)

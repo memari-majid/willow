@@ -32,6 +32,8 @@ willow/                          ← repo root: README.md only
 
 Legacy `/sme` routes redirect to `/sources`.
 
+**Chat UX:** Empty-state starter chips (`content/conversation-starters.md`) seed a new thread only. After each assistant turn, the user types freely — no AI-generated reply chips. The assistant itself ends with one grounded follow-up question (see `content/cbt_companion_instructions.md` § Follow-up question style).
+
 ## Request flow (authenticated chat)
 
 ```

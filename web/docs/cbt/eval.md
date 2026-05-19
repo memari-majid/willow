@@ -26,6 +26,15 @@ Run with `PERSONALIZATION_ENABLED` on (default):
 4. **Summary after 20 msgs** — exceed `SUMMARY_MESSAGE_THRESHOLD` in one thread; check `conversation_summaries` row and rolling summary in prompt.
 5. **Persona overlay** — user with `ageBand: 18_24` gets `content/persona/age_band/18_24.md` appended to system prompt.
 
+## Follow-up question style (manual)
+
+Run after any prompt or UX change to chat behavior:
+
+1. **Single question** — send "I had a hard day" → assistant reply ends with exactly one specific question; no numbered options or "you could say…" lists.
+2. **No reply chips** — after the assistant finishes, the UI shows no "Or reply with" chips (empty-state starters on a new thread are fine).
+3. **Technique grounding** — ask "Can you walk me through a thought record?" → assistant asks one situation-focused question aligned with the book's first step, not a multi-item questionnaire.
+4. **Natural elicitation** — mid thought-record flow, assistant asks for the next field (e.g. automatic thought, 0–10 rating) one at a time, referencing what the user already shared.
+
 See [`memory.md`](./memory.md) for retention and privacy guarantees.
 
 **CI:** `.github/workflows/ci.yml` runs `npm test` and `npm run build` from `web/` (with dummy env for `DATABASE_URL` / `AUTH_SECRET`). Vitest config: `config/vitest.config.mjs`.
