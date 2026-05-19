@@ -57,10 +57,10 @@ Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 
 ## Knowledge sources (manual)
 
-After deploy or ingest changes, open **`/sources`**:
+After deploy or ingest changes, open **`/sources`** ("What guides Willow's replies"):
 
 1. **Protocol + tone** — both rows **Ready** with character counts (Markdown bundled with deploy).
-2. **Reference book** — **Ready** when Neon has chunks for `sokol-fox-2019`; detail shows `N embedded chunks active in document_chunks` — **not** “PDF on disk” or “PDF not found” on Vercel.
+2. **Reference book** — **Ready** when indexed passages exist for the Sokol & Fox guide; detail shows passage count — not filesystem PDF checks on Vercel.
 3. **RAG retrieval** — **Ready** with total chunk count and Voyage rerank when `VOYAGE_API_KEY` is set.
 4. **Consistency** — Reference book chunk count should match RAG row when ingest is complete.
 

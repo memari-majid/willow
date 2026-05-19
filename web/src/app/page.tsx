@@ -68,9 +68,9 @@ export default function HomePage() {
             href="/sources"
             className="underline underline-offset-4 hover:text-foreground"
           >
-            What Willow is built on
+            What guides Willow&rsquo;s replies
           </Link>
-          {" — instructions, tone guide, book, and RAG status."}
+          {" — protocol, style, book passages, and live status."}
         </p>
       </footer>
     </div>

@@ -17,9 +17,33 @@ Each chat turn follows a fixed pipeline:
 
 **Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
 
-**Knowledge base:** Protocol, persona, and safety rules live in Markdown under `web/content/`. The Sokol & Fox CBT reference book is ingested from a local PDF into Neon (`document_chunks`); RAG status and per-source chunk counts are at [`/sources`](https://willowspace.dev/sources) (production does not ship the PDF file).
+**Knowledge base:** Every reply combines five layers — see **[What guides Willow's replies](#what-guides-willows-replies)** below. Live Ready/Pending status: [willowspace.dev/sources](https://willowspace.dev/sources).
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
+
+## What guides Willow's replies
+
+Willow is a **CBT practice companion** — not a therapist. Replies are shaped by written clinical rules, a fixed communication style, safety guardrails, and retrieved passages from a standard CBT guide when indexed.
+
+### CBT session protocol
+
+Rules derived from **Sokol & Fox (2019), *The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy*** — translated for chat. Covers the cognitive model (situation → thought → feeling → behavior), session flow from mood check through homework, thought records, Socratic questioning, common thinking errors, behavioral activation, worry postponement, and firm limits on diagnosis, medication, unsupervised exposure, and trauma processing.
+
+### Communication style
+
+How Willow speaks: **warm-direct and steady** — like a capable coach, not a generic comforting bot. Brief, specific, curious; avoids performative empathy, false reassurance, and saccharine praise. Ends each turn with one grounded question rather than pre-written reply options.
+
+### Clinical reference text
+
+The full clinician's guide is split into searchable passages. Willow pulls the sections that match what you are working on (e.g. thought records, downward arrow, behavioral experiments, assertiveness scripts) so technique guidance stays faithful to the source.
+
+### Passage retrieval
+
+Each turn, Willow searches indexed book passages using meaning (vector search) and keywords, then reranks the best matches. Those excerpts are added to the reply context — with citations — so techniques trace back to the guide.
+
+### Safety guardrails
+
+Crisis keywords, required disclaimers, and escalation paths are checked **before** the main model runs. Crisis language triggers an immediate response with human resources; elevated concern blocks memory writes and slows technique push.
 
 ## Quick start
 
@@ -74,4 +98,4 @@ After deploy, smoke-test: `/`, `/sources`, `/sign-in`, `/api/auth/session` (shou
 | | |
 |---|---|
 | Production | https://willowspace.dev |
-| Knowledge status | https://willowspace.dev/sources |
+| Knowledge status | https://willowspace.dev/sources — what clinical rules and book passages guide replies |
