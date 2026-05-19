@@ -24,7 +24,9 @@ willow/                          ← repo root: README.md only
 
 ## Surfaces
 
-- **`/`** — landing; links to `/sources` (knowledge status)
+- **`/`** — landing; links to `/wiki` and `/sources`
+- **`/wiki`** — CBT Wiki hub (problem-first topics, book-grounded summaries, RAG excerpts)
+- **`/wiki/[...slug]`** — topic pages from `content/wiki/`; **Try with Willow** → `/chat/start?prompt=…`
 - **`/sources`** — protocol, tone, embedded book chunks (DB), RAG chunk count (no auth)
 - **`/sign-in` → `/onboarding` → `/chat/[conversationId]`** — Auth.js users; persisted Neon threads
 - **`/settings`**, **`/settings/memory`**, **`/settings/data`** — personalization + export/delete
@@ -32,7 +34,7 @@ willow/                          ← repo root: README.md only
 
 Legacy `/sme` routes redirect to `/sources`.
 
-**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. On phones (`<md`), the sidebar is a **Radix dialog drawer** (focus trap, Escape, body scroll lock) with Settings/Sources/Sign out in the sidebar footer; the chat header shows hamburger + truncated title only. On desktop, the sidebar is always visible and header links cover Settings/Sources/Sign out. After the first exchange, `maybeAutoTitleConversation` names the thread (ChatGPT-style); the client refreshes sidebar/header. Shell uses `100svh` plus `env(safe-area-inset-*)`; composer uses 16px text on mobile to avoid iOS zoom. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
+**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. On phones (`<md`), the sidebar is a **Radix dialog drawer** (focus trap, Escape, body scroll lock) with Settings/Wiki/Sources/Sign out in the sidebar footer; the chat header shows hamburger + truncated title only. On desktop, the sidebar is always visible and header links cover Settings/Wiki/Sources/Sign out. After the first exchange, `maybeAutoTitleConversation` names the thread (ChatGPT-style); the client refreshes sidebar/header. Shell uses `100svh` plus `env(safe-area-inset-*)`; composer uses 16px text on mobile to avoid iOS zoom. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
 
 ## Request flow (authenticated chat)
 

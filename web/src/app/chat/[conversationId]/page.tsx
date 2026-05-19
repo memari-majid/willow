@@ -12,10 +12,17 @@ import { loadContent } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: Promise<{ conversationId: string }> };
+type Props = {
+  params: Promise<{ conversationId: string }>;
+  searchParams: Promise<{ prefill?: string }>;
+};
 
-export default async function ChatConversationPage({ params }: Props) {
+export default async function ChatConversationPage({
+  params,
+  searchParams,
+}: Props) {
   const { conversationId } = await params;
+  const { prefill } = await searchParams;
   const session = await auth();
   if (!session?.user?.id) {
     redirect("/sign-in");
@@ -60,6 +67,12 @@ export default async function ChatConversationPage({ params }: Props) {
               Settings
             </Link>
             <Link
+              href="/wiki"
+              className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+            >
+              Wiki
+            </Link>
+            <Link
               href="/sources"
               className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
@@ -79,6 +92,7 @@ export default async function ChatConversationPage({ params }: Props) {
           starters={content.starters}
           conversationId={conversationId}
           initialMessages={initialMessages}
+          prefill={prefill}
         />
       </div>
     </div>

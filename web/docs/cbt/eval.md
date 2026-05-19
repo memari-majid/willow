@@ -55,6 +55,16 @@ Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 5. **Composer** — textarea uses readable size; send button is easy to tap; no page zoom on focus (iOS).
 6. **Long URL** — send a message containing a long URL → text wraps inside the bubble without horizontal overflow.
 
+## Wiki (manual)
+
+After deploy, open **`/wiki`**:
+
+1. **Hub** — five topic cards under Common concerns / Core concepts / Techniques / Safety; search `?q=thought` returns thought record.
+2. **Topic page** — disclaimer banner, editorial sections, attributed quote, related passages block (when RAG configured).
+3. **Try with Willow** — on `/wiki/anxiety`, click **Start in chat** → sign-in if needed → new thread with starter prefilled in composer (not auto-sent).
+4. **Safety** — `/wiki/safety` shows crisis lines first; no chat CTA.
+5. **Nav** — Wiki link on home footer, chat header (desktop), sidebar footer (mobile).
+
 ## Knowledge sources (manual)
 
 After deploy or ingest changes, open **`/sources`** ("What guides Willow's replies"):

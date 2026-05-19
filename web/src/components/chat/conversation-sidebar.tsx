@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Menu, Pencil, Plus, Settings, Trash2 } from "lucide-react";
+import { BookOpen, Layers, Menu, Pencil, Plus, Settings, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -50,8 +50,12 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
           <Settings className="size-4 shrink-0" aria-hidden />
           Settings
         </Link>
-        <Link href="/sources" className={linkClass} onClick={onNavigate}>
+        <Link href="/wiki" className={linkClass} onClick={onNavigate}>
           <BookOpen className="size-4 shrink-0" aria-hidden />
+          Wiki
+        </Link>
+        <Link href="/sources" className={linkClass} onClick={onNavigate}>
+          <Layers className="size-4 shrink-0" aria-hidden />
           Sources
         </Link>
         <div className="px-1">

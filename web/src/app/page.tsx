@@ -65,12 +65,19 @@ export default function HomePage() {
         </p>
         <p>
           <Link
+            href="/wiki"
+            className="underline underline-offset-4 hover:text-foreground"
+          >
+            CBT Wiki
+          </Link>
+          {" — book-grounded guides. "}
+          <Link
             href="/sources"
             className="underline underline-offset-4 hover:text-foreground"
           >
             What guides Willow&rsquo;s replies
           </Link>
-          {" — protocol, style, book passages, and live status."}
+          {" — protocol, style, and live status."}
         </p>
       </footer>
     </div>

@@ -1,0 +1,143 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { WikiMarkdown } from "@/components/wiki/wiki-markdown";
+import {
+  WikiAttributedQuotes,
+  WikiRelatedPassages,
+} from "@/components/wiki/wiki-related-passages";
+import {
+  WikiDisclaimer,
+  WikiPageShell,
+  WikiScopeNotice,
+  WikiTryChatCta,
+} from "@/components/wiki/wiki-page-shell";
+import { getWikiPage, loadWikiPages } from "@/lib/wiki/load";
+import { getWikiRelatedPassages } from "@/lib/wiki/related-passages";
+
+export const dynamic = "force-dynamic";
+
+type Props = { params: Promise<{ slug: string[] }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const pathSlug = slug.join("/");
+  const page = await getWikiPage(pathSlug);
+  if (!page) return { title: "Not found — Willow Wiki" };
+  return {
+    title: `${page.title} — CBT Wiki`,
+    description: page.summary,
+  };
+}
+
+export async function generateStaticParams() {
+  const pages = await loadWikiPages();
+  return pages.map((p) => ({
+    slug: p.path.split("/"),
+  }));
+}
+
+export default async function WikiTopicPage({ params }: Props) {
+  const { slug } = await params;
+  const pathSlug = slug.join("/");
+  const page = await getWikiPage(pathSlug);
+  if (!page) notFound();
+
+  const passages = page.retrievalQuery
+    ? await getWikiRelatedPassages(page.retrievalQuery)
+    : [];
+
+  const showScope =
+    page.category === "problem" ||
+    page.category === "technique" ||
+    page.path === "safety";
+
+  return (
+    <WikiPageShell>
+      <article>
+        <header className="space-y-3">
+          <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            {categoryLabel(page.category)}
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight">{page.title}</h1>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {page.summary}
+          </p>
+          <p className="text-xs text-muted-foreground/90">
+            Source: {page.source}
+            {page.reviewedAt ? (
+              <>
+                {" "}
+                · Reviewed {page.reviewedAt} ({page.reviewedBy})
+              </>
+            ) : null}
+          </p>
+        </header>
+
+        <div className="mt-6">
+          <WikiDisclaimer />
+        </div>
+
+        {showScope && page.category !== "safety" ? (
+          <div className="mt-4">
+            <WikiScopeNotice>
+              This page is for learning only. It is not a treatment plan. For
+              exposure work, trauma, or medication questions, work with a
+              qualified clinician.
+            </WikiScopeNotice>
+          </div>
+        ) : null}
+
+        <div className="mt-8">
+          <WikiMarkdown source={page.body} />
+        </div>
+
+        <WikiAttributedQuotes quotes={page.quotes} source={page.source} />
+
+        {page.category !== "safety" ? (
+          <WikiRelatedPassages passages={passages} />
+        ) : null}
+
+        {page.related.length > 0 ? (
+          <section className="mt-10 space-y-3">
+            <h2 className="text-base font-medium tracking-tight">
+              Related topics
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {page.related.map((rel) => (
+                <li key={rel}>
+                  <Link
+                    href={`/wiki/${rel}`}
+                    className="rounded-full border border-border/50 bg-muted/40 px-3 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {rel.split("/").pop()?.replace(/-/g, " ")}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {page.chatStarter.trim() ? (
+          <WikiTryChatCta prompt={page.chatStarter} />
+        ) : null}
+      </article>
+    </WikiPageShell>
+  );
+}
+
+function categoryLabel(category: string): string {
+  switch (category) {
+    case "problem":
+      return "Common concern";
+    case "concept":
+      return "Core concept";
+    case "technique":
+      return "Technique";
+    case "safety":
+      return "Safety";
+    default:
+      return "Topic";
+  }
+}

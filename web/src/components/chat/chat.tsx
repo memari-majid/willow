@@ -22,13 +22,17 @@ export function Chat({
   starters,
   conversationId,
   initialMessages,
+  prefill,
 }: {
   starters: string[];
   /** Required for saved CBT conversations (auth users). */
   conversationId?: string;
   initialMessages?: WillowUIMessage[];
+  /** Prefill composer from wiki or deep link (not auto-sent). */
+  prefill?: string;
 }) {
   const [input, setInput] = useState("");
+  const prefillApplied = useRef(false);
   const router = useRouter();
   const titleRefreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -66,6 +70,12 @@ export function Chat({
     },
     [],
   );
+
+  useEffect(() => {
+    if (prefillApplied.current || !prefill?.trim()) return;
+    prefillApplied.current = true;
+    setInput(prefill.trim());
+  }, [prefill]);
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {

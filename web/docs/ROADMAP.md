@@ -148,6 +148,7 @@ from real conversations.
 | 12 | **Chat performance** — Haiku default, prompt caching, conditional RAG, gated pref signal, 3 tool steps | ✅ |
 | 13 | **Conversational follow-ups** — removed reply-chip UX; assistant ends each turn with one grounded question | ✅ |
 | 14 | **Multi-conversation UI** — sidebar, new chat, hybrid trim, auto-extract cross-thread memories | ✅ |
+| 15 | **CBT Wiki Phase 1** — `/wiki` hub, 5 seed pages, RAG block, chat prefill deep links | ✅ |
 
 **Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 
@@ -164,12 +165,48 @@ from real conversations.
 
 | Priority | Feature | Owner | Reference |
 |---|---|---|---|
-| 1 | **Natural AI voice (TTS read-aloud)** | Dev | [`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md) § Voice |
-| 2 | R&D / Research mode | Dev + SME | [`docs/developer/research-mode.md`](./developer/research-mode.md) |
-| 3 | AI Elements / richer transcript UX | Dev | [`docs/developer/extending.md`](./developer/extending.md) |
-| 4 | Multi-language `content/` | SME + Dev | extending.md |
-| 5 | Optional Clerk / IdP if institution requires it | Dev | [`docs/cbt/decisions.md`](./cbt/decisions.md) |
-| 6 | CMS instead of GitHub edits | Dev | extending.md |
+| 1 | **CBT Wiki (Phase 1)** — `/wiki` hub + 5 seed pages, book retrieval block, chat deep links | Dev | This file § Wiki |
+| 2 | **Natural AI voice (TTS read-aloud)** | Dev | [`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md) § Voice |
+| 3 | R&D / Research mode | Dev + SME | [`docs/developer/research-mode.md`](./developer/research-mode.md) |
+| 4 | AI Elements / richer transcript UX | Dev | [`docs/developer/extending.md`](./developer/extending.md) |
+| 5 | Multi-language `content/` | SME + Dev | extending.md |
+| 6 | Optional Clerk / IdP if institution requires it | Dev | [`docs/cbt/decisions.md`](./cbt/decisions.md) |
+| 7 | CMS instead of GitHub edits | Dev | extending.md |
+
+---
+
+## Wiki — trusted CBT reference (Phase 1 ✅ in-tree)
+
+**Goal:** Let users browse book-grounded CBT education outside chat — same clinical source as Willow's protocol and RAG layer.
+
+**Decisions (locked):**
+
+| Topic | Choice |
+|---|---|
+| Organization | **By problem** (anxiety, low mood, …) with technique/concept pages cross-linked |
+| Quoting | **Brief attributed quotes** (≤ 50 words, ≤ 3 per page) + dynamic retrieval block |
+| Phase 1 scope | **Five seed pages** + hub + search |
+| Plan location | This ROADMAP section (one plan) |
+
+**Phase 1 shipped:**
+
+| Route | Content |
+|---|---|
+| `/wiki` | Hub — problem/concept/technique/safety groups, lexical search (`?q=`) |
+| `/wiki/anxiety` | Problem — anxiety patterns, techniques, scope limits |
+| `/wiki/low-mood` | Problem — behavioral activation + thought work |
+| `/wiki/concepts/cognitive-model` | Foundation — situation → thought → feeling chain |
+| `/wiki/techniques/thought-record` | Technique — Go Time walkthrough |
+| `/wiki/safety` | Crisis resources + boundaries (no chat CTA) |
+
+**Implementation:** Markdown in `content/wiki/` with YAML front matter; loader in `src/lib/wiki/`; hybrid RAG block on topic pages via `retrieval_query`; **Try with Willow** → `/chat/start?prompt=…` prefills composer.
+
+**Phase 2 (next):** ~20 topics (remaining distortions, worry, anger, sleep); hybrid wiki+book search; SME review badges; chat → wiki links when a technique is surfaced.
+
+**Phase 3:** Feedback widget + admin review queue; problem index pages for every major concern.
+
+**Eval:** [`cbt/eval.md`](./cbt/eval.md) § Wiki (manual smoke).
+
 
 ---
 
