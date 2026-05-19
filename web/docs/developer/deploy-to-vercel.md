@@ -14,6 +14,16 @@ refreshed for production traffic — no manual env vars needed.
 should return `{}` when logged out (not HTTP 500). Sign in requires JWT sessions
 (credentials provider) — see `src/auth.ts`.
 
+At **`/sources`**, after a successful ingest against production `DATABASE_URL`:
+
+| Row | Expected |
+|---|---|
+| CBT protocol / Tone & persona | **Ready** (Markdown bundled with the deploy) |
+| Reference book | **Ready** — detail shows `N embedded chunks active in document_chunks (source_id = sokol-fox-2019)` |
+| RAG retrieval | **Ready** — same chunk count when `DATABASE_URL` and embedding credentials are set |
+
+Do **not** expect “PDF on disk” or “PDF not found” on Vercel — the source PDF stays local/gitignored; only Neon chunks matter in production.
+
 ## What just happened
 
 1. The Vercel CLI uploaded your code.

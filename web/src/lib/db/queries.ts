@@ -158,3 +158,13 @@ export async function countDocumentChunks(): Promise<number> {
   const row = result.rows[0] as { count: number } | undefined;
   return row?.count ?? 0;
 }
+
+export async function countDocumentChunksBySource(
+  sourceId: string,
+): Promise<number> {
+  const result = await db.execute(
+    sql`SELECT count(*)::int AS count FROM document_chunks WHERE source_id = ${sourceId}`,
+  );
+  const row = result.rows[0] as { count: number } | undefined;
+  return row?.count ?? 0;
+}

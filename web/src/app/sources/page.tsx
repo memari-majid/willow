@@ -57,8 +57,8 @@ export default async function SourcesPage() {
             ok={status.bookPdf.present}
             detail={
               status.bookPdf.present
-                ? `PDF on disk (${status.bookPdf.path}). Run npm run ingest to embed into search.`
-                : "PDF not found — place sokol-fox-2019.pdf under content/source-pdf/."
+                ? `${status.bookPdf.chunks.toLocaleString()} embedded chunks active in document_chunks (source_id = ${status.bookPdf.sourceId}).`
+                : "Not yet ingested — place the PDF in web/content/source-pdf/sokol-fox-2019.pdf and run npm run ingest."
             }
           />
           <SourceCard

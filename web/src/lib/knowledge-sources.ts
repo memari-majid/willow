@@ -1,14 +1,20 @@
-import { access } from "node:fs/promises";
-import path from "node:path";
-
 import { loadContent } from "@/lib/content";
-import { countDocumentChunks } from "@/lib/db/queries";
+import {
+  countDocumentChunks,
+  countDocumentChunksBySource,
+} from "@/lib/db/queries";
 import { hasEmbeddingCredentials } from "@/lib/rag/voyage-client";
+
+const BOOK_SOURCE_ID = "sokol-fox-2019";
 
 export type KnowledgeSourceStatus = {
   instructions: { loaded: boolean; chars: number };
   toneAndPersona: { loaded: boolean; chars: number };
-  bookPdf: { present: boolean; path: string };
+  bookPdf: {
+    present: boolean;
+    chunks: number;
+    sourceId: string;
+  };
   rag: {
     voyageConfigured: boolean;
     chunkCount: number | null;
@@ -16,19 +22,14 @@ export type KnowledgeSourceStatus = {
   };
 };
 
-const BOOK_PATH = path.join(
-  process.cwd(),
-  "content/source-pdf/sokol-fox-2019.pdf",
-);
-
 export async function getKnowledgeSourceStatus(): Promise<KnowledgeSourceStatus> {
   const content = await loadContent();
-  let pdfPresent = false;
+
+  let bookChunks = 0;
   try {
-    await access(BOOK_PATH);
-    pdfPresent = true;
+    bookChunks = await countDocumentChunksBySource(BOOK_SOURCE_ID);
   } catch {
-    pdfPresent = false;
+    bookChunks = 0;
   }
 
   let chunkCount: number | null = null;
@@ -50,8 +51,9 @@ export async function getKnowledgeSourceStatus(): Promise<KnowledgeSourceStatus>
       chars: content.cbtCompanionToneAndPersona.length,
     },
     bookPdf: {
-      present: pdfPresent,
-      path: "content/source-pdf/sokol-fox-2019.pdf",
+      present: bookChunks > 0,
+      chunks: bookChunks,
+      sourceId: BOOK_SOURCE_ID,
     },
     rag: {
       voyageConfigured,

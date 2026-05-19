@@ -17,7 +17,7 @@ Each chat turn follows a fixed pipeline:
 
 **Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
 
-**Knowledge base:** Protocol, persona, and safety rules live in Markdown under `web/content/`. The Sokol & Fox CBT reference book is chunked, embedded, and retrieved at runtime — status at [`/sources`](https://willowspace.dev/sources).
+**Knowledge base:** Protocol, persona, and safety rules live in Markdown under `web/content/`. The Sokol & Fox CBT reference book is ingested from a local PDF into Neon (`document_chunks`); RAG status and per-source chunk counts are at [`/sources`](https://willowspace.dev/sources) (production does not ship the PDF file).
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 

@@ -13,6 +13,8 @@ npm test
 - **`tests/personalization.spec.ts`** — PII guard, preference signal schema, persona overlay paths.
 - **`tests/memory-recall.spec.ts`** — memory tool input shapes + recall threshold constant.
 - **`tests/chat-performance.spec.ts`** — conditional RAG gating + preference-signal regex prescreen (no DB).
+- **`tests/knowledge-sources.spec.ts`** — `/sources` status: Reference book Ready from `document_chunks` count, not local PDF.
+- **`tests/responsive-chat.spec.ts`** — scroll-lock helper for mobile drawer.
 
 **Tone regression (planned):** Section 9 of `content/cbt_companion_tone_and_persona.md` defines a five-axis rubric (warmth, directness, specificity, in-character, skill-orientation). Expand `tests/safety-regression.spec.ts` or add `tests/tone-regression.spec.ts` with fixed dialogues and an LLM-as-judge harness; fail CI on scores below threshold.
 
@@ -52,6 +54,17 @@ Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 4. **Touch actions** — rename/delete icons visible without hover on touch; tap rename opens dialog (not `window.prompt`).
 5. **Composer** — textarea uses readable size; send button is easy to tap; no page zoom on focus (iOS).
 6. **Long URL** — send a message containing a long URL → text wraps inside the bubble without horizontal overflow.
+
+## Knowledge sources (manual)
+
+After deploy or ingest changes, open **`/sources`**:
+
+1. **Protocol + tone** — both rows **Ready** with character counts (Markdown bundled with deploy).
+2. **Reference book** — **Ready** when Neon has chunks for `sokol-fox-2019`; detail shows `N embedded chunks active in document_chunks` — **not** “PDF on disk” or “PDF not found” on Vercel.
+3. **RAG retrieval** — **Ready** with total chunk count and Voyage rerank when `VOYAGE_API_KEY` is set.
+4. **Consistency** — Reference book chunk count should match RAG row when ingest is complete.
+
+See [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md) § `/sources` page semantics.
 
 See [`memory.md`](./memory.md) for retention and privacy guarantees.
 

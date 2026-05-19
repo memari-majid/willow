@@ -22,7 +22,7 @@ two-week onboarding plus the weekly cycle once Willow is live.
 | Understand the whole job | [`sme/GUIDE.md`](./sme/GUIDE.md) |
 | Add a new wellbeing exercise | [`sme/add-a-technique.md`](./sme/add-a-technique.md) |
 | Edit Willow's content | jump straight into [`../content/`](../content/) — every file is plain Markdown |
-| See what's still placeholder | open `/sources` in the running app |
+| See knowledge + ingest status | open `/sources` — protocol/tone from Markdown; reference book from `document_chunks` |
 
 You can ignore everything under `developer/`.
 
@@ -48,6 +48,7 @@ everything in between.
 | Configure / understand the AI Gateway | [`developer/ai-gateway.md`](./developer/ai-gateway.md) |
 | Give the AI a tool (function call) | [`developer/add-a-tool.md`](./developer/add-a-tool.md) |
 | Deploy or roll back | [`developer/deploy-to-vercel.md`](./developer/deploy-to-vercel.md) |
+| Verify ingest + `/sources` status | [`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md) § `/sources` page semantics |
 | Add auth, persistence, observability… | [`developer/extending.md`](./developer/extending.md) |
 | Set up the research / R&D loop | [`developer/research-mode.md`](./developer/research-mode.md) |
 | CBT extension (Phase 4) | [`cbt/README.md`](./cbt/README.md) |

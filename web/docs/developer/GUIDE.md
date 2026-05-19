@@ -315,7 +315,7 @@ version:
 | **Build another domain chatbot from this stack** | **[`agent-chatbot-playbook.md`](./agent-chatbot-playbook.md)** |
 | Ingest reference PDF into RAG | `content/source-pdf/` + `npm run ingest` (see playbook) |
 | Admin safety review | `/admin/safety`, allowlist `ADMIN_EMAILS` |
-| Check knowledge + RAG status | open `/sources` |
+| Check knowledge + RAG status | open `/sources` — Reference book **Ready** = `document_chunks` rows for `sokol-fox-2019` (not local PDF on disk) |
 | Roll back a bad deploy | `vercel rollback` |
 
 ---
@@ -326,7 +326,7 @@ version:
 npm run dev     # local dev with hot reload
 npm run build   # production build (catch type errors)
 npm run lint    # ESLint
-npm run test    # Vitest (safety regression + tool/RAG helpers)
+npm run test    # Vitest (safety, RAG, knowledge-sources status helpers)
 npm run ingest  # PDF → embed → Neon (see agent-chatbot-playbook.md)
 npm run start   # serve production build locally
 ```

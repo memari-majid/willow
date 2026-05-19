@@ -148,9 +148,25 @@ Implementation: [`src/lib/rag/voyage-client.ts`](../../src/lib/rag/voyage-client
 
 ### 5. Confirm RAG is live
 
-- App: **https://willowspace.dev/sources** — RAG row shows chunk count
+- App: **https://willowspace.dev/sources** — Reference book row is Ready when `document_chunks` has rows for `source_id = sokol-fox-2019` (not local PDF on disk); RAG row shows total chunk count
 - Code: `retrieveContext(query)` returns non-empty when DB has rows
 - Chat: assistant messages store `retrieved_chunk_ids` in Neon
+
+### `/sources` page semantics
+
+Implemented in [`src/lib/knowledge-sources.ts`](../../src/lib/knowledge-sources.ts) and [`src/app/sources/page.tsx`](../../src/app/sources/page.tsx).
+
+| Row | Ready when | Notes |
+|---|---|---|
+| CBT protocol / Tone & persona | Bundled Markdown has content | Shipped with every deploy |
+| Reference book | `count(*) FROM document_chunks WHERE source_id = 'sokol-fox-2019' > 0` | PDF under `content/source-pdf/` is **gitignored** — used only for `npm run ingest` on a machine that has the file |
+| RAG retrieval | Embedding credentials + total `document_chunks` count > 0 | Same DB as Reference book; rerank needs `VOYAGE_API_KEY` on Vercel |
+
+Vitest: [`tests/knowledge-sources.spec.ts`](../../tests/knowledge-sources.spec.ts) mocks DB counts. Integration smoke (with `.env.local`):
+
+```bash
+DOTENV_CONFIG_PATH=.env.local npx tsx -e "import 'dotenv/config'; import { getKnowledgeSourceStatus } from './src/lib/knowledge-sources.ts'; (async () => { const s = await getKnowledgeSourceStatus(); console.log(s.bookPdf); })();"
+```
 
 ---
 

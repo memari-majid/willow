@@ -139,11 +139,11 @@ from real conversations.
 | 3 | Persisted threads `/chat/[conversationId]`, `/api/conversations` | ✅ |
 | 4 | CBT system prompt in `content/`, SME preview unchanged | ✅ |
 | 5 | Two-stage safety + crisis bypass + `safety_events` | ✅ |
-| 6 | RAG retrieve + rerank + `scripts/ingest.ts` | ✅ (242 chunks on Neon; see `/sources`) |
+| 6 | RAG retrieve + rerank + `scripts/ingest.ts` | ✅ (242 chunks on Neon; `/sources` Reference book = DB chunk count, not local PDF) |
 | 7 | Structured CBT tools + chat tool “widgets” | ✅ |
 | 8 | Longitudinal context block in prompt (`prompt-builder.ts`) | ✅ |
 | 9 | `/admin/safety` review queue | ✅ |
-| 10 | Vitest safety/tool/RAG format tests + CI workflow | ✅ |
+| 10 | Vitest safety/tool/RAG/knowledge-sources tests + CI workflow | ✅ |
 | 11 | **Personalization v1** — prefs, semantic memory, summaries, persona overlays, `/settings/*` | ✅ |
 | 12 | **Chat performance** — Haiku default, prompt caching, conditional RAG, gated pref signal, 3 tool steps | ✅ |
 | 13 | **Conversational follow-ups** — removed reply-chip UX; assistant ends each turn with one grounded question | ✅ |
