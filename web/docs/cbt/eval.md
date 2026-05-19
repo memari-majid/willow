@@ -48,26 +48,26 @@ Run after any prompt or UX change to chat behavior:
 
 Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 
-1. **Header** — at 360px: hamburger + truncated title only; no horizontal scroll. At 768px+: Settings, Sources, Sign out in header.
+1. **Header** — at 360px: hamburger + truncated title only; no horizontal scroll. At 768px+: Settings, Library, How it works, Sign out in header.
 2. **Drawer** — tap hamburger → sidebar opens; backdrop tap or Escape closes it; background does not scroll behind drawer.
-3. **Sidebar footer** — at 360px: Settings and Sources reachable from drawer footer (not header).
+3. **Sidebar footer** — at 360px: Settings, Library, and How it works reachable from drawer footer (not header).
 4. **Touch actions** — rename/delete icons visible without hover on touch; tap rename opens dialog (not `window.prompt`).
 5. **Composer** — textarea uses readable size; send button is easy to tap; no page zoom on focus (iOS).
 6. **Long URL** — send a message containing a long URL → text wraps inside the bubble without horizontal overflow.
 
-## Wiki (manual)
+## Guide library (manual)
 
-After deploy, open **`/wiki`**:
+After deploy, open **`/wiki`** (nav: **Library**):
 
 1. **Hub** — topics grouped by concern, concept, technique, thinking pattern, safety; **Draft** badges visible.
 2. **Hybrid search** — `/wiki?q=grounding` shows matching topics and book passages (when RAG configured).
 3. **Topic page** — review badge, related passages, Try with Willow CTA (except safety).
-4. **Chat wiki links** — when Willow mentions e.g. "thought record", assistant bubble shows **Wiki:** chip linking to `/wiki/techniques/thought-record`.
-5. **Nav** — Wiki link on home footer, chat header, sidebar footer.
+4. **Chat guide links** — when Willow mentions e.g. "thought record", assistant bubble shows **Guide:** chip linking to `/wiki/techniques/thought-record`.
+5. **Nav** — Library and How it works on home footer, chat header, sidebar footer.
 
-## Knowledge sources (manual)
+## How Willow works (manual)
 
-After deploy or ingest changes, open **`/sources`** ("What guides Willow's replies"):
+After deploy or ingest changes, open **`/sources`** (nav: **How it works**; title: "What guides Willow's replies"):
 
 1. **Protocol + tone** — both rows **Ready** with character counts; each card links to a detail page (`/sources/cbt-protocol`, `/sources/communication-style`).
 2. **Reference book** — **Ready** when indexed passages exist for the Sokol & Fox guide; detail shows passage count — not filesystem PDF checks on Vercel.

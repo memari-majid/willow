@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 import { SettingsDataClient, SettingsDataNav } from "./settings-data-client";
 
@@ -18,8 +19,8 @@ export default async function SettingsDataPage() {
       <h1 className="text-lg font-medium">Your data</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Export or delete everything Willow stores for your account. See{" "}
-        <Link href="/sources" className="underline">
-          Sources
+        <Link href={HOW_WILLOW_WORKS.href} className="underline">
+          {HOW_WILLOW_WORKS.navLabel}
         </Link>{" "}
         for clinical content provenance.
       </p>

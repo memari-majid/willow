@@ -209,7 +209,7 @@ from real conversations.
 | **23 wiki topics** | 6 problems, 3 concepts, 6 techniques, 6 distortions, 1 safety (+ Phase 1 base) |
 | **Hybrid search** | `/wiki?q=` — lexical wiki topics + RAG book passages on same query |
 | **Review badges** | `review_status: draft \| reviewed` on hub cards and topic headers |
-| **Chat wiki links** | Assistant bubbles show up to 3 **Wiki:** chips when text matches `wiki_keywords` |
+| **Chat guide links** | Assistant bubbles show up to 3 **Guide:** chips when text matches `wiki_keywords` |
 
 **Phase 3 (next):** Feedback widget + admin review queue; problem index landing pages.
 

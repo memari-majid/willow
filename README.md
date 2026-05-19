@@ -17,7 +17,7 @@ Each chat turn follows a fixed pipeline:
 
 **Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
 
-**Knowledge base:** Every reply combines five layers — see **[What guides Willow's replies](#what-guides-willows-replies)** below. Live Ready/Pending status and full detail pages: [willowspace.dev/sources](https://willowspace.dev/sources).
+**Knowledge base:** Every reply combines five layers — see **[What guides Willow's replies](#what-guides-willows-replies)** below. Live Ready/Pending status and full detail pages: [willowspace.dev/sources](https://willowspace.dev/sources) (**How it works** in the app nav).
 
 | Layer | Detail page |
 |---|---|
@@ -27,7 +27,7 @@ Each chat turn follows a fixed pipeline:
 | Passage retrieval | [willowspace.dev/sources/passage-retrieval](https://willowspace.dev/sources/passage-retrieval) |
 | Safety guardrails | [willowspace.dev/sources/safety-guardrails](https://willowspace.dev/sources/safety-guardrails) |
 
-**Cognitive behavioral therapy wiki:** Browse **23** book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) — problems (anxiety, worry, low mood, …), techniques, thinking patterns, and safety. Hybrid search matches wiki pages and indexed guide passages.
+**Guide library:** Browse **23** book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) (**Library** in the app nav) — problems (anxiety, worry, low mood, …), techniques, thinking patterns, and safety. Hybrid search matches library topics and indexed guide passages.
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 

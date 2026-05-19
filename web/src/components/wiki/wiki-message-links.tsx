@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen } from "lucide-react";
 
 import type { WikiLinkEntry } from "@/lib/wiki/link-registry";
+import { GUIDE_LIBRARY } from "@/lib/site-nav";
 
 export function WikiMessageLinks({
   text,
@@ -40,7 +41,7 @@ export function WikiMessageLinks({
           className="inline-flex items-center gap-1 rounded-full border border-border/50 bg-muted/40 px-2 py-0.5 text-[10px] text-muted-foreground transition-colors hover:text-foreground"
         >
           <BookOpen className="size-3" aria-hidden />
-          Wiki: {entry.title}
+          {GUIDE_LIBRARY.topicLinkPrefix}: {entry.title}
         </Link>
       ))}
     </div>

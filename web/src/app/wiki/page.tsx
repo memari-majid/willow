@@ -20,6 +20,7 @@ import {
 } from "@/lib/wiki/load";
 import { hybridWikiSearch } from "@/lib/wiki/search";
 import type { WikiPage } from "@/lib/wiki/types";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export const dynamic = "force-dynamic";
 
@@ -33,20 +34,19 @@ export default async function WikiHubPage({ searchParams }: Props) {
     ? await hybridWikiSearch(allPages, q!)
     : null;
   const groups = searching
-    ? [{ label: "Wiki topics", pages: searchResult!.pages }]
+    ? [{ label: GUIDE_LIBRARY.searchGroupLabel, pages: searchResult!.pages }]
     : await getWikiHubGroups();
 
   return (
     <WikiPageShell backHref="/" backLabel="Home">
       <div className="space-y-3">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Cognitive behavioral therapy wiki
+          {GUIDE_LIBRARY.pageTitle}
         </h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
           Trusted, book-grounded explanations of cognitive behavioral therapy
-          concepts and skills —
-          organized by common concerns. Search matches wiki topics{" "}
-          {searching ? "and passages from " : "and "}
+          concepts and skills — organized by common concerns. Search matches
+          library topics {searching ? "and passages from " : "and "}
           <em>Sokol &amp; Fox (2019)</em>.
         </p>
       </div>
@@ -66,7 +66,7 @@ export default async function WikiHubPage({ searchParams }: Props) {
             defaultValue={q ?? ""}
             placeholder="Search topics and the guide…"
             className="pl-9"
-            aria-label="Search wiki topics and book"
+            aria-label="Search guide library and book"
           />
         </div>
         <Button type="submit" variant="secondary" size="default">
@@ -93,8 +93,8 @@ export default async function WikiHubPage({ searchParams }: Props) {
         ))}
         {searching && searchResult!.pages.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No wiki topics match &ldquo;{q}&rdquo;. Book passages may still
-            appear above if indexed.
+            No guides match &ldquo;{q}&rdquo;. Book passages may still appear
+            above if indexed.
           </p>
         ) : null}
       </div>
@@ -102,12 +102,12 @@ export default async function WikiHubPage({ searchParams }: Props) {
       <p className="mt-12 text-xs leading-relaxed text-muted-foreground">
         Want to see how Willow uses this material in conversation?{" "}
         <Link
-          href="/sources"
+          href={HOW_WILLOW_WORKS.href}
           className="underline underline-offset-4 hover:text-foreground"
         >
-          What guides Willow&apos;s replies
+          {HOW_WILLOW_WORKS.navLabel}
         </Link>
-        .
+        {" — protocol, style, and live status."}
       </p>
     </WikiPageShell>
   );

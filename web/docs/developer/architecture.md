@@ -24,17 +24,17 @@ willow/                          ← repo root: README.md only
 
 ## Surfaces
 
-- **`/`** — landing; links to `/wiki` and `/sources`
-- **`/wiki`** — Cognitive behavioral therapy wiki hub (problem-first topics, book-grounded summaries, RAG excerpts)
+- **`/`** — landing; links to `/wiki` (**Library**) and `/sources` (**How it works**)
+- **`/wiki`** — Guide library hub (problem-first topics, book-grounded summaries, RAG excerpts)
 - **`/wiki/[...slug]`** — topic pages from `content/wiki/`; **Try with Willow** → `/chat/start?prompt=…`
-- **`/sources`** — protocol, tone, embedded book chunks (DB), RAG chunk count (no auth)
+- **`/sources`** — what guides replies: protocol, tone, book index status, RAG, safety (no auth)
 - **`/sign-in` → `/onboarding` → `/chat/[conversationId]`** — Auth.js users; persisted Neon threads
 - **`/settings`**, **`/settings/memory`**, **`/settings/data`** — personalization + export/delete
 - **`/admin/safety`** — Auth.js + email allowlist; audit `safety_events`
 
 Legacy `/sme` routes redirect to `/sources`.
 
-**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. On phones (`<md`), the sidebar is a **Radix dialog drawer** (focus trap, Escape, body scroll lock) with Settings/Wiki/Sources/Sign out in the sidebar footer; the chat header shows hamburger + truncated title only. On desktop, the sidebar is always visible and header links cover Settings/Wiki/Sources/Sign out. After the first exchange, `maybeAutoTitleConversation` names the thread (ChatGPT-style); the client refreshes sidebar/header. Shell uses `100svh` plus `env(safe-area-inset-*)`; composer uses 16px text on mobile to avoid iOS zoom. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
+**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. On phones (`<md`), the sidebar is a **Radix dialog drawer** (focus trap, Escape, body scroll lock) with Settings/Library/How it works/Sign out in the sidebar footer; the chat header shows hamburger + truncated title only. On desktop, the sidebar is always visible and header links cover Settings/Library/How it works/Sign out. After the first exchange, `maybeAutoTitleConversation` names the thread (ChatGPT-style); the client refreshes sidebar/header. Shell uses `100svh` plus `env(safe-area-inset-*)`; composer uses 16px text on mobile to avoid iOS zoom. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
 
 ## Request flow (authenticated chat)
 

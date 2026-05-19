@@ -16,6 +16,7 @@ import {
 import { WikiReviewBadge } from "@/components/wiki/wiki-review-badge";
 import { getWikiPage, loadWikiPages } from "@/lib/wiki/load";
 import { getWikiRelatedPassages } from "@/lib/wiki/related-passages";
+import { GUIDE_LIBRARY } from "@/lib/site-nav";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const pathSlug = slug.join("/");
   const page = await getWikiPage(pathSlug);
-  if (!page) return { title: "Not found — Willow Wiki" };
+  if (!page) return { title: `Not found — ${GUIDE_LIBRARY.metadataSuffix}` };
   return {
     title: `${page.title} — Cognitive behavioral therapy wiki`,
     description: page.summary,

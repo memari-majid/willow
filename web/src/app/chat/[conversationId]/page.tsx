@@ -11,6 +11,7 @@ import { dbRowsToUiMessages } from "@/lib/db/persist-messages";
 import { loadContent } from "@/lib/content";
 import { loadWikiPages } from "@/lib/wiki/load";
 import { buildWikiLinkRegistry } from "@/lib/wiki/link-registry";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export const dynamic = "force-dynamic";
 
@@ -73,16 +74,16 @@ export default async function ChatConversationPage({
               Settings
             </Link>
             <Link
-              href="/wiki"
+              href={GUIDE_LIBRARY.href}
               className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
-              Wiki
+              {GUIDE_LIBRARY.navLabel}
             </Link>
             <Link
-              href="/sources"
+              href={HOW_WILLOW_WORKS.href}
               className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
-              Sources
+              {HOW_WILLOW_WORKS.navLabel}
             </Link>
             <SignOutButton />
           </div>

@@ -3,11 +3,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export function WikiPageShell({
   children,
-  backHref = "/wiki",
-  backLabel = "Cognitive behavioral therapy wiki",
+  backHref = GUIDE_LIBRARY.href,
+  backLabel = GUIDE_LIBRARY.backLabel,
 }: {
   children: React.ReactNode;
   backHref?: string;
@@ -22,10 +23,10 @@ export function WikiPageShell({
           </Link>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm">
-              <Link href="/wiki">Wiki</Link>
+              <Link href={GUIDE_LIBRARY.href}>{GUIDE_LIBRARY.navLabel}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm">
-              <Link href="/sources">Sources</Link>
+              <Link href={HOW_WILLOW_WORKS.href}>{HOW_WILLOW_WORKS.navLabel}</Link>
             </Button>
             <Button asChild variant="outline" size="sm">
               <Link href="/sign-in?callbackUrl=/chat">Sign in to chat</Link>
@@ -52,7 +53,8 @@ export function WikiDisclaimer() {
   return (
     <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
       <p>
-        This wiki is for <strong className="font-medium text-foreground">learning and reflection</strong>{" "}
+        This guide library is for{" "}
+        <strong className="font-medium text-foreground">learning and reflection</strong>{" "}
         — not diagnosis or treatment. Willow is a cognitive behavioral therapy practice companion,{" "}
         <strong className="font-medium text-foreground">not a therapist or crisis service</strong>.
         Summaries are grounded in{" "}

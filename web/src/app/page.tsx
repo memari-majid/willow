@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, Brain, ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export default function HomePage() {
   return (
@@ -65,17 +66,17 @@ export default function HomePage() {
         </p>
         <p>
           <Link
-            href="/wiki"
+            href={GUIDE_LIBRARY.href}
             className="underline underline-offset-4 hover:text-foreground"
           >
-            Cognitive behavioral therapy wiki
+            {GUIDE_LIBRARY.pageTitle}
           </Link>
-          {" — book-grounded guides. "}
+          {" — book-grounded topics and techniques. "}
           <Link
-            href="/sources"
+            href={HOW_WILLOW_WORKS.href}
             className="underline underline-offset-4 hover:text-foreground"
           >
-            What guides Willow&rsquo;s replies
+            {HOW_WILLOW_WORKS.navLabel}
           </Link>
           {" — protocol, style, and live status."}
         </p>

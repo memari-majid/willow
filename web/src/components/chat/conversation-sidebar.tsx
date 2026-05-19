@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { WillowMark } from "@/components/willow-mark";
 import { cn } from "@/lib/utils";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export type ConversationRow = {
   id: string;
@@ -50,13 +51,13 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
           <Settings className="size-4 shrink-0" aria-hidden />
           Settings
         </Link>
-        <Link href="/wiki" className={linkClass} onClick={onNavigate}>
+        <Link href={GUIDE_LIBRARY.href} className={linkClass} onClick={onNavigate}>
           <BookOpen className="size-4 shrink-0" aria-hidden />
-          Wiki
+          {GUIDE_LIBRARY.navLabel}
         </Link>
-        <Link href="/sources" className={linkClass} onClick={onNavigate}>
+        <Link href={HOW_WILLOW_WORKS.href} className={linkClass} onClick={onNavigate}>
           <Layers className="size-4 shrink-0" aria-hidden />
-          Sources
+          {HOW_WILLOW_WORKS.navLabel}
         </Link>
         <div className="px-1">
           <SignOutButton className="h-9 w-full justify-start px-2 text-sm" />

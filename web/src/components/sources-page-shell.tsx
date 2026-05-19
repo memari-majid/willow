@@ -3,11 +3,12 @@ import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
+import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export function SourcesPageShell({
   children,
   backHref,
-  backLabel = "All knowledge layers",
+  backLabel = HOW_WILLOW_WORKS.backLabel,
 }: {
   children: React.ReactNode;
   backHref?: string;
@@ -20,9 +21,17 @@ export function SourcesPageShell({
           <Link href="/" className="opacity-90 hover:opacity-100">
             <WillowMark />
           </Link>
-          <Button asChild variant="outline" size="sm">
-            <Link href="/sign-in?callbackUrl=/chat">Sign in to chat</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" size="sm">
+              <Link href={GUIDE_LIBRARY.href}>{GUIDE_LIBRARY.navLabel}</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm">
+              <Link href={HOW_WILLOW_WORKS.href}>{HOW_WILLOW_WORKS.navLabel}</Link>
+            </Button>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/sign-in?callbackUrl=/chat">Sign in to chat</Link>
+            </Button>
+          </div>
         </div>
       </header>
 
