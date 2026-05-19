@@ -41,6 +41,7 @@ everything in between.
 |---|---|
 | First-time setup | [`developer/getting-started.md`](./developer/getting-started.md) |
 | Mental model of the codebase | [`developer/architecture.md`](./developer/architecture.md) |
+| Memory, conversations, retention | [`cbt/memory.md`](./cbt/memory.md) |
 | **Technology choices, costs, voice roadmap** | **[`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md)** |
 | **Chat latency / model tuning** | [`developer/technology-stack-and-costs.md`](./developer/technology-stack-and-costs.md) § LLM · [`cbt/decisions.md`](./cbt/decisions.md) |
 | **Reuse stack for new agent chatbots** | **[`developer/agent-chatbot-playbook.md`](./developer/agent-chatbot-playbook.md)** |
@@ -86,6 +87,7 @@ docs/
 │   ├── build-spec.md
 │   ├── decisions.md
 │   ├── safety.md
+│   ├── memory.md
 │   └── eval.md
 ├── sme/                ← Subject Matter Expert
 │   ├── GUIDE.md

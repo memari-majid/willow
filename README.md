@@ -2,7 +2,24 @@
 
 > A gentle space to talk things through.
 
+Willow is a **CBT practice companion** — an AI chatbot for everyday reflection and structured exercises. It is **not** a therapist, doctor, or crisis service.
+
 This repository keeps **only this file at the root**. Everything else lives under [`web/`](./web/) — the Next.js app, SME content, docs, scripts, and tests.
+
+## How Willow works
+
+Each chat turn follows a fixed pipeline:
+
+1. **Safety first** — Keyword and classifier prescreens run before the main model. Crisis language gets an immediate crisis response; elevated risk blocks memory writes.
+2. **Context assembly** — Willow loads your preferences, recalled memories, a rolling summary of the current thread, and (when configured) relevant passages from the clinical reference book via hybrid RAG search.
+3. **Guided reply** — **Claude Haiku 4.5** streams a response shaped by SME-authored protocol and tone docs in [`web/content/`](./web/content/). The model can call CBT tools (mood check, thought record, goal setting, etc.).
+4. **Persist & learn** — Messages save to Postgres. On safe turns, Willow may summarize the thread, auto-title it, and extract durable facts for cross-conversation recall.
+
+**Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; switching loads that thread's full history. Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
+
+**Knowledge base:** Protocol, persona, and safety rules live in Markdown under `web/content/`. The Sokol & Fox CBT reference book is chunked, embedded, and retrieved at runtime — status at [`/sources`](https://willowspace.dev/sources).
+
+Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 
 ## Quick start
 
