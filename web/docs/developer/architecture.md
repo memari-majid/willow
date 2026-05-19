@@ -32,7 +32,7 @@ willow/                          ← repo root: README.md only
 
 Legacy `/sme` routes redirect to `/sources`.
 
-**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. `/chat` opens the most recent thread. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
+**Chat UX:** Sidebar lists conversations; **New chat** creates a thread via `POST /api/conversations`. After the first exchange, `maybeAutoTitleConversation` names the thread from the opening topic (ChatGPT-style); the client refreshes sidebar/header. `/chat` opens the most recent thread. Long threads: full history in Postgres, but only the last ~40 messages + rolling summary go to the LLM (`trimHistory`). Empty-state starter chips seed a new thread only.
 
 ## Request flow (authenticated chat)
 
@@ -48,7 +48,7 @@ Browser (useChat + DefaultChatTransport)
     → trimHistory (last 40 msgs) + rolling summary in user context
     → buildCbtSystemPrompt; static block uses Anthropic prompt cache
     → streamText (Haiku + tools, stopWhen stepCountIs(3))
-    → onFinish: persist messages + maybeSummarize + maybeAutoExtract + maybeAutoTitle (green path)
+    → onFinish: persist messages + maybeSummarize + maybeAutoExtract + await maybeAutoTitle (first exchange, topic-specific title)
 ```
 
 ## RAG flow (per turn)

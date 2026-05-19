@@ -40,7 +40,7 @@ Run after any prompt or UX change to chat behavior:
 1. **New chat** — sidebar **New chat** → empty state with starter chips; previous thread unchanged in sidebar.
 2. **Switch threads** — open an older conversation from sidebar; messages match that thread only.
 3. **Cross-thread recall** — in thread A say "My name is Sam and I'm a teacher"; start **New chat**; ask "what do you remember about me?" — reply references name/job (via auto-extract or `remember_fact`).
-4. **Auto-title** — after second message in a new thread, sidebar title updates from "New conversation".
+4. **Auto-title** — after the first exchange in a new thread, sidebar title updates from "New conversation" to a topic-specific name (like ChatGPT).
 
 See [`memory.md`](./memory.md) for retention and privacy guarantees.
 

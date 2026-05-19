@@ -15,7 +15,7 @@ Each chat turn follows a fixed pipeline:
 3. **Guided reply** — **Claude Haiku 4.5** streams a response shaped by SME-authored protocol and tone docs in [`web/content/`](./web/content/). The model can call CBT tools (mood check, thought record, goal setting, etc.).
 4. **Persist & learn** — Messages save to Postgres. On safe turns, Willow may summarize the thread, auto-title it, and extract durable facts for cross-conversation recall.
 
-**Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; switching loads that thread's full history. Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
+**Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
 
 **Knowledge base:** Protocol, persona, and safety rules live in Markdown under `web/content/`. The Sokol & Fox CBT reference book is chunked, embedded, and retrieved at runtime — status at [`/sources`](https://willowspace.dev/sources).
 

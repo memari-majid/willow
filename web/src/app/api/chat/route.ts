@@ -262,17 +262,24 @@ export async function POST(req: Request) {
         );
       }
 
-      const firstUser = messages.find((m) => m.role === "user");
-      const firstUserText = firstUser
-        ? extractMessageText(firstUser)
+      const firstUser = finalMessages.find((m) => m.role === "user");
+      const firstAssistant = finalMessages.find((m) => m.role === "assistant");
+      const firstUserText = firstUser ? extractMessageText(firstUser) : "";
+      const firstAssistantText = firstAssistant
+        ? extractMessageText(firstAssistant)
         : "";
-      void maybeAutoTitleConversation({
-        conversationId,
-        userId,
-        currentTitle: convo.title,
-        firstUserMessage: firstUserText,
-        messageCount: finalMessages.length,
-      }).catch(() => {});
+      try {
+        await maybeAutoTitleConversation({
+          conversationId,
+          userId,
+          currentTitle: convo.title,
+          firstUserMessage: firstUserText,
+          firstAssistantMessage: firstAssistantText,
+          messageCount: finalMessages.length,
+        });
+      } catch {
+        /* best-effort */
+      }
     },
   });
 }

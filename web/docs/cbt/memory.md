@@ -45,7 +45,7 @@ Set `PERSONALIZATION_ENABLED=false` in the deployment environment to disable mem
 |---|---|
 | **New chat** | Sidebar **New chat** → `POST /api/conversations` → empty thread with starter chips |
 | **Switch thread** | Sidebar list → `/chat/[conversationId]` loads that thread's full message history from Postgres |
-| **Auto-title** | After the second message, Haiku renames `"New conversation"` from the first user turn |
+| **Auto-title** | After the first exchange, Haiku names the thread from the opening topic (ChatGPT-style, e.g. "Downward arrow technique") — sidebar and header refresh automatically |
 | **Rolling summary** | Every ~12 new messages (green path), Haiku writes `conversation_summaries` for **this thread only** |
 | **LLM trim** | Only the last **40** UI messages go to the model; older turns are represented by the rolling summary in `<user_longitudinal_context>` |
 | **Auto-extract** | Every ~6 messages (green path), server extracts up to 3 durable facts into `user_memories` for **cross-conversation** recall |
@@ -63,6 +63,7 @@ Cross-conversation continuity: new threads still get pinned memories, semantic r
 - Persona overlays: `content/persona/age_band/`, `content/persona/locale/`
 - Summarize: `src/lib/memory/summarize.ts` — threshold 12 messages
 - Auto-extract: `src/lib/memory/auto-extract.ts` — cross-thread facts every ~6 messages
+- Auto-title: `src/lib/ai/auto-title.ts` — ChatGPT-style names from first exchange; rejects generic titles
 - Trim: `src/lib/ai/trim-history.ts` — last 40 messages to LLM
 - Conversations UI: `src/components/chat/conversation-sidebar.tsx`
 

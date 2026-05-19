@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { useRouter } from "next/navigation";
 
 import { Composer } from "@/components/chat/composer";
 import { CrisisBanner } from "@/components/chat/crisis-banner";
@@ -28,6 +29,8 @@ export function Chat({
   initialMessages?: WillowUIMessage[];
 }) {
   const [input, setInput] = useState("");
+  const router = useRouter();
+  const titleRefreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const transport = useMemo(
     () =>
@@ -45,7 +48,24 @@ export function Chat({
       id: conversationId,
       messages: initialMessages ?? [],
       transport,
+      onFinish: ({ messages: finished }) => {
+        const userTurns = finished.filter((m) => m.role === "user").length;
+        if (userTurns > 2) return;
+        if (titleRefreshTimer.current) {
+          clearTimeout(titleRefreshTimer.current);
+        }
+        titleRefreshTimer.current = setTimeout(() => router.refresh(), 1800);
+      },
     });
+
+  useEffect(
+    () => () => {
+      if (titleRefreshTimer.current) {
+        clearTimeout(titleRefreshTimer.current);
+      }
+    },
+    [],
+  );
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
