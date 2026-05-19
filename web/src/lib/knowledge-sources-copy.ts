@@ -11,8 +11,17 @@ export const KNOWLEDGE_PAGE = {
     "Crisis keywords, required disclaimers, and escalation paths are checked before each reply. When your message matches a technique or concept from the reference text, the most relevant passages are added to the model's context so answers stay grounded in the same material clinicians use.",
 } as const;
 
+export const KNOWLEDGE_SOURCE_SLUGS = {
+  protocol: "cbt-protocol",
+  tone: "communication-style",
+  book: "clinical-reference",
+  rag: "passage-retrieval",
+  safety: "safety-guardrails",
+} as const;
+
 export const KNOWLEDGE_SOURCES = {
   protocol: {
+    slug: KNOWLEDGE_SOURCE_SLUGS.protocol,
     title: "CBT session protocol",
     description:
       "Rules derived from Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy — translated for chat. Covers the cognitive model (situation → thought → feeling → behavior), session flow from mood check through homework, thought records, Socratic questioning, common thinking errors, behavioral activation, worry postponement, and firm limits on diagnosis, medication, unsupervised exposure, and trauma processing.",
@@ -22,6 +31,7 @@ export const KNOWLEDGE_SOURCES = {
       "Protocol text not loaded. Chat cannot run the full CBT companion flow until this is configured.",
   },
   tone: {
+    slug: KNOWLEDGE_SOURCE_SLUGS.tone,
     title: "Communication style",
     description:
       "How Willow speaks: warm-direct and steady — like a capable coach, not a generic comforting bot. Brief, specific, curious; avoids performative empathy, false reassurance, and saccharine praise. Ends each turn with one grounded question rather than pre-written reply options.",
@@ -30,6 +40,7 @@ export const KNOWLEDGE_SOURCES = {
     pendingDetail: "Tone guide not loaded.",
   },
   book: {
+    slug: KNOWLEDGE_SOURCE_SLUGS.book,
     title: "Clinical reference text",
     subtitle: "Sokol & Fox (2019) — The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     description:
@@ -40,6 +51,7 @@ export const KNOWLEDGE_SOURCES = {
       "The reference text has not been indexed yet. Willow can still follow the written protocol and style, but book-grounded passages will not appear until ingest completes.",
   },
   rag: {
+    slug: KNOWLEDGE_SOURCE_SLUGS.rag,
     title: "Passage retrieval",
     description:
       "Each turn, Willow searches indexed book passages using both meaning (vector search) and keywords, then reranks the best matches. Those excerpts are injected into the reply context — with citations — so techniques and wording trace back to the guide.",
@@ -50,5 +62,13 @@ export const KNOWLEDGE_SOURCES = {
     pendingNoDb: "Database unavailable — cannot count indexed passages.",
     pendingEmpty:
       "No passages indexed yet — run ingest against your database to enable book-grounded replies.",
+  },
+  safety: {
+    slug: KNOWLEDGE_SOURCE_SLUGS.safety,
+    title: "Safety guardrails",
+    description:
+      "Keyword and classifier prescreens run before the main model. Crisis language triggers an immediate response with human resources; elevated concern blocks memory writes and slows technique push.",
+    readyDetail: "Active on every chat turn.",
+    pendingDetail: "Safety rules not loaded.",
   },
 } as const;

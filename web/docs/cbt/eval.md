@@ -59,10 +59,12 @@ Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 
 After deploy or ingest changes, open **`/sources`** ("What guides Willow's replies"):
 
-1. **Protocol + tone** — both rows **Ready** with character counts (Markdown bundled with deploy).
+1. **Protocol + tone** — both rows **Ready** with character counts; each card links to a detail page (`/sources/cbt-protocol`, `/sources/communication-style`).
 2. **Reference book** — **Ready** when indexed passages exist for the Sokol & Fox guide; detail shows passage count — not filesystem PDF checks on Vercel.
 3. **RAG retrieval** — **Ready** with total chunk count and Voyage rerank when `VOYAGE_API_KEY` is set.
-4. **Consistency** — Reference book chunk count should match RAG row when ingest is complete.
+4. **Safety** — card links to `/sources/safety-guardrails` with prescreen and boundary detail.
+5. **Detail pages** — each layer has expanded sections (techniques, anti-patterns, retrieval pipeline, crisis flow); no internal file names on user-facing copy.
+6. **Consistency** — Reference book chunk count should match RAG row when ingest is complete.
 
 See [`../developer/agent-chatbot-playbook.md`](../developer/agent-chatbot-playbook.md) § `/sources` page semantics.
 

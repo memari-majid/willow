@@ -17,7 +17,15 @@ Each chat turn follows a fixed pipeline:
 
 **Conversations:** The sidebar lists your threads. **New chat** starts a fresh conversation; after the first exchange, each thread is **auto-titled from its topic** (ChatGPT-style). Long threads stay cheap to run: only the last ~40 messages go to the LLM, with older context carried by a rolling summary. Profile prefs and extracted memories carry across threads.
 
-**Knowledge base:** Every reply combines five layers — see **[What guides Willow's replies](#what-guides-willows-replies)** below. Live Ready/Pending status: [willowspace.dev/sources](https://willowspace.dev/sources).
+**Knowledge base:** Every reply combines five layers — see **[What guides Willow's replies](#what-guides-willows-replies)** below. Live Ready/Pending status and full detail pages: [willowspace.dev/sources](https://willowspace.dev/sources).
+
+| Layer | Detail page |
+|---|---|
+| CBT session protocol | [willowspace.dev/sources/cbt-protocol](https://willowspace.dev/sources/cbt-protocol) |
+| Communication style | [willowspace.dev/sources/communication-style](https://willowspace.dev/sources/communication-style) |
+| Clinical reference text | [willowspace.dev/sources/clinical-reference](https://willowspace.dev/sources/clinical-reference) |
+| Passage retrieval | [willowspace.dev/sources/passage-retrieval](https://willowspace.dev/sources/passage-retrieval) |
+| Safety guardrails | [willowspace.dev/sources/safety-guardrails](https://willowspace.dev/sources/safety-guardrails) |
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 
