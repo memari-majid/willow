@@ -6,6 +6,7 @@ import type { RetrievedChunk, RetrievalFilter } from "./context-format";
 
 import { embedSingle } from "./embed";
 import { rerank } from "./rerank";
+import { sanitizePassageChunk } from "@/lib/rag/sanitize-text";
 import { hasEmbeddingCredentials } from "./voyage-client";
 
 export type { RetrievedChunk, RetrievalFilter } from "./context-format";
@@ -93,7 +94,9 @@ export async function retrieveContext(
     .sort((a, b) => b.score - a.score)
     .slice(0, k)
     .map((r) => merged[r.index])
-    .filter(Boolean);
+    .filter(Boolean)
+    .map(sanitizePassageChunk)
+    .filter((c) => c.content.length >= 40);
 
   return ordered;
 }

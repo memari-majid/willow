@@ -149,6 +149,12 @@ function WikiSearchBookPassages({
 }: {
   passages: RetrievedChunk[];
 }) {
+  const items = passages
+    .map((p) => ({ p, excerpt: excerptPassage(p.content, 40) }))
+    .filter(({ excerpt }) => excerpt.length > 0);
+
+  if (!items.length) return null;
+
   return (
     <section className="mt-8 space-y-3">
       <h2 className="text-sm font-medium tracking-tight">
@@ -159,7 +165,7 @@ function WikiSearchBookPassages({
         in chat.
       </p>
       <ul className="space-y-2">
-        {passages.map((p) => (
+        {items.map(({ p, excerpt }) => (
           <li
             key={p.id}
             className="rounded-xl border border-border/50 bg-card/30 p-3"
@@ -168,7 +174,7 @@ function WikiSearchBookPassages({
               {formatPassageCitation(p)}
             </p>
             <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-              {excerptPassage(p.content, 40)}
+              {excerpt}
             </p>
           </li>
         ))}

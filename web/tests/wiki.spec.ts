@@ -168,6 +168,15 @@ describe("wiki passage excerpt", () => {
     const out = excerptPassage(words, 50);
     expect(out.endsWith("…")).toBe(true);
   });
+
+  it("strips PDF garbage from excerpts", () => {
+    const out = excerptPassage(
+      "Behavioral Activation \uFFFD\uFFFD \uFFFD schedule activity",
+      10,
+    );
+    expect(out).not.toContain("\uFFFD");
+    expect(out).toContain("Behavioral");
+  });
 });
 
 describe("wiki slugs distinct from sources slugs", () => {

@@ -1,15 +1,21 @@
 import type { RetrievedChunk } from "@/lib/rag/context-format";
+import {
+  excerptReadableText,
+  isInternalSection,
+  sanitizeExtractedText,
+} from "@/lib/rag/sanitize-text";
 
 export function formatPassageCitation(chunk: RetrievedChunk): string {
-  const parts = [chunk.chapter];
-  if (chunk.section) parts.push(chunk.section);
+  const chapter = sanitizeExtractedText(chunk.chapter);
+  const parts = [chapter];
+  if (chunk.section && !isInternalSection(chunk.section)) {
+    parts.push(sanitizeExtractedText(chunk.section));
+  }
   if (chunk.pageStart != null) parts.push(`p. ${chunk.pageStart}`);
-  return parts.join(" · ");
+  return parts.filter(Boolean).join(" · ");
 }
 
 /** Trim passage text for public display (not full chunk dump). */
 export function excerptPassage(content: string, maxWords = 50): string {
-  const words = content.trim().split(/\s+/);
-  if (words.length <= maxWords) return content.trim();
-  return `${words.slice(0, maxWords).join(" ")}…`;
+  return excerptReadableText(content, maxWords);
 }

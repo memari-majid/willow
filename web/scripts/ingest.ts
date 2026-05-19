@@ -19,6 +19,7 @@ import { eq, sql } from "drizzle-orm";
 import { db } from "../src/lib/db/client";
 import { documentChunks } from "../src/lib/db/schema";
 import { embedTexts } from "../src/lib/rag/embed";
+import { sanitizeExtractedText } from "../src/lib/rag/sanitize-text";
 import { hasEmbeddingCredentials } from "../src/lib/rag/voyage-client";
 
 const SOURCE_ID = "sokol-fox-2019";
@@ -26,7 +27,8 @@ const DEFAULT_PDF = path.join(
   process.cwd(),
   "content/source-pdf/sokol-fox-2019.pdf",
 );
-const CHAPTER = "Sokol & Fox — Clinician CBT Guide";
+const CHAPTER =
+  "Sokol & Fox (2019) — Clinician's Guide to Cognitive Behavioral Therapy";
 
 /** Stable UUID v4-shaped id from chunk identity (re-runs upsert same rows). */
 function chunkDeterministicId(
@@ -109,7 +111,7 @@ function inferChunkMeta(text: string): {
 function chunkText(fullText: string, maxChunks = 2000): string[] {
   const paras = fullText
     .split(/\n\s*\n+/)
-    .map((p) => p.replace(/\s+/g, " ").trim())
+    .map((p) => sanitizeExtractedText(p.replace(/\s+/g, " ")))
     .filter((p) => p.length > 40);
 
   const chunks: string[] = [];

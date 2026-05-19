@@ -1,15 +1,22 @@
 import type { RetrievedChunk } from "@/lib/rag/context-format";
+import { sanitizeExtractedText } from "@/lib/rag/sanitize-text";
 import {
   excerptPassage,
   formatPassageCitation,
 } from "@/lib/wiki/passage-display";
+
+function displayPassages(passages: RetrievedChunk[]): RetrievedChunk[] {
+  return passages.filter((p) => excerptPassage(p.content).length > 0);
+}
 
 export function WikiRelatedPassages({
   passages,
 }: {
   passages: RetrievedChunk[];
 }) {
-  if (!passages.length) {
+  const visible = displayPassages(passages);
+
+  if (!visible.length) {
     return (
       <section className="mt-10 space-y-2">
         <h2 className="text-base font-medium tracking-tight">
@@ -36,20 +43,26 @@ export function WikiRelatedPassages({
         </p>
       </div>
       <ul className="space-y-3">
-        {passages.map((p) => (
+        {visible.map((p) => {
+          const excerpt = excerptPassage(p.content);
+          const technique = p.techniqueName
+            ? sanitizeExtractedText(p.techniqueName)
+            : "";
+          return (
           <li
             key={p.id}
             className="rounded-xl border border-border/50 bg-card/30 p-4"
           >
             <p className="text-xs font-medium text-foreground/80">
               {formatPassageCitation(p)}
-              {p.techniqueName ? ` · ${p.techniqueName}` : ""}
+              {technique ? ` · ${technique}` : ""}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {excerptPassage(p.content)}
+              {excerpt}
             </p>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </section>
   );
