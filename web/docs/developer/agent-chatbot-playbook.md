@@ -156,7 +156,7 @@ Implementation: [`src/lib/rag/voyage-client.ts`](../../src/lib/rag/voyage-client
 
 ## Agent / tools pattern
 
-Willow is an **agent** in the AI SDK sense: the model can call typed tools mid-conversation (`stopWhen: stepCountIs(10)`).
+Willow is an **agent** in the AI SDK sense: the model can call typed tools mid-conversation (`stopWhen: stepCountIs(3)`).
 
 ### Adding a tool (checklist)
 
@@ -187,12 +187,9 @@ POST { messages, conversationId, model?, temperature? }
   → rate limit (optional Upstash)
   → loadContent()
   → Stage A: keyword / regex crisis → crisisUiResponse (no main model)
-  → Stage B: Haiku classifier (+ preference signal if personalization on) → red? crisis · yellow? turn note
-  → insertSafetyEvent
-  → parallel: retrieveContext(lastUserText) + recallMemories + buildUserContextBlock
-  → buildCbtSystemPrompt(+ persona overlay) + turnNote + userContext + formatRetrievedChunks
-  → makeAgentTools (CBT + memory when PERSONALIZATION_ENABLED)
-  → streamText({ model, system, messages, tools, stopWhen })
+  → parallel: safety + (pref signal if regex match) + prepareTurnContext + persona overlay
+  → buildCbtSystemPrompt; static system block uses Anthropic prompt cache
+  → streamText (Haiku default + tools, stopWhen stepCountIs(3))
   → onFinish: persistConversationMessages + maybeSummarizeConversation
 ```
 

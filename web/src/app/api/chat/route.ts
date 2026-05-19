@@ -9,15 +9,18 @@ import {
 } from "ai";
 
 import { auth } from "@/auth";
+import { buildChatModelMessages } from "@/lib/ai/chat-messages";
+import { prepareTurnContext } from "@/lib/ai/prepare-turn-context";
 import { makeAgentTools } from "@/lib/ai/tools/agent-tools";
-import { buildUserContextBlock } from "@/lib/ai/prompt-builder";
 import {
   applyPreferenceSignal,
   detectPreferenceSignal,
+  mightContainPreferenceSignal,
 } from "@/lib/ai/preference-signal";
 import {
   CBT_CONVERSATION_MODEL,
   FALLBACK_MODELS,
+  MAX_AGENT_TOOL_STEPS,
   isAllowedModel,
 } from "@/lib/ai/model";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
@@ -27,10 +30,9 @@ import { loadContent, loadPersonaOverlay } from "@/lib/content";
 import { getConversation, getUserById } from "@/lib/db/queries";
 import { persistConversationMessages } from "@/lib/db/persist-messages";
 import { insertSafetyEvent } from "@/lib/db/queries";
-import { recallMemories } from "@/lib/memory/recall";
 import { maybeSummarizeConversation } from "@/lib/memory/summarize";
 import { isPersonalizationEnabled } from "@/lib/personalization/flags";
-import { formatRetrievedChunks, retrieveContext } from "@/lib/rag/retrieve";
+import { formatRetrievedChunks } from "@/lib/rag/retrieve";
 import { classifyUserMessage } from "@/lib/safety/classifier";
 import { crisisUiResponse } from "@/lib/safety/crisis-response";
 import { matchesRedFlags } from "@/lib/safety/keywords";
@@ -114,11 +116,23 @@ export async function POST(req: Request) {
   }
 
   const recentContext = recentContextForSafety(messages);
-  const [safety, prefSignal] = await Promise.all([
+  const runPrefSignal =
+    personalizationOn && mightContainPreferenceSignal(lastUserText);
+
+  const [safety, prefSignal, turnContext, personaOverlay] = await Promise.all([
     classifyUserMessage(lastUserText, recentContext),
-    personalizationOn
+    runPrefSignal
       ? detectPreferenceSignal(lastUserText)
       : Promise.resolve({ detected: false as const, kind: "none" as const }),
+    prepareTurnContext({ userId, conversationId, lastUserText }),
+    personalizationOn
+      ? getUserById(userId).then((user) =>
+          loadPersonaOverlay({
+            ageBand: user?.ageBand,
+            locale: user?.locale,
+          }),
+        )
+      : Promise.resolve(""),
   ]);
 
   if (safety.riskLevel === "red") {
@@ -159,41 +173,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let retrieved: Awaited<ReturnType<typeof retrieveContext>> = [];
-  let userContext = "";
-  try {
-    const recallPromise =
-      personalizationOn && lastUserText
-        ? recallMemories(userId, lastUserText)
-        : Promise.resolve([]);
-
-    const [ragResult, recalled] = await Promise.all([
-      retrieveContext(lastUserText, {}),
-      recallPromise,
-    ]);
-    retrieved = ragResult;
-    userContext = await buildUserContextBlock({
-      userId,
-      conversationId,
-      recalledMemories: recalled,
-    });
-  } catch (e) {
-    logger.warn({ err: e }, "rag.retrieve_failed");
-    try {
-      userContext = await buildUserContextBlock({ userId, conversationId });
-    } catch {
-      userContext = await buildUserContextBlock(userId);
-    }
-  }
-
-  let personaOverlay = "";
-  if (personalizationOn) {
-    const user = await getUserById(userId);
-    personaOverlay = await loadPersonaOverlay({
-      ageBand: user?.ageBand,
-      locale: user?.locale,
-    });
-  }
+  const { retrieved, userContext } = turnContext;
 
   const baseSystem = buildCbtSystemPrompt(content, personaOverlay);
   const turnNotes: string[] = [];
@@ -206,12 +186,10 @@ export async function POST(req: Request) {
     turnNotes.push(`<turn_instruction>${preferenceAck}</turn_instruction>`);
   }
 
-  const system = [
-    baseSystem,
-    turnNotes.join("\n\n"),
-    userContext,
-    formatRetrievedChunks(retrieved),
-  ]
+  const staticSystem = [baseSystem, turnNotes.join("\n\n")]
+    .filter(Boolean)
+    .join("\n\n");
+  const dynamicSystem = [userContext, formatRetrievedChunks(retrieved)]
     .filter(Boolean)
     .join("\n\n");
 
@@ -231,10 +209,13 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: chosenModel,
-    system,
-    messages: await convertToModelMessages(messages),
+    messages: buildChatModelMessages({
+      staticSystem,
+      dynamicSystem,
+      conversationMessages: await convertToModelMessages(messages),
+    }),
     tools,
-    stopWhen: stepCountIs(10),
+    stopWhen: stepCountIs(MAX_AGENT_TOOL_STEPS),
     temperature: chosenTemperature,
     providerOptions: {
       gateway: {

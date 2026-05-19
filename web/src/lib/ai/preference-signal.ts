@@ -5,11 +5,13 @@ import {
   PREFERENCE_SIGNAL_SCHEMA,
   type PreferenceSignal,
 } from "@/lib/ai/preference-signal-schema";
+import { mightContainPreferenceSignal } from "@/lib/ai/preference-signal-prescreen";
 import {
   insertUserMemory,
   upsertUserPreference,
 } from "@/lib/memory/store";
 
+export { mightContainPreferenceSignal };
 export { PREFERENCE_SIGNAL_SCHEMA, type PreferenceSignal };
 
 const SYSTEM = `Detect if the user is asking to change how the AI companion communicates (tone, formality, pace, topics to avoid).

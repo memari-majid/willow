@@ -44,7 +44,7 @@ flowchart TB
   end
 
   subgraph models [Models per turn]
-    Opus[claude-opus-4.7 main reply]
+    Haiku[claude-haiku-4.5 chat + classifiers]
     Haiku[claude-haiku-4.5 safety + pref signal]
     Sum[haiku conv summary every ~20 msgs]
   end
@@ -66,8 +66,8 @@ flowchart TB
   Settings --> neon
   Chat --> Auth
   Chat --> GW
-  GW --> Opus
   GW --> Haiku
+  GW --> Sonnet
   GW --> Sum
   Chat --> RAG
   Chat --> Mem
@@ -95,13 +95,15 @@ flowchart TB
 
 ### 2. LLM — Vercel AI Gateway + AI SDK v6
 
-Willow passes **plain strings** like `anthropic/claude-opus-4.7` to `streamText` / `generateText`. No provider SDK imports in app code.
+Willow passes **plain strings** like `anthropic/claude-haiku-4.5` to `streamText` / `generateText`. No provider SDK imports in app code.
+
+**Performance defaults (2026-05):** Haiku chat model, Anthropic **prompt caching** on the static SME block, **conditional RAG** (skip short check-ins), **regex-gated** preference signal, **3** max tool steps per turn. Override chat model via `CBT_CONVERSATION_MODEL` in `src/lib/ai/model.ts` or request body `model`.
 
 | Call | Model (Willow default) | When |
 |---|---|---|
-| Main conversation | `anthropic/claude-opus-4.7` | Every green-path chat turn |
-| Safety classifier | `anthropic/claude-haiku-4.5` | Parallel with user message |
-| Preference signal | `anthropic/claude-haiku-4.5` | Parallel when personalization on |
+| Main conversation | `anthropic/claude-haiku-4.5` | Every green-path chat turn (fast default) |
+| Safety classifier | `anthropic/claude-haiku-4.5` | Parallel prescreen; blocks stream until done |
+| Preference signal | Haiku (regex-gated) | Only when user message matches tone keywords |
 | Conversation summary | `anthropic/claude-haiku-4.5` | After ~20 new messages in thread |
 
 Config: `src/lib/ai/model.ts`. Deep dive: [`ai-gateway.md`](./ai-gateway.md).
@@ -211,7 +213,7 @@ Willow is **text-first** today. “Voice” in the repo means **persona/tone** (
 
 1. **V1 — Read aloud:** After `streamText` completes (or sentence-chunked during stream), call Gateway `openai/tts-1` on assistant text; play MP3 in `<audio>` or Web Audio. Add “Listen” button on assistant bubbles.
 2. **V2 — Duplex:** Separate `/api/voice` route using Realtime API; mobile-first; still run safety classifier on transcript.
-3. **Do not** stream raw mic to the main Opus chat without safety prescreen — same crisis rules apply.
+3. **Do not** stream raw mic to the main chat model without safety prescreen — same crisis rules apply.
 
 **Cost note:** TTS is priced per **character** (~$15/M chars for `tts-1`), typically **$0.001–0.003 per short reply** — often cheaper than the LLM turn that produced the text.
 
@@ -240,16 +242,16 @@ Assumptions for a **typical green-path turn** with personalization on:
 
 | Component | Tokens (rough) | List price hint | Est. cost |
 |---|---|---|---|
-| System prompt + RAG + memory context | 8k–15k input | Opus $5/M in | $0.04–0.08 |
-| User + assistant reply | 1k in + 400 out | Opus $25/M out | $0.01 |
-| Safety classifier (Haiku) | ~500 in + 100 out | Haiku $0.1 / $1.25 M | <$0.001 |
-| Preference signal (Haiku) | ~300 in + 50 out | Haiku | <$0.001 |
+| System prompt + RAG + memory context | 8k–15k input | Haiku ~$0.1/M in | $0.001–0.002 |
+| User + assistant reply | 1k in + 400 out | Haiku ~$1.25/M out | <$0.001 |
+| Safety classifier (Haiku) | ~500 in + 100 out | Haiku | <$0.001 |
+| Preference signal (Haiku, gated) | ~300 in + 50 out | Haiku | <$0.001 (most turns skip) |
 | Query embed (Voyage) | ~50 tokens | ~$0.18/M | <$0.0001 |
 | RAG rerank (optional) | per Voyage rerank pricing | Voyage API | <$0.001 |
 
-**~$0.05–0.12 per turn** with Opus as main model.
+**~$0.002–0.008 per turn** with Haiku as main model (was ~$0.05–0.12 on Opus).
 
-**Cheaper conversation model:** Switch `CBT_CONVERSATION_MODEL` to `anthropic/claude-sonnet-4.6` → often **~3–5× lower** per turn with small quality trade-off for coaching use cases.
+**Higher-quality option:** Set `CBT_CONVERSATION_MODEL` to `anthropic/claude-sonnet-4.6` for complex technique coaching (~3× Haiku cost, still below Opus).
 
 ### Amortized extras
 
@@ -263,22 +265,23 @@ Assumptions for a **typical green-path turn** with personalization on:
 
 | Scenario | Assumption | LLM + embed est. |
 |---|---|---|
-| **Dev / solo** | 200 turns/mo | **$10–25** (often covered by Gateway $5 credit + free tiers) |
-| **Pilot** | 50 users × 20 turns | **~$50–120** |
-| **Small production** | 500 users × 30 turns | **~$750–1,800** |
-| **With Sonnet instead of Opus** | Same volume | **~$200–500** |
+| **Dev / solo** | 200 turns/mo | **$1–5** (often within free tiers) |
+| **Pilot** | 50 users × 20 turns | **~$1–5** |
+| **Small production** | 500 users × 30 turns | **~$10–40** |
+| **Sonnet upgrade** | Same volume, Sonnet default | **~$30–120** |
 
-Add **20–40% buffer** for retries, tool loops (`stopWhen: stepCountIs(10)`), and longer threads.
+Add **20–40% buffer** for retries, tool loops (`stopWhen: stepCountIs(3)`), and longer threads.
 
 ### Cost control checklist
 
 1. Set **AI Gateway budget alerts** in Vercel dashboard.
 2. Tag every call: `providerOptions.gateway.tags` (already in Willow).
 3. Rate-limit `/api/chat` (Upstash) — already wired when KV env set.
-4. Use **Haiku** for classifiers; reserve **Opus** for user-visible reply only.
+4. Use **Haiku** for classifiers and default chat; use **Sonnet** only when technique fidelity needs it.
 5. Cap RAG chunks (`retrieveContext` top-k) and memory recall (top 3).
-6. Set `PERSONALIZATION_ENABLED=false` during load testing if memory cost is irrelevant.
-7. Consider **Sonnet** as default production model; Opus for eval / premium tier.
+6. Cap tool steps (`MAX_AGENT_TOOL_STEPS = 3` in `model.ts`).
+7. Conditional RAG via `shouldRetrieveContext()` — skip embed/DB on short check-ins.
+8. Consider **Sonnet** only if Haiku quality is insufficient for technique fidelity.
 
 ---
 

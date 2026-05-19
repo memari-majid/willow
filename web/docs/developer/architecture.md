@@ -42,9 +42,9 @@ Browser (useChat + DefaultChatTransport)
     → Stage B Haiku classifier (+ preference signal if personalization on)
     → red? crisis · yellow? turn instruction · block memory writes on yellow
     → insertSafetyEvent (non-keyword path)
-    → parallel: retrieveContext + recallMemories + buildUserContextBlock
-    → buildCbtSystemPrompt(+ persona overlay) + turnNote + userContext + RAG chunks
-    → streamText (Opus + CBT + memory tools, stopWhen stepCountIs(10))
+    → parallel: safety + gated pref signal + prepareTurnContext + persona overlay
+    → buildCbtSystemPrompt; static block uses Anthropic prompt cache
+    → streamText (Haiku + tools, stopWhen stepCountIs(3))
     → onFinish: persist messages + maybeSummarizeConversation (green path)
 ```
 
