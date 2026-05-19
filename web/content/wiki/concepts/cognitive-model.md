@@ -4,8 +4,12 @@ slug: cognitive-model
 category: concept
 summary: The foundation of CBT — how situations, thoughts, feelings, body responses, and behaviors connect, and why changing thoughts starts with examination not argument.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
+review_status: draft
 reviewed_by: Developer draft — pending SME review
 reviewed_at: 2026-05-19
+wiki_keywords:
+  - cognitive model
+  - situation thought feeling
 related:
   - techniques/thought-record
   - anxiety

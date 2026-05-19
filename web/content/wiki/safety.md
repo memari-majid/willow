@@ -4,8 +4,13 @@ slug: safety
 category: safety
 summary: When human help matters more than a chat — crisis lines, boundaries of the wiki and Willow, and when to see a clinician.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
+review_status: draft
 reviewed_by: Developer draft — pending SME review
 reviewed_at: 2026-05-19
+wiki_keywords:
+  - crisis
+  - 988
+  - safety
 related:
   - anxiety
   - low-mood

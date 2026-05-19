@@ -4,8 +4,13 @@ slug: thought-record
 category: technique
 summary: The core CBT worksheet — one situation at a time, from trigger through evidence to Rethink, Relax, and Respond.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
+review_status: draft
 reviewed_by: Developer draft — pending SME review
 reviewed_at: 2026-05-19
+wiki_keywords:
+  - thought record
+  - Go Time
+  - Rethink Relax Respond
 related:
   - concepts/cognitive-model
   - anxiety

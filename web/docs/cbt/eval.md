@@ -59,11 +59,11 @@ Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
 
 After deploy, open **`/wiki`**:
 
-1. **Hub** — five topic cards under Common concerns / Core concepts / Techniques / Safety; search `?q=thought` returns thought record.
-2. **Topic page** — disclaimer banner, editorial sections, attributed quote, related passages block (when RAG configured).
-3. **Try with Willow** — on `/wiki/anxiety`, click **Start in chat** → sign-in if needed → new thread with starter prefilled in composer (not auto-sent).
-4. **Safety** — `/wiki/safety` shows crisis lines first; no chat CTA.
-5. **Nav** — Wiki link on home footer, chat header (desktop), sidebar footer (mobile).
+1. **Hub** — topics grouped by concern, concept, technique, thinking pattern, safety; **Draft** badges visible.
+2. **Hybrid search** — `/wiki?q=grounding` shows matching topics and book passages (when RAG configured).
+3. **Topic page** — review badge, related passages, Try with Willow CTA (except safety).
+4. **Chat wiki links** — when Willow mentions e.g. "thought record", assistant bubble shows **Wiki:** chip linking to `/wiki/techniques/thought-record`.
+5. **Nav** — Wiki link on home footer, chat header, sidebar footer.
 
 ## Knowledge sources (manual)
 

@@ -4,11 +4,19 @@ slug: anxiety
 category: problem
 summary: How anxious worry shows up in thoughts and body, and which CBT skills help you examine predictions without avoiding life.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
+review_status: draft
 reviewed_by: Developer draft — pending SME review
 reviewed_at: 2026-05-19
+wiki_keywords:
+  - anxiety
+  - anxious
+  - panic
+  - probability error
 related:
   - concepts/cognitive-model
   - techniques/thought-record
+  - worry
+  - techniques/grounding
 retrieval_query: anxiety probability error catastrophic error resource error cognitive restructuring
 chat_starter: I've been feeling anxious lately and want to look at what thoughts are driving it — can we start with one situation?
 quotes:

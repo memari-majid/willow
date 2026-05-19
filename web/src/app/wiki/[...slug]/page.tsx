@@ -13,6 +13,7 @@ import {
   WikiScopeNotice,
   WikiTryChatCta,
 } from "@/components/wiki/wiki-page-shell";
+import { WikiReviewBadge } from "@/components/wiki/wiki-review-badge";
 import { getWikiPage, loadWikiPages } from "@/lib/wiki/load";
 import { getWikiRelatedPassages } from "@/lib/wiki/related-passages";
 
@@ -51,28 +52,28 @@ export default async function WikiTopicPage({ params }: Props) {
   const showScope =
     page.category === "problem" ||
     page.category === "technique" ||
+    page.category === "distortion" ||
     page.path === "safety";
 
   return (
     <WikiPageShell>
       <article>
         <header className="space-y-3">
-          <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-            {categoryLabel(page.category)}
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              {categoryLabel(page.category)}
+            </p>
+            <WikiReviewBadge
+              status={page.reviewStatus}
+              reviewedBy={page.reviewedBy}
+              reviewedAt={page.reviewedAt}
+            />
+          </div>
           <h1 className="text-2xl font-semibold tracking-tight">{page.title}</h1>
           <p className="text-sm leading-relaxed text-muted-foreground">
             {page.summary}
           </p>
-          <p className="text-xs text-muted-foreground/90">
-            Source: {page.source}
-            {page.reviewedAt ? (
-              <>
-                {" "}
-                · Reviewed {page.reviewedAt} ({page.reviewedBy})
-              </>
-            ) : null}
-          </p>
+          <p className="text-xs text-muted-foreground/90">Source: {page.source}</p>
         </header>
 
         <div className="mt-6">
@@ -135,6 +136,8 @@ function categoryLabel(category: string): string {
       return "Core concept";
     case "technique":
       return "Technique";
+    case "distortion":
+      return "Thinking pattern";
     case "safety":
       return "Safety";
     default:

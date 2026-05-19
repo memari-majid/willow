@@ -1,5 +1,7 @@
 import { ChatToolPart } from "@/components/chat/tool-part";
+import { WikiMessageLinks } from "@/components/wiki/wiki-message-links";
 import { cn } from "@/lib/utils";
+import type { WikiLinkEntry } from "@/lib/wiki/link-registry";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 
 /**
@@ -7,8 +9,18 @@ import type { WillowUIMessage } from "@/lib/ai/message-metadata";
  * AI SDK v6 the message body is a parts array (text, reasoning,
  * file, tool calls...) — see `node_modules/ai/docs/04-ai-sdk-ui/`.
  */
-export function MessageBubble({ message }: { message: WillowUIMessage }) {
+export function MessageBubble({
+  message,
+  wikiLinkRegistry = [],
+}: {
+  message: WillowUIMessage;
+  wikiLinkRegistry?: WikiLinkEntry[];
+}) {
   const isUser = message.role === "user";
+  const assistantText = message.parts
+    .filter((p) => p.type === "text")
+    .map((p) => p.text)
+    .join("\n");
 
   return (
     <div
@@ -40,6 +52,9 @@ export function MessageBubble({ message }: { message: WillowUIMessage }) {
           }
           return null;
         })}
+        {!isUser && wikiLinkRegistry.length > 0 ? (
+          <WikiMessageLinks text={assistantText} registry={wikiLinkRegistry} />
+        ) : null}
       </div>
       {isUser && <RoleDot label="You" tone="user" />}
     </div>

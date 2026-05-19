@@ -10,6 +10,7 @@ import { CrisisBanner } from "@/components/chat/crisis-banner";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { StarterPrompts } from "@/components/chat/starter-prompts";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
+import type { WikiLinkEntry } from "@/lib/wiki/link-registry";
 
 /**
  * Top-level chat client. Owns useChat() state, scroll behavior, and
@@ -23,6 +24,7 @@ export function Chat({
   conversationId,
   initialMessages,
   prefill,
+  wikiLinkRegistry = [],
 }: {
   starters: string[];
   /** Required for saved CBT conversations (auth users). */
@@ -30,6 +32,7 @@ export function Chat({
   initialMessages?: WillowUIMessage[];
   /** Prefill composer from wiki or deep link (not auto-sent). */
   prefill?: string;
+  wikiLinkRegistry?: WikiLinkEntry[];
 }) {
   const [input, setInput] = useState("");
   const prefillApplied = useRef(false);
@@ -116,7 +119,11 @@ export function Chat({
         ) : (
           <div className="mx-auto flex max-w-2xl flex-col gap-4">
             {messages.map((m) => (
-              <MessageBubble key={m.id} message={m} />
+              <MessageBubble
+                key={m.id}
+                message={m}
+                wikiLinkRegistry={wikiLinkRegistry}
+              />
             ))}
             {status === "submitted" && <ThinkingDots />}
             {error && (

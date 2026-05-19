@@ -4,6 +4,7 @@ const VALID_CATEGORIES = new Set<WikiCategory>([
   "problem",
   "concept",
   "technique",
+  "distortion",
   "safety",
 ]);
 
@@ -84,14 +85,29 @@ export function parseWikiFrontMatter(
     throw new Error(`Invalid wiki category "${category}" for ${fallbackSlug}`);
   }
 
+  const reviewStatusRaw = String(data.review_status ?? "");
+  const reviewedBy = String(data.reviewed_by ?? "Pending SME review");
+  const reviewStatus: "draft" | "reviewed" =
+    reviewStatusRaw === "reviewed"
+      ? "reviewed"
+      : /pending/i.test(reviewedBy)
+        ? "draft"
+        : reviewStatusRaw === "draft"
+          ? "draft"
+          : "draft";
+
   return {
     title: String(data.title ?? fallbackSlug),
     slug: String(data.slug ?? fallbackSlug.split("/").pop()),
     category: category as WikiCategory,
     summary: String(data.summary ?? ""),
     source: String(data.source ?? ""),
-    reviewedBy: String(data.reviewed_by ?? "Pending SME review"),
+    reviewedBy,
     reviewedAt: String(data.reviewed_at ?? ""),
+    reviewStatus,
+    wikiKeywords: Array.isArray(data.wiki_keywords)
+      ? (data.wiki_keywords as string[])
+      : [],
     related: Array.isArray(data.related)
       ? (data.related as string[])
       : [],

@@ -27,7 +27,7 @@ Each chat turn follows a fixed pipeline:
 | Passage retrieval | [willowspace.dev/sources/passage-retrieval](https://willowspace.dev/sources/passage-retrieval) |
 | Safety guardrails | [willowspace.dev/sources/safety-guardrails](https://willowspace.dev/sources/safety-guardrails) |
 
-**CBT Wiki:** Browse book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) — anxiety, low mood, cognitive model, thought record, and safety resources.
+**CBT Wiki:** Browse **23** book-grounded topic guides at [willowspace.dev/wiki](https://willowspace.dev/wiki) — problems (anxiety, worry, low mood, …), techniques, thinking patterns, and safety. Hybrid search matches wiki pages and indexed guide passages.
 
 Deeper detail: [`web/docs/developer/architecture.md`](./web/docs/developer/architecture.md) · [`web/docs/cbt/memory.md`](./web/docs/cbt/memory.md) · [`web/docs/ROADMAP.md`](./web/docs/ROADMAP.md)
 

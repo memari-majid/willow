@@ -1,4 +1,11 @@
-export type WikiCategory = "problem" | "concept" | "technique" | "safety";
+export type WikiCategory =
+  | "problem"
+  | "concept"
+  | "technique"
+  | "distortion"
+  | "safety";
+
+export type WikiReviewStatus = "draft" | "reviewed";
 
 export type WikiQuote = {
   text: string;
@@ -13,6 +20,8 @@ export type WikiPageMeta = {
   source: string;
   reviewedBy: string;
   reviewedAt: string;
+  reviewStatus: WikiReviewStatus;
+  wikiKeywords: string[];
   related: string[];
   retrievalQuery: string;
   chatStarter: string;

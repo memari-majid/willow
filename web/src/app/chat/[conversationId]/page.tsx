@@ -9,6 +9,8 @@ import { SignOutButton } from "@/components/auth/sign-out-button";
 import { getConversation, listMessages } from "@/lib/db/queries";
 import { dbRowsToUiMessages } from "@/lib/db/persist-messages";
 import { loadContent } from "@/lib/content";
+import { loadWikiPages } from "@/lib/wiki/load";
+import { buildWikiLinkRegistry } from "@/lib/wiki/link-registry";
 
 export const dynamic = "force-dynamic";
 
@@ -40,10 +42,12 @@ export default async function ChatConversationPage({
     );
   }
 
-  const [content, rows] = await Promise.all([
+  const [content, rows, wikiPages] = await Promise.all([
     loadContent(),
     listMessages(conversationId),
+    loadWikiPages(),
   ]);
+  const wikiLinkRegistry = buildWikiLinkRegistry(wikiPages);
   const initialMessages = dbRowsToUiMessages(rows);
 
   return (
@@ -93,6 +97,7 @@ export default async function ChatConversationPage({
           conversationId={conversationId}
           initialMessages={initialMessages}
           prefill={prefill}
+          wikiLinkRegistry={wikiLinkRegistry}
         />
       </div>
     </div>

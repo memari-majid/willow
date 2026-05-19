@@ -73,6 +73,7 @@ export async function getWikiHubGroups(): Promise<WikiHubGroup[]> {
       { key: "Common concerns", filter: "problem" },
       { key: "Core concepts", filter: "concept" },
       { key: "Techniques", filter: "technique" },
+      { key: "Thinking patterns", filter: "distortion" },
       { key: "Safety", filter: "safety" },
     ];
 

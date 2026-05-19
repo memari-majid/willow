@@ -4,11 +4,17 @@ slug: low-mood
 category: problem
 summary: When motivation drops and withdrawal feeds the loop — behavioral activation and thought work grounded in standard CBT for depression.
 source: Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy
+review_status: draft
 reviewed_by: Developer draft — pending SME review
 reviewed_at: 2026-05-19
+wiki_keywords:
+  - low mood
+  - depression
+  - behavioral activation
 related:
   - concepts/cognitive-model
   - techniques/thought-record
+  - techniques/behavioral-activation
 retrieval_query: behavioral activation depression low mood inactivity pleasure mastery scheduling
 chat_starter: My mood has been low and I've been avoiding things — can we try one small behavioral activation step?
 quotes:

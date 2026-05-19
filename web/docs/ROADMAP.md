@@ -149,6 +149,7 @@ from real conversations.
 | 13 | **Conversational follow-ups** — removed reply-chip UX; assistant ends each turn with one grounded question | ✅ |
 | 14 | **Multi-conversation UI** — sidebar, new chat, hybrid trim, auto-extract cross-thread memories | ✅ |
 | 15 | **CBT Wiki Phase 1** — `/wiki` hub, 5 seed pages, RAG block, chat prefill deep links | ✅ |
+| 16 | **CBT Wiki Phase 2** — 23 topics, hybrid search, review badges, chat wiki links | ✅ |
 
 **Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 
@@ -201,9 +202,16 @@ from real conversations.
 
 **Implementation:** Markdown in `content/wiki/` with YAML front matter; loader in `src/lib/wiki/`; hybrid RAG block on topic pages via `retrieval_query`; **Try with Willow** → `/chat/start?prompt=…` prefills composer.
 
-**Phase 2 (next):** ~20 topics (remaining distortions, worry, anger, sleep); hybrid wiki+book search; SME review badges; chat → wiki links when a technique is surfaced.
+**Phase 2 shipped ✅:**
 
-**Phase 3:** Feedback widget + admin review queue; problem index pages for every major concern.
+| Feature | Detail |
+|---|---|
+| **23 wiki topics** | 6 problems, 3 concepts, 6 techniques, 6 distortions, 1 safety (+ Phase 1 base) |
+| **Hybrid search** | `/wiki?q=` — lexical wiki topics + RAG book passages on same query |
+| **Review badges** | `review_status: draft \| reviewed` on hub cards and topic headers |
+| **Chat wiki links** | Assistant bubbles show up to 3 **Wiki:** chips when text matches `wiki_keywords` |
+
+**Phase 3 (next):** Feedback widget + admin review queue; problem index landing pages.
 
 **Eval:** [`cbt/eval.md`](./cbt/eval.md) § Wiki (manual smoke).
 
