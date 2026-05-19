@@ -20,7 +20,8 @@ export function MessageBubble({ message }: { message: WillowUIMessage }) {
       {!isUser && <RoleDot label="Willow" />}
       <div
         className={cn(
-          "max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm",
+          "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm sm:max-w-[80%]",
+          "break-words [overflow-wrap:anywhere]",
           isUser
             ? "rounded-br-md bg-primary text-primary-foreground"
             : "rounded-bl-md bg-card text-card-foreground border border-border/60",

@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState } from "react";
 
+import { useBodyScrollLock } from "@/lib/hooks/use-body-scroll-lock";
+
 type ChatSidebarContextValue = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -12,6 +14,8 @@ const ChatSidebarContext = createContext<ChatSidebarContextValue | null>(null);
 
 export function ChatSidebarProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  useBodyScrollLock(open);
+
   return (
     <ChatSidebarContext.Provider
       value={{

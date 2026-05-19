@@ -42,6 +42,17 @@ Run after any prompt or UX change to chat behavior:
 3. **Cross-thread recall** — in thread A say "My name is Sam and I'm a teacher"; start **New chat**; ask "what do you remember about me?" — reply references name/job (via auto-extract or `remember_fact`).
 4. **Auto-title** — after the first exchange in a new thread, sidebar title updates from "New conversation" to a topic-specific name (like ChatGPT).
 
+## Mobile responsive (manual)
+
+Test at **360px**, **768px**, and **1280px** widths (DevTools device toolbar):
+
+1. **Header** — at 360px: hamburger + truncated title only; no horizontal scroll. At 768px+: Settings, Sources, Sign out in header.
+2. **Drawer** — tap hamburger → sidebar opens; backdrop tap or Escape closes it; background does not scroll behind drawer.
+3. **Sidebar footer** — at 360px: Settings and Sources reachable from drawer footer (not header).
+4. **Touch actions** — rename/delete icons visible without hover on touch; tap rename opens dialog (not `window.prompt`).
+5. **Composer** — textarea uses readable size; send button is easy to tap; no page zoom on focus (iOS).
+6. **Long URL** — send a message containing a long URL → text wraps inside the bubble without horizontal overflow.
+
 See [`memory.md`](./memory.md) for retention and privacy guarantees.
 
 **CI:** `.github/workflows/ci.yml` runs `npm test` and `npm run build` from `web/` (with dummy env for `DATABASE_URL` / `AUTH_SECRET`). Vitest config: `config/vitest.config.mjs`.

@@ -52,16 +52,16 @@ export default async function ChatConversationPage({ params }: Props) {
               <p className="text-[10px] text-muted-foreground">CBT companion</p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="hidden shrink-0 items-center gap-3 md:flex">
             <Link
               href="/settings"
-              className="hidden text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:inline"
+              className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
               Settings
             </Link>
             <Link
               href="/sources"
-              className="hidden text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline sm:inline"
+              className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
             >
               Sources
             </Link>

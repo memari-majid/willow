@@ -23,7 +23,7 @@ export async function ChatShell({
 
   return (
     <ChatSidebarProvider>
-      <div className="flex h-[100svh] min-h-0">
+      <div className="flex h-[100svh] min-h-0 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
         <div className="hidden md:flex">
           <ConversationSidebar conversations={conversations} />
         </div>

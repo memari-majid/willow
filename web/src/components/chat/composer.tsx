@@ -53,6 +53,7 @@ export function Composer({
       className={cn(
         "relative flex items-end gap-2 rounded-2xl border border-border/60",
         "bg-card/50 px-3 py-2 shadow-sm focus-within:border-border focus-within:bg-card",
+        "pb-[max(0.5rem,env(safe-area-inset-bottom))]",
       )}
     >
       <Textarea
@@ -63,8 +64,10 @@ export function Composer({
         placeholder={placeholder}
         rows={1}
         aria-label="Message Willow"
+        enterKeyHint="send"
+        autoCapitalize="sentences"
         className={cn(
-          "min-h-0 flex-1 resize-none border-0 bg-transparent p-1 text-sm",
+          "min-h-0 flex-1 resize-none border-0 bg-transparent p-1",
           "shadow-none focus-visible:ring-0 dark:bg-transparent",
         )}
       />
@@ -75,7 +78,7 @@ export function Composer({
           variant="secondary"
           onClick={onStop}
           aria-label="Stop response"
-          className="size-9 rounded-full"
+          className="size-10 rounded-full md:size-9"
         >
           <Square className="size-4" />
         </Button>
@@ -85,7 +88,7 @@ export function Composer({
           size="icon"
           disabled={!value.trim()}
           aria-label="Send message"
-          className="size-9 rounded-full"
+          className="size-10 rounded-full md:size-9"
         >
           <ArrowUp className="size-4" />
         </Button>

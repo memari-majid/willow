@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { AuthSessionProvider } from "@/components/providers/session-provider";
@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     "Willow is an AI companion for everyday emotional wellbeing. Not a therapist, not a diagnosis — just a calm space to reflect, breathe, and notice what you're feeling.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0a0a0a",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +39,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-background text-foreground">
         <AuthSessionProvider>
           <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
         </AuthSessionProvider>
