@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WillowMark } from "@/components/willow-mark";
+import { SETTINGS_COPY } from "@/lib/site-copy";
 
 import { getSettingsSnapshot, updatePreferencesAction } from "./actions";
+import { SettingsNav } from "./settings-nav";
 
 export const dynamic = "force-dynamic";
 
@@ -23,19 +25,12 @@ export default async function SettingsPage() {
         <Link href="/chat">
           <WillowMark />
         </Link>
-        <nav className="flex gap-3 text-xs">
-          <Link href="/settings/memory" className="underline-offset-4 hover:underline">
-            Memory
-          </Link>
-          <Link href="/settings/data" className="underline-offset-4 hover:underline">
-            Data
-          </Link>
-        </nav>
+        <SettingsNav active="prefs" />
       </header>
 
-      <h1 className="text-lg font-medium">Preferences</h1>
+      <h1 className="text-lg font-medium">{SETTINGS_COPY.preferencesTitle}</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        How Willow communicates with you. Changes apply on your next message.
+        {SETTINGS_COPY.preferencesLead}
       </p>
 
       <form action={updatePreferencesAction} className="mt-6 space-y-4">
@@ -73,7 +68,7 @@ export default async function SettingsPage() {
           </select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="directness">Directness (1–5)</Label>
+          <Label htmlFor="directness">{SETTINGS_COPY.directnessLabel}</Label>
           <Input
             id="directness"
             name="directness"
@@ -98,7 +93,7 @@ export default async function SettingsPage() {
           </select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="language">Language code</Label>
+          <Label htmlFor="language">{SETTINGS_COPY.languageLabel}</Label>
           <Input
             id="language"
             name="language"
@@ -116,7 +111,7 @@ export default async function SettingsPage() {
             placeholder="e.g. my ex, work gossip"
           />
         </div>
-        <Button type="submit">Save preferences</Button>
+        <Button type="submit">{SETTINGS_COPY.save}</Button>
       </form>
     </div>
   );

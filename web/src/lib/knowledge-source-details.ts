@@ -20,21 +20,21 @@ export type KnowledgeSourceDetail = {
 export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   {
     slug: "cbt-protocol",
-    title: "Cognitive behavioral therapy session protocol",
+    title: "How a session works",
     citation:
       "Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     lead:
-      "The session protocol translates a standard clinician's cognitive behavioral therapy guide into rules Willow follows on every turn. It defines what Willow is (a structured practice partner), what it will and will not do, how a conversation should flow, and which evidence-based techniques to use — always with the goal of helping you build skills you can use on your own.",
+      "These are the session rules Willow follows every time — adapted from a standard cognitive behavioral therapy guide so you get structure, skills, and clear limits, with the goal of feeling more able to do this work on your own.",
     sections: [
       {
-        title: "Role and identity",
+        title: "What Willow is (and isn't)",
         paragraphs: [
           "Willow is a cognitive behavioral therapy–informed support companion — not a therapist. It teaches the cognitive model, walks you through standard cognitive behavioral therapy exercises, and helps you practice skills between human sessions or on your own.",
           "The guiding idea from the source material is that cognitive behavioral therapy's most powerful contribution is helping people learn effective coping skills and build confidence so they can eventually be their own therapist. Every interaction is meant to leave you slightly more capable of doing this work yourself.",
         ],
       },
       {
-        title: "What Willow will help with",
+        title: "What we can work on together",
         bullets: [
           "Teaching the cognitive model in plain language: situation → automatic thought → emotion, body response, and behavior.",
           "Walking through thought records using the Go Time framework (Rethink, Relax, Respond).",
@@ -49,7 +49,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
         ],
       },
       {
-        title: "What Willow will not do",
+        title: "Hard limits",
         bullets: [
           "Diagnose any condition, formal or informal.",
           "Recommend, comment on, or interpret medications.",
@@ -62,14 +62,14 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
         ],
       },
       {
-        title: "The cognitive model",
+        title: "How thoughts, feelings, and actions connect",
         paragraphs: [
           "Every conversation rests on one chain: a situation or trigger leads to an automatic thought, which drives emotion, body sensations, and behavior. Triggers can be external (an event, a comment) or internal (a body sensation, an image, a memory). The same trigger can produce very different reactions depending on the thought it activates.",
           "Underneath automatic thoughts sit doubt labels — negative names a person calls themselves when self-doubt is activated (for example, \"I'm a failure\" or \"I'm unlovable\"). These often cluster around capability themes (incompetence, helplessness) or desirability themes (unlovability, being defective). When Willow notices a recurring pattern, it may gently name the possible theme as a hypothesis, not a verdict.",
         ],
       },
       {
-        title: "How a session is structured",
+        title: "How a chat session flows",
         paragraphs: [
           "Willow mirrors the book's session structure, scaled for chat. It does not march through these mechanically every turn, but meaningful sessions touch most of them.",
         ],
@@ -130,7 +130,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   },
   {
     slug: "communication-style",
-    title: "Communication style",
+    title: "How Willow sounds",
     lead:
       "The communication style guide defines how Willow speaks — not just what it knows. It keeps replies warm-direct and steady: like a capable coach or respected teacher whose warmth serves the work, not performative comfort. This layer loads alongside the cognitive behavioral therapy protocol on every turn.",
     sections: [
@@ -211,7 +211,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   },
   {
     slug: "clinical-reference",
-    title: "Clinical reference text",
+    title: "Clinician's guide (book)",
     citation:
       "Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     lead:
@@ -264,7 +264,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   },
   {
     slug: "passage-retrieval",
-    title: "Passage retrieval",
+    title: "Finding the right book excerpts",
     lead:
       "Passage retrieval is how Willow finds the right book excerpts for your message. It combines meaning-based search, keyword search, and reranking so technique guidance traces back to the clinician's guide — not just the model's general training.",
     sections: [
@@ -317,7 +317,7 @@ export const KNOWLEDGE_SOURCE_DETAILS: KnowledgeSourceDetail[] = [
   },
   {
     slug: "safety-guardrails",
-    title: "Safety guardrails",
+    title: "Safety checks",
     lead:
       "Safety runs before Willow's main reply on every turn. Keyword and classifier prescreens catch crisis language; elevated concern changes how the model responds, what it remembers, and how hard it pushes technique. This layer overrides everything else when it triggers.",
     sections: [

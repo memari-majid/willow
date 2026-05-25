@@ -9,6 +9,7 @@ import {
   KNOWLEDGE_SOURCES,
 } from "@/lib/knowledge-sources-copy";
 import { getKnowledgeSourceStatus } from "@/lib/knowledge-sources";
+import { SOURCES_UI_COPY } from "@/lib/site-copy";
 
 export const dynamic = "force-dynamic";
 
@@ -152,7 +153,7 @@ function SourceCard({
               {statusDetail}
             </p>
             <span className="inline-flex items-center gap-0.5 text-[11px] font-medium text-foreground/70 transition-colors group-hover:text-foreground">
-              Read full details
+              {SOURCES_UI_COPY.cardLink}
               <ChevronRight className="size-3.5" aria-hidden />
             </span>
           </div>

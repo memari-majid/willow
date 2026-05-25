@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
 import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+import { SOURCES_UI_COPY, WIKI_UI_COPY } from "@/lib/site-copy";
 
 export function SourcesPageShell({
   children,
@@ -29,7 +30,7 @@ export function SourcesPageShell({
               <Link href={HOW_WILLOW_WORKS.href}>{HOW_WILLOW_WORKS.navLabel}</Link>
             </Button>
             <Button asChild variant="outline" size="sm">
-              <Link href="/sign-in?callbackUrl=/chat">Sign in to chat</Link>
+              <Link href="/sign-in?callbackUrl=/chat">{WIKI_UI_COPY.signInCta}</Link>
             </Button>
           </div>
         </div>
@@ -60,7 +61,7 @@ export function SourceStatusBadge({ ok }: { ok: boolean }) {
           : "rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-800 dark:text-amber-400"
       }
     >
-      {ok ? "Ready" : "Pending"}
+      {ok ? SOURCES_UI_COPY.statusOn : SOURCES_UI_COPY.statusSettingUp}
     </span>
   );
 }

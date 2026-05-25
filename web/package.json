@@ -13,7 +13,8 @@
     "db:push": "drizzle-kit push --config config/drizzle.config.ts",
     "test": "vitest run --config config/vitest.config.mjs",
     "test:watch": "vitest --config config/vitest.config.mjs",
-    "ingest": "tsx scripts/ingest.ts"
+    "ingest": "tsx scripts/ingest.ts",
+    "export:corrections": "tsx scripts/export-corrections-dataset.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.170",

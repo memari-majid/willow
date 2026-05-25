@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
+import { WIKI_UI_COPY } from "@/lib/site-copy";
 import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
 
 export function WikiPageShell({
@@ -29,7 +30,7 @@ export function WikiPageShell({
               <Link href={HOW_WILLOW_WORKS.href}>{HOW_WILLOW_WORKS.navLabel}</Link>
             </Button>
             <Button asChild variant="outline" size="sm">
-              <Link href="/sign-in?callbackUrl=/chat">Sign in to chat</Link>
+              <Link href="/sign-in?callbackUrl=/chat">{WIKI_UI_COPY.signInCta}</Link>
             </Button>
           </div>
         </div>
@@ -53,13 +54,7 @@ export function WikiDisclaimer() {
   return (
     <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
       <p>
-        This guide library is for{" "}
-        <strong className="font-medium text-foreground">learning and reflection</strong>{" "}
-        — not diagnosis or treatment. Willow is a cognitive behavioral therapy practice companion,{" "}
-        <strong className="font-medium text-foreground">not a therapist or crisis service</strong>.
-        Summaries are grounded in{" "}
-        <em>Sokol &amp; Fox (2019), The Comprehensive Clinician&apos;s Guide to Cognitive Behavioral Therapy</em>.
-        If you are in crisis, see{" "}
+        {WIKI_UI_COPY.disclaimer}{" "}
         <Link href="/wiki/safety" className="underline underline-offset-4 hover:text-foreground">
           crisis resources
         </Link>{" "}
@@ -82,15 +77,13 @@ export function WikiTryChatCta({ prompt }: { prompt: string }) {
   const href = `/chat/start?prompt=${encodeURIComponent(prompt)}`;
   return (
     <div className="mt-10 rounded-2xl border border-border/50 bg-card/40 p-5">
-      <h2 className="text-sm font-medium">Try this with Willow</h2>
+      <h2 className="text-sm font-medium">{WIKI_UI_COPY.tryTitle}</h2>
       <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-        Open a chat with a starter prompt for this topic. Willow will guide you
-        through the technique in conversation — with the same clinical rules and
-        book-grounded retrieval as always.
+        {WIKI_UI_COPY.tryBody}
       </p>
       <Button asChild size="sm" className="mt-4 rounded-full">
         <Link href={href}>
-          Start in chat
+          {WIKI_UI_COPY.tryButton}
           <ArrowRight className="size-4" />
         </Link>
       </Button>

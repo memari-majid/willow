@@ -64,7 +64,7 @@ export async function pinMemoryAction(formData: FormData) {
   const pinned = formData.get("pinned") === "true";
   if (!memoryId) return;
   await setMemoryPinned(userId, memoryId, pinned);
-  revalidatePath("/settings/memory");
+  revalidatePath("/settings/profile");
 }
 
 export async function deleteMemoryAction(formData: FormData) {
@@ -72,13 +72,13 @@ export async function deleteMemoryAction(formData: FormData) {
   const memoryId = String(formData.get("memoryId") ?? "");
   if (!memoryId) return;
   await forgetMemory(userId, memoryId);
-  revalidatePath("/settings/memory");
+  revalidatePath("/settings/profile");
 }
 
 export async function forgetAllMemoriesAction() {
   const userId = await requireUserId();
   await forgetAllMemories(userId);
-  revalidatePath("/settings/memory");
+  revalidatePath("/settings/profile");
 }
 
 export async function exportDataAction(): Promise<string> {

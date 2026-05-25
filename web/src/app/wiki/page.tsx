@@ -21,6 +21,7 @@ import {
 import { hybridWikiSearch } from "@/lib/wiki/search";
 import type { WikiPage } from "@/lib/wiki/types";
 import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+import { WIKI_UI_COPY } from "@/lib/site-copy";
 
 export const dynamic = "force-dynamic";
 
@@ -44,9 +45,8 @@ export default async function WikiHubPage({ searchParams }: Props) {
           {GUIDE_LIBRARY.pageTitle}
         </h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Trusted, book-grounded explanations of cognitive behavioral therapy
-          concepts and skills — organized by common concerns. Search matches
-          library topics {searching ? "and passages from " : "and "}
+          {WIKI_UI_COPY.hubIntro} Search matches topics
+          {searching ? " and passages from " : " and "}
           <em>Sokol &amp; Fox (2019)</em>.
         </p>
       </div>
@@ -93,8 +93,8 @@ export default async function WikiHubPage({ searchParams }: Props) {
         ))}
         {searching && searchResult!.pages.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No guides match &ldquo;{q}&rdquo;. Book passages may still appear
-            above if indexed.
+            No topics matched &ldquo;{q}&rdquo;. Passages from the book may still
+            show above.
           </p>
         ) : null}
       </div>
@@ -107,7 +107,8 @@ export default async function WikiHubPage({ searchParams }: Props) {
         >
           {HOW_WILLOW_WORKS.navLabel}
         </Link>
-        {" — protocol, style, and live status."}
+        {" — "}
+        {WIKI_UI_COPY.howItWorksFooter}
       </p>
     </WikiPageShell>
   );
@@ -158,11 +159,10 @@ function WikiSearchBookPassages({
   return (
     <section className="mt-8 space-y-3">
       <h2 className="text-sm font-medium tracking-tight">
-        Passages from the clinician&apos;s guide
+        {WIKI_UI_COPY.bookPassagesTitle}
       </h2>
       <p className="text-xs text-muted-foreground">
-        Hybrid search (meaning + keywords) over the same indexed book Willow uses
-        in chat.
+        {WIKI_UI_COPY.bookPassagesLead}
       </p>
       <ul className="space-y-2">
         {items.map(({ p, excerpt }) => (

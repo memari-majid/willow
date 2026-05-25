@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WillowMark } from "@/components/willow-mark";
+import { AUTH_COPY } from "@/lib/site-copy";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function SignUpPage() {
     const data = (await reg.json()) as { error?: string };
     if (!reg.ok) {
       setPending(false);
-      setError(data.error ?? "Could not register");
+      setError(data.error ?? AUTH_COPY.signUpError);
       return;
     }
 
@@ -60,8 +61,7 @@ export default function SignUpPage() {
       <div className="rounded-2xl border border-border/50 bg-card/40 p-6 shadow-sm">
         <h1 className="text-lg font-medium tracking-tight">Create account</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          This is not therapy. You will be asked to confirm consent on the next
-          step.
+          {AUTH_COPY.signUpSubtitle}
         </p>
         <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="space-y-2">
@@ -79,7 +79,7 @@ export default function SignUpPage() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password (8+ characters)</Label>
+            <Label htmlFor="password">Password (at least 8 characters)</Label>
             <Input
               id="password"
               name="password"

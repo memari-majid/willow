@@ -345,6 +345,72 @@ export const behavioralActivations = pgTable("behavioral_activations", {
 
 // ─── Safety audit ───
 
+// ─── Personalization transparency ───
+
+export const userInferences = pgTable(
+  "user_inferences",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    kind: text("kind").notNull(),
+    claim: text("claim").notNull(),
+    confidence: text("confidence").notNull().default("medium"),
+    evidenceMemoryIds: uuid("evidence_memory_ids").array(),
+    evidenceMessageIds: uuid("evidence_message_ids").array(),
+    evidenceSnippet: text("evidence_snippet"),
+    state: text("state").notNull().default("pending"),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    lastSurfacedAt: timestamp("last_surfaced_at", { mode: "date" }),
+  },
+  (t) => ({
+    userKindIdx: index("user_inferences_user_kind_idx").on(
+      t.userId,
+      t.kind,
+      t.createdAt,
+    ),
+  }),
+);
+
+export const personalizationConsent = pgTable("personalization_consent", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  cohortLabel: text("cohort_label").notNull().default("default"),
+  scope: text("scope").array().notNull(),
+  optedInAt: timestamp("opted_in_at", { mode: "date" }).notNull(),
+  revokedAt: timestamp("revoked_at", { mode: "date" }),
+});
+
+export const smeCorrections = pgTable(
+  "sme_corrections",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    targetType: text("target_type").notNull(),
+    targetId: uuid("target_id"),
+    action: text("action").notNull(),
+    originalContent: text("original_content"),
+    correctedContent: text("corrected_content"),
+    rationale: text("rationale"),
+    reasonCode: text("reason_code"),
+    smeId: text("sme_id").notNull(),
+    conversationId: uuid("conversation_id").references(() => conversations.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    userTimeIdx: index("sme_corrections_user_time_idx").on(
+      t.userId,
+      t.createdAt,
+    ),
+  }),
+);
+
 export const safetyEvents = pgTable(
   "safety_events",
   {

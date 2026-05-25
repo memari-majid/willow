@@ -34,6 +34,7 @@ import { persistConversationMessages } from "@/lib/db/persist-messages";
 import { insertSafetyEvent } from "@/lib/db/queries";
 import { maybeAutoExtractMemories } from "@/lib/memory/auto-extract";
 import { maybeSummarizeConversation } from "@/lib/memory/summarize";
+import { maybeInferUserProfile } from "@/lib/personalization/inferences";
 import { isPersonalizationEnabled } from "@/lib/personalization/flags";
 import { formatRetrievedChunks } from "@/lib/rag/retrieve";
 import { classifyUserMessage } from "@/lib/safety/classifier";
@@ -259,6 +260,9 @@ export async function POST(req: Request) {
         );
         void maybeAutoExtractMemories({ conversationId, userId }).catch((e) =>
           logger.warn({ err: e }, "memory.auto_extract_failed"),
+        );
+        void maybeInferUserProfile({ conversationId, userId }).catch((e) =>
+          logger.warn({ err: e }, "personalization.infer_failed"),
         );
       }
 

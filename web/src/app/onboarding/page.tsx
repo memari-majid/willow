@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { getUserById } from "@/lib/db/queries";
 import { WillowMark } from "@/components/willow-mark";
+import { ONBOARDING_COPY } from "@/lib/site-copy";
 
 import { OnboardingForm } from "./onboarding-form";
 
@@ -22,11 +23,9 @@ export default async function OnboardingPage() {
         <WillowMark />
       </Link>
       <div className="rounded-2xl border border-border/50 bg-card/40 p-6 shadow-sm">
-        <h1 className="text-lg font-medium tracking-tight">Before we start</h1>
+        <h1 className="text-lg font-medium tracking-tight">{ONBOARDING_COPY.title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Willow’s cognitive behavioral therapy companion is educational support, not therapy or crisis
-          care. By continuing you confirm you are 18+ and agree to how we handle
-          your account data (see project privacy docs).
+          {ONBOARDING_COPY.intro}
         </p>
         <OnboardingForm />
       </div>

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { CHAT_COPY } from "@/lib/site-copy";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -18,8 +19,8 @@ export function StarterPrompts({
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
-      <p className="text-xs uppercase tracking-wider text-muted-foreground">
-        Or try one of these
+      <p className="text-xs tracking-wide text-muted-foreground">
+        {CHAT_COPY.starterLead}
       </p>
       <div className="flex flex-wrap gap-2">
         {starters.map((s) => (

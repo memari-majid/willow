@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import { PREFERENCE_SIGNAL_SCHEMA } from "@/lib/ai/preference-signal-schema";
-import { memoryContentAllowed } from "@/lib/memory/pii-guard";
 import { resolvePersonaOverlayPaths } from "@/lib/content";
+import { memoryContentAllowed } from "@/lib/memory/pii-guard";
+import { formatCorrectionsBlockFromParts } from "@/lib/personalization/correction-format";
 
 describe("PII guard", () => {
   it("blocks SSN patterns", () => {
@@ -31,6 +32,23 @@ describe("preference signal schema", () => {
       kind: "none",
     });
     expect(r.success).toBe(true);
+  });
+});
+
+describe("correction context golden prompt", () => {
+  it("negates rejected inference claims in assembled block", () => {
+    const rejectedClaim = "User is hopeless about all relationships";
+    const block = formatCorrectionsBlockFromParts({
+      avoid: [`Do not assume: "${rejectedClaim}"`],
+      prefer: ["Prefer: Ask one situation-focused question"],
+      examples: [
+        'If user says "everyone leaves me", explore one recent example instead of agreeing.',
+      ],
+    });
+    expect(block).not.toContain("<confirmed_inferences>");
+    expect(block).toContain(rejectedClaim);
+    expect(block).toContain("Do not assume");
+    expect(block).toContain("Micro-examples");
   });
 });
 

@@ -4,6 +4,7 @@ import {
   excerptPassage,
   formatPassageCitation,
 } from "@/lib/wiki/passage-display";
+import { WIKI_UI_COPY } from "@/lib/site-copy";
 
 function displayPassages(passages: RetrievedChunk[]): RetrievedChunk[] {
   return passages.filter((p) => excerptPassage(p.content).length > 0);
@@ -20,11 +21,10 @@ export function WikiRelatedPassages({
     return (
       <section className="mt-10 space-y-2">
         <h2 className="text-base font-medium tracking-tight">
-          Related passages from the guide
+          From the guide
         </h2>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Book retrieval is unavailable or no matching passages were found. The
-          editorial summary above still follows the same clinical source.
+          {WIKI_UI_COPY.passagesUnavailable}
         </p>
       </section>
     );
@@ -33,13 +33,10 @@ export function WikiRelatedPassages({
   return (
     <section className="mt-10 space-y-4">
       <div className="space-y-1">
-        <h2 className="text-base font-medium tracking-tight">
-          Related passages from the guide
-        </h2>
+        <h2 className="text-base font-medium tracking-tight">From the guide</h2>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Short excerpts retrieved from the indexed clinician&apos;s guide. These
-          supplement the summary — they are not a substitute for the full text or
-          for working with a clinician.
+          Short excerpts from the same book Willow uses in chat — to supplement
+          the summary, not replace a clinician.
         </p>
       </div>
       <ul className="space-y-3">

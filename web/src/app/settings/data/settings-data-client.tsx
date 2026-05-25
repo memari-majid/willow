@@ -5,7 +5,9 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
+import { SETTINGS_COPY } from "@/lib/site-copy";
 
+import { SettingsNav } from "../settings-nav";
 import { deleteAccountAction, exportDataAction } from "../actions";
 
 export function SettingsDataClient() {
@@ -30,9 +32,7 @@ export function SettingsDataClient() {
 
   async function handleDelete() {
     if (
-      !window.confirm(
-        "Delete your account and all stored data? This cannot be undone.",
-      )
+      !window.confirm(SETTINGS_COPY.deleteConfirm)
     ) {
       return;
     }
@@ -48,14 +48,13 @@ export function SettingsDataClient() {
         onClick={handleExport}
         disabled={exporting}
       >
-        {exporting ? "Preparing…" : "Download JSON export"}
+        {exporting ? "Preparing…" : SETTINGS_COPY.downloadData}
       </Button>
 
       <div className="mt-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4">
         <h2 className="text-sm font-medium text-destructive">Delete account</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Permanently removes your profile, conversations (and per-thread
-          summaries), mood data, memories, and preferences.
+          {SETTINGS_COPY.deleteDetail}
         </p>
         <Button
           type="button"
@@ -77,14 +76,7 @@ export function SettingsDataNav() {
       <Link href="/chat">
         <WillowMark />
       </Link>
-      <nav className="flex gap-3 text-xs">
-        <Link href="/settings" className="underline-offset-4 hover:underline">
-          Preferences
-        </Link>
-        <Link href="/settings/memory" className="underline-offset-4 hover:underline">
-          Memory
-        </Link>
-      </nav>
+      <SettingsNav active="data" />
     </header>
   );
 }

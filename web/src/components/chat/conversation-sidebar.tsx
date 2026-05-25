@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { WillowMark } from "@/components/willow-mark";
 import { cn } from "@/lib/utils";
 import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+import { CHAT_COPY } from "@/lib/site-copy";
 
 export type ConversationRow = {
   id: string;
@@ -103,8 +104,8 @@ export function ConversationSidebar({
   }
 
   function openRename(id: string, current: string | null) {
-    setRenameTarget({ id, title: current ?? "New conversation" });
-    setRenameValue(current?.trim() || "New conversation");
+    setRenameTarget({ id, title: current ?? CHAT_COPY.newChat });
+    setRenameValue(current?.trim() || CHAT_COPY.newChat);
   }
 
   async function confirmRename() {
@@ -177,7 +178,7 @@ export function ConversationSidebar({
             {conversations.map((c) => {
               const href = `/chat/${c.id}`;
               const active = pathname === href;
-              const title = c.title?.trim() || "New conversation";
+              const title = c.title?.trim() || CHAT_COPY.newChat;
               return (
                 <li key={c.id}>
                   <div
@@ -230,7 +231,7 @@ export function ConversationSidebar({
           </ul>
           {conversations.length === 0 && (
             <p className="px-2 py-4 text-xs text-muted-foreground">
-              No conversations yet. Start a new chat.
+              {CHAT_COPY.sidebarEmpty}
             </p>
           )}
         </nav>
@@ -246,10 +247,8 @@ export function ConversationSidebar({
       >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Rename conversation</DialogTitle>
-            <DialogDescription>
-              Choose a name you will recognize in the sidebar.
-            </DialogDescription>
+            <DialogTitle>Rename chat</DialogTitle>
+            <DialogDescription>{CHAT_COPY.renameHint}</DialogDescription>
           </DialogHeader>
           <Input
             value={renameValue}
@@ -290,11 +289,8 @@ export function ConversationSidebar({
       >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete conversation?</DialogTitle>
-            <DialogDescription>
-              This removes the conversation and all its messages. This cannot
-              be undone.
-            </DialogDescription>
+            <DialogTitle>Delete this chat?</DialogTitle>
+            <DialogDescription>{CHAT_COPY.deleteWarning}</DialogDescription>
           </DialogHeader>
           <DialogFooter className="mt-2 sm:justify-end">
             <Button

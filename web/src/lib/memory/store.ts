@@ -83,7 +83,27 @@ export async function listUserMemories(userId: string, limit = 100) {
       ),
     )
     .orderBy(desc(userMemories.createdAt))
-    .limit(limit);
+    .limit(limit)
+    .then((rows) =>
+      rows.filter(
+        (r) =>
+          r.source !== "auto_extract_marker" &&
+          !r.content.startsWith("[proposed]"),
+      ),
+    );
+}
+
+export async function updateMemoryContent(
+  userId: string,
+  memoryId: string,
+  content: string,
+) {
+  const [row] = await db
+    .update(userMemories)
+    .set({ content: content.trim() })
+    .where(and(eq(userMemories.id, memoryId), eq(userMemories.userId, userId)))
+    .returning();
+  return row ?? null;
 }
 
 export async function insertUserMemory(args: {

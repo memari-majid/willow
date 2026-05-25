@@ -4,11 +4,11 @@
  */
 
 export const KNOWLEDGE_PAGE = {
-  title: "What guides Willow's replies",
+  title: "What shapes Willow's answers",
   intro:
-    "Willow is a cognitive behavioral therapy practice companion — not a therapist. Every reply is shaped by written clinical rules, a fixed communication style, safety guardrails, and (when indexed) retrieved passages from a standard cognitive behavioral therapy clinician's guide.",
+    "Willow is a cognitive behavioral therapy practice partner — not your therapist. Every reply follows clear rules, a consistent voice, safety checks, and — when the book is loaded — short excerpts from a standard clinician's guide.",
   footer:
-    "Crisis keywords, required disclaimers, and escalation paths are checked before each reply. When your message matches a technique or concept from the reference text, the most relevant passages are added to the model's context so answers stay grounded in the same material clinicians use.",
+    "Crisis phrases are caught before replies go out. When your message matches the guide, Willow adds the most relevant passages so answers stay faithful to the book.",
 } as const;
 
 export const KNOWLEDGE_SOURCE_SLUGS = {
@@ -22,53 +22,52 @@ export const KNOWLEDGE_SOURCE_SLUGS = {
 export const KNOWLEDGE_SOURCES = {
   protocol: {
     slug: KNOWLEDGE_SOURCE_SLUGS.protocol,
-    title: "Cognitive behavioral therapy session protocol",
+    title: "How a session works",
     description:
-      "Rules derived from Sokol & Fox (2019), The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy — translated for chat. Covers the cognitive model (situation → thought → feeling → behavior), session flow from mood check through homework, thought records, Socratic questioning, common thinking errors, behavioral activation, worry postponement, and firm limits on diagnosis, medication, unsupervised exposure, and trauma processing.",
-    readyDetail: (chars: number) =>
-      `${chars.toLocaleString()} characters of protocol loaded — session structure, cognitive behavioral therapy tools, and safety boundaries active on every turn.`,
+      "Chat rules from Sokol & Fox (2019): the thought–feeling–behavior model, session flow, core tools, and clear limits — no diagnosis, medication advice, or unsupervised exposure.",
+    readyDetail: (_chars: number) =>
+      "Session rules loaded — active on every message.",
     pendingDetail:
-      "Protocol text not loaded. Chat cannot run the full cognitive behavioral therapy companion flow until this is configured.",
+      "Session rules aren't loaded yet — full companion mode needs this.",
   },
   tone: {
     slug: KNOWLEDGE_SOURCE_SLUGS.tone,
-    title: "Communication style",
+    title: "How Willow sounds",
     description:
-      "How Willow speaks: warm-direct and steady — like a capable coach, not a generic comforting bot. Brief, specific, curious; avoids performative empathy, false reassurance, and saccharine praise. Ends each turn with one grounded question rather than pre-written reply options.",
-    readyDetail: (chars: number) =>
-      `${chars.toLocaleString()} characters of voice and persona rules loaded.`,
-    pendingDetail: "Tone guide not loaded.",
+      "Warm and direct — like a capable coach, not a generic comforting bot. Brief, specific, curious; no performative empathy or saccharine praise. One grounded question per reply, not pre-written options.",
+    readyDetail: (_chars: number) => "Voice guide loaded.",
+    pendingDetail: "Voice guide isn't loaded yet.",
   },
   book: {
     slug: KNOWLEDGE_SOURCE_SLUGS.book,
-    title: "Clinical reference text",
+    title: "Clinician's guide (book)",
     subtitle: "Sokol & Fox (2019) — The Comprehensive Clinician's Guide to Cognitive Behavioral Therapy",
     description:
-      "The full clinician's guide is split into searchable passages. Willow does not memorize the book verbatim — it pulls the sections that match what you are working on (e.g. thought records, downward arrow, behavioral experiments, assertiveness scripts) so technique guidance stays faithful to the source.",
+      "The full guide is split into searchable passages. Willow pulls sections that match what you're working on — thought records, downward arrow, behavioral activation, and more — so steps stay faithful to the source.",
     readyDetail: (chunks: number) =>
-      `${chunks.toLocaleString()} passages from the guide indexed and ready for retrieval.`,
+      `${chunks.toLocaleString()} passages from the guide ready to use.`,
     pendingDetail:
-      "The reference text has not been indexed yet. Willow can still follow the written protocol and style, but book-grounded passages will not appear until ingest completes.",
+      "The guide isn't indexed yet. Willow still follows written rules and voice, but book excerpts won't appear until indexing finishes.",
   },
   rag: {
     slug: KNOWLEDGE_SOURCE_SLUGS.rag,
-    title: "Passage retrieval",
+    title: "Finding the right book excerpts",
     description:
-      "Each turn, Willow searches indexed book passages using both meaning (vector search) and keywords, then reranks the best matches. Those excerpts are injected into the reply context — with citations — so techniques and wording trace back to the guide.",
-    readyDetail: (chunks: number, rerank: boolean) =>
-      `${chunks.toLocaleString()} indexed passages available${rerank ? " (vector + keyword search, Voyage rerank)" : " (vector + keyword search)"}.`,
+      "Willow searches the guide by meaning and keywords, then picks the best matches so techniques and wording trace back to the book.",
+    readyDetail: (chunks: number, _rerank: boolean) =>
+      `${chunks.toLocaleString()} passages ready — smart search on.`,
     pendingNoCredentials:
-      "Embedding credentials not configured — chat uses the written protocol and style only, without book retrieval.",
-    pendingNoDb: "Database unavailable — cannot count indexed passages.",
+      "Book search isn't set up yet — chat still follows written rules and voice.",
+    pendingNoDb: "Can't check the book index right now.",
     pendingEmpty:
-      "No passages indexed yet — run ingest against your database to enable book-grounded replies.",
+      "Book not indexed yet — indexing enables guide-backed answers.",
   },
   safety: {
     slug: KNOWLEDGE_SOURCE_SLUGS.safety,
-    title: "Safety guardrails",
+    title: "Safety checks",
     description:
-      "Keyword and classifier prescreens run before the main model. Crisis language triggers an immediate response with human resources; elevated concern blocks memory writes and slows technique push.",
-    readyDetail: "Active on every chat turn.",
-    pendingDetail: "Safety rules not loaded.",
+      "Quick checks run before each reply. Crisis language gets an immediate response with human resources; elevated concern changes how Willow responds and what it remembers.",
+    readyDetail: "Active on every message.",
+    pendingDetail: "Safety rules aren't loaded yet.",
   },
 } as const;

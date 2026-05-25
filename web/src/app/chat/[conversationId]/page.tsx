@@ -12,6 +12,7 @@ import { loadContent } from "@/lib/content";
 import { loadWikiPages } from "@/lib/wiki/load";
 import { buildWikiLinkRegistry } from "@/lib/wiki/link-registry";
 import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+import { CHAT_COPY } from "@/lib/site-copy";
 
 export const dynamic = "force-dynamic";
 
@@ -35,9 +36,9 @@ export default async function ChatConversationPage({
   if (!convo) {
     return (
       <div className="mx-auto max-w-md p-8 text-center text-sm">
-        Conversation not found.{" "}
+        {CHAT_COPY.notFoundTitle}{" "}
         <Link href="/chat" className="underline">
-          Start again
+          {CHAT_COPY.notFoundAction}
         </Link>
       </div>
     );
@@ -59,10 +60,10 @@ export default async function ChatConversationPage({
             <ChatMenuButton />
             <div className="min-w-0">
               <p className="truncate text-sm font-medium">
-                {convo.title?.trim() || "New conversation"}
+                {convo.title?.trim() || CHAT_COPY.newChat}
               </p>
               <p className="text-[10px] text-muted-foreground">
-                Cognitive behavioral therapy companion
+                {CHAT_COPY.tagline}
               </p>
             </div>
           </div>

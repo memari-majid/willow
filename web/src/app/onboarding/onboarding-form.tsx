@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ONBOARDING_COPY } from "@/lib/site-copy";
 
 const AGE_OPTIONS = [
   { value: "18_24", label: "18–24" },
@@ -41,7 +42,7 @@ export function OnboardingForm() {
 
     if (!consent) {
       setPending(false);
-      setError("Please confirm consent to continue.");
+      setError(ONBOARDING_COPY.consentError);
       return;
     }
 
@@ -59,7 +60,7 @@ export function OnboardingForm() {
     const data = (await res.json()) as { error?: string };
     setPending(false);
     if (!res.ok) {
-      setError(data.error ?? "Could not save");
+      setError(data.error ?? ONBOARDING_COPY.saveError);
       return;
     }
     router.push("/chat");
@@ -82,7 +83,7 @@ export function OnboardingForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="ageBand">Age band</Label>
+        <Label htmlFor="ageBand">{ONBOARDING_COPY.ageBandLabel}</Label>
         <select
           id="ageBand"
           name="ageBand"
@@ -111,15 +112,11 @@ export function OnboardingForm() {
       </div>
       <label className="flex items-start gap-2 text-sm">
         <input type="checkbox" name="consent" className="mt-1" />
-        <span>
-          I am 18 or older. I understand this tool is not therapy or emergency
-          care. I consent to mood and exercise data being stored with my account
-          until I delete it.
-        </span>
+        <span>{ONBOARDING_COPY.consent}</span>
       </label>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
       <Button type="submit" disabled={pending}>
-        {pending ? "Saving…" : "Continue to chat"}
+        {pending ? ONBOARDING_COPY.saving : ONBOARDING_COPY.submit}
       </Button>
     </form>
   );

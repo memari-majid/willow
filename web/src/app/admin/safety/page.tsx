@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { MarkReviewedForm } from "@/app/admin/safety/mark-reviewed-form";
+import { AdminNav } from "@/app/admin/admin-nav";
 import { isAdminUser } from "@/lib/admin";
 import { listPendingSafetyEvents } from "@/lib/db/queries";
 
@@ -24,6 +25,7 @@ export default async function AdminSafetyPage() {
           Back to chat
         </Link>
       </div>
+      <AdminNav current="/admin/safety" />
       <p className="text-sm text-muted-foreground">
         Yellow and red classifier events awaiting human review (clinical audit).
       </p>

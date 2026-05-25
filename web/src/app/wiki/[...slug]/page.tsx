@@ -17,6 +17,7 @@ import { WikiReviewBadge } from "@/components/wiki/wiki-review-badge";
 import { getWikiPage, loadWikiPages } from "@/lib/wiki/load";
 import { getWikiRelatedPassages } from "@/lib/wiki/related-passages";
 import { GUIDE_LIBRARY } from "@/lib/site-nav";
+import { WIKI_UI_COPY } from "@/lib/site-copy";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = await getWikiPage(pathSlug);
   if (!page) return { title: `Not found — ${GUIDE_LIBRARY.metadataSuffix}` };
   return {
-    title: `${page.title} — Cognitive behavioral therapy wiki`,
+    title: `${page.title} — ${GUIDE_LIBRARY.metadataSuffix}`,
     description: page.summary,
   };
 }
@@ -83,11 +84,7 @@ export default async function WikiTopicPage({ params }: Props) {
 
         {showScope && page.category !== "safety" ? (
           <div className="mt-4">
-            <WikiScopeNotice>
-              This page is for learning only. It is not a treatment plan. For
-              exposure work, trauma, or medication questions, work with a
-              qualified clinician.
-            </WikiScopeNotice>
+            <WikiScopeNotice>{WIKI_UI_COPY.scopeNotice}</WikiScopeNotice>
           </div>
         ) : null}
 

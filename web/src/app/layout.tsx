@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Willow — A gentle space to talk things through",
   description:
-    "Willow is an AI companion for everyday emotional wellbeing. Not a therapist, not a diagnosis — just a calm space to reflect, breathe, and notice what you're feeling.",
+    "Practice cognitive behavioral skills in conversation with Willow — warm, direct, and grounded in a clinician's guide. Not therapy. Not a crisis line.",
 };
 
 export const viewport: Viewport = {

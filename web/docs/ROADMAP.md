@@ -150,8 +150,9 @@ from real conversations.
 | 14 | **Multi-conversation UI** — sidebar, new chat, hybrid trim, auto-extract cross-thread memories | ✅ |
 | 15 | **CBT Wiki Phase 1** — `/wiki` hub, 5 seed pages, RAG block, chat prefill deep links | ✅ |
 | 16 | **CBT Wiki Phase 2** — 23 topics, hybrid search, review badges, chat wiki links | ✅ |
+| 17 | **Personalization transparency** — profile notes, SME cohort, correction context, dataset export | ✅ |
 
-**Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
+**Personalization docs:** [`cbt/memory.md`](./cbt/memory.md) · [`cbt/personalization-feedback.md`](./cbt/personalization-feedback.md) · Feature flag: `PERSONALIZATION_ENABLED` (default on; set `false` to disable).
 
 ### Still SME / ops dependent
 
@@ -215,6 +216,25 @@ from real conversations.
 
 **Eval:** [`cbt/eval.md`](./cbt/eval.md) § Wiki (manual smoke).
 
+---
+
+## Personalization transparency (✅ in-tree)
+
+**Goal:** Show users what Willow remembers and infers; let SMEs correct mistakes in an opt-in cohort; inject corrections into the next reply; export labels for offline DPO/SFT.
+
+| Route | Role |
+|---|---|
+| `/settings/profile` | **Your Willow notes** — confirmed / inferred / guessing lanes, coverage meter, inline accept/reject/edit |
+| `/settings/research` | Opt-in to SME review cohort (revocable) |
+| `/admin/personalization` | SME queue — accept / reject / edit / counter-example (allowlist) |
+
+**Runtime loop:** `maybeInferUserProfile` → `user_inferences`; user/SME actions → `sme_corrections`; `buildPersonalizationCorrectionsBlock` → system context on next turn.
+
+**Offline loop:** `npm run export:corrections` → `exports/corrections/vYYYY-MM-DD.jsonl` + manifest.
+
+**Schema:** `user_inferences`, `personalization_consent`, `sme_corrections` — migration `drizzle/0003_personalization_transparency.sql`.
+
+**Eval:** [`tests/personalization-transparency.spec.ts`](../tests/personalization-transparency.spec.ts) · [`cbt/personalization-feedback.md`](./cbt/personalization-feedback.md).
 
 ---
 

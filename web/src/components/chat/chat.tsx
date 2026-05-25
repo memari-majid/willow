@@ -11,6 +11,7 @@ import { MessageBubble } from "@/components/chat/message-bubble";
 import { StarterPrompts } from "@/components/chat/starter-prompts";
 import type { WillowUIMessage } from "@/lib/ai/message-metadata";
 import type { WikiLinkEntry } from "@/lib/wiki/link-registry";
+import { CHAT_COPY } from "@/lib/site-copy";
 
 /**
  * Top-level chat client. Owns useChat() state, scroll behavior, and
@@ -128,12 +129,12 @@ export function Chat({
             {status === "submitted" && <ThinkingDots />}
             {error && (
               <div className="text-center text-xs text-muted-foreground">
-                Something went wrong.{" "}
+                {CHAT_COPY.sendError}{" "}
                 <button
                   onClick={() => regenerate()}
                   className="underline underline-offset-4 hover:text-foreground"
                 >
-                  Try again
+                  {CHAT_COPY.tryAgain}
                 </button>
                 .
               </div>
@@ -157,9 +158,7 @@ export function Chat({
           status={status}
         />
         <p className="mt-2 text-center text-[11px] text-muted-foreground">
-          Conversations are saved to your account so you can pick them up later.
-          Willow can make mistakes and is not a substitute for professional
-          care.
+          {CHAT_COPY.footerNote}
         </p>
       </div>
     </div>
@@ -180,8 +179,7 @@ function EmptyState({
           Hi. What&rsquo;s on your mind?
         </h1>
         <p className="text-sm text-muted-foreground">
-          Take a breath. There&rsquo;s no rush. Type whatever you&rsquo;d
-          like to think through.
+          {CHAT_COPY.emptyHint}
         </p>
       </div>
       <StarterPrompts

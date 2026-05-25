@@ -24,7 +24,7 @@ willow/                          ← repo root: README.md only
 
 ## Surfaces
 
-- **`/`** — landing; links to `/wiki` (**Library**) and `/sources` (**How it works**)
+- **`/`** — landing; pillar cards link to `/sources/clinical-reference`, `/sources/cbt-protocol`, `/sources/safety-guardrails`; footer links to `/wiki` (**Library**) and `/sources` (**How it works**)
 - **`/wiki`** — Guide library hub (problem-first topics, book-grounded summaries, RAG excerpts)
 - **`/wiki/[...slug]`** — topic pages from `content/wiki/`; **Try with Willow** → `/chat/start?prompt=…`
 - **`/sources`** — what guides replies: protocol, tone, book index status, RAG, safety (no auth)

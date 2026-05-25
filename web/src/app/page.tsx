@@ -1,9 +1,21 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Brain, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, ChevronRight, ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { WillowMark } from "@/components/willow-mark";
-import { GUIDE_LIBRARY, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+import {
+  HOME_FOOTER,
+  HOME_PILLARS,
+  SITE_HERO,
+} from "@/lib/site-copy";
+import { GUIDE_LIBRARY, HOME_PILLAR_HREFS, HOW_WILLOW_WORKS } from "@/lib/site-nav";
+
+const PILLAR_ICONS = [BookOpen, Brain, ShieldCheck] as const;
+const PILLAR_HREFS = [
+  HOME_PILLAR_HREFS.bookAndRag,
+  HOME_PILLAR_HREFS.writtenProtocol,
+  HOME_PILLAR_HREFS.safety,
+] as const;
 
 export default function HomePage() {
   return (
@@ -15,13 +27,10 @@ export default function HomePage() {
       <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-12 px-6 py-12 text-center">
         <div className="space-y-5">
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            A cognitive behavioral therapy practice companion.
+            {SITE_HERO.title}
           </h1>
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Willow helps you practice cognitive behavioral skills in
-            conversation — warm and direct, not saccharine. Grounded in a
-            clinical cognitive behavioral therapy guide, written instructions, and retrieved book
-            context when available. Not therapy. Not a crisis service.
+            {SITE_HERO.subtitle}
           </p>
         </div>
 
@@ -33,27 +42,25 @@ export default function HomePage() {
         </Button>
 
         <div className="grid w-full grid-cols-1 gap-4 text-left sm:grid-cols-3">
-          <Pillar
-            icon={<BookOpen className="size-4" />}
-            title="Book + RAG"
-            body="Techniques and worksheets from Sokol & Fox (2019), retrieved when relevant."
-          />
-          <Pillar
-            icon={<Brain className="size-4" />}
-            title="Written protocol"
-            body="Session flow, thought records, and a warm-competent voice — not generic chatbot empathy."
-          />
-          <Pillar
-            icon={<ShieldCheck className="size-4" />}
-            title="Safety first"
-            body="Two-stage crisis detection; real human resources when something is bigger than a chat."
-          />
+          {HOME_PILLARS.map((pillar, i) => {
+            const Icon = PILLAR_ICONS[i]!;
+            return (
+              <Pillar
+                key={pillar.key}
+                href={PILLAR_HREFS[i]!}
+                icon={<Icon className="size-4" />}
+                title={pillar.title}
+                body={pillar.body}
+                learnMore={pillar.learnMore}
+              />
+            );
+          })}
         </div>
       </main>
 
       <footer className="mx-auto w-full max-w-5xl space-y-2 px-6 py-6 text-center text-xs text-muted-foreground">
         <p>
-          If you&rsquo;re in crisis, please contact a real human now —{" "}
+          If you&rsquo;re in crisis, please reach a real person now —{" "}
           <a
             href="https://findahelpline.com"
             target="_blank"
@@ -71,14 +78,16 @@ export default function HomePage() {
           >
             {GUIDE_LIBRARY.pageTitle}
           </Link>
-          {" — book-grounded topics and techniques. "}
+          {" — "}
+          {HOME_FOOTER.libraryBlurb}{" "}
           <Link
             href={HOW_WILLOW_WORKS.href}
             className="underline underline-offset-4 hover:text-foreground"
           >
             {HOW_WILLOW_WORKS.navLabel}
           </Link>
-          {" — protocol, style, and live status."}
+          {" — "}
+          {HOME_FOOTER.howItWorksBlurb}
         </p>
       </footer>
     </div>
@@ -86,23 +95,34 @@ export default function HomePage() {
 }
 
 function Pillar({
+  href,
   icon,
   title,
   body,
+  learnMore,
 }: {
+  href: string;
   icon: React.ReactNode;
   title: string;
   body: string;
+  learnMore: string;
 }) {
   return (
-    <div className="rounded-2xl border border-border/40 bg-card/40 p-5">
-      <div className="mb-3 flex size-8 items-center justify-center rounded-full bg-muted text-foreground">
+    <Link
+      href={href}
+      className="group block rounded-2xl border border-border/40 bg-card/40 p-5 transition-colors hover:border-border hover:bg-card/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <div className="mb-3 flex size-8 items-center justify-center rounded-full bg-muted text-foreground transition-colors group-hover:bg-muted/80">
         {icon}
       </div>
       <h3 className="text-sm font-medium">{title}</h3>
       <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
         {body}
       </p>
-    </div>
+      <span className="mt-3 inline-flex items-center gap-0.5 text-[11px] font-medium text-foreground/70 transition-colors group-hover:text-foreground">
+        {learnMore}
+        <ChevronRight className="size-3.5" aria-hidden />
+      </span>
+    </Link>
   );
 }
