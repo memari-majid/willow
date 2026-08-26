@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 3 * * *"
+    }
+  ],
+  "functions": {
+    "src/app/api/queue/embeddings/route.ts": {
+      "experimentalTriggers": [
+        { "type": "queue/v2beta", "topic": "embeddings" }
+      ]
+    }
+  }
+}

@@ -1,8 +1,12 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+
+class EmailNotVerified extends CredentialsSignin {
+  code = "EmailNotVerified";
+}
 
 import { db } from "@/lib/db/client";
 import {
@@ -45,6 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!user?.passwordHash) return null;
         const ok = await bcrypt.compare(password, user.passwordHash);
         if (!ok) return null;
+        if (!user.emailVerified) throw new EmailNotVerified();
         return {
           id: user.id,
           email: user.email,

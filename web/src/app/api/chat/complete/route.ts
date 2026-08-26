@@ -35,6 +35,26 @@ export type WillowChatCompleteResponse = {
 };
 
 export async function POST(req: Request) {
+  // This endpoint is unauthenticated by design (called by n8n / external
+  // automation), so it MUST be protected by a shared secret. Set
+  // CHAT_COMPLETE_SECRET in env and send it as `Authorization: Bearer <secret>`
+  // or `x-api-key: <secret>`. If the secret is unset, the endpoint is disabled.
+  const secret = process.env.CHAT_COMPLETE_SECRET;
+  if (!secret) {
+    return Response.json(
+      { error: "Endpoint disabled: CHAT_COMPLETE_SECRET is not configured" },
+      { status: 503 },
+    );
+  }
+  const authHeader = req.headers.get("authorization");
+  const apiKey = req.headers.get("x-api-key");
+  const provided = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length)
+    : apiKey;
+  if (provided !== secret) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { messages, model, temperature }: ChatRequestBody = await req.json();
 
   const content = await loadContent();

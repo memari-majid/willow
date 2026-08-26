@@ -3,7 +3,7 @@ import type { UserInferenceRow } from "@/lib/personalization/inference-store";
 const MAX_CHARS = 2400;
 
 function truncateBlock(lines: string[]): string {
-  let out = lines.join("\n");
+  const out = lines.join("\n");
   if (out.length <= MAX_CHARS) return out;
   return `${out.slice(0, MAX_CHARS)}…`;
 }

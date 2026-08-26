@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { ChangePasswordForm } from "@/app/settings/profile/change-password-form";
 import { ProfileNotesClient } from "@/app/settings/profile/profile-notes-client";
 import { SettingsNav } from "@/app/settings/settings-nav";
 import { recentMoodRatings, topDoubtLabels, getUserById } from "@/lib/db/queries";
@@ -85,6 +86,8 @@ export default async function SettingsProfilePage() {
           Research opt-in
         </Link>
       </div>
+
+      <ChangePasswordForm />
 
       <div className="mt-6">
         <ProfileNotesClient

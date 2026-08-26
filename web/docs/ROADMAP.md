@@ -264,3 +264,20 @@ If the project ever winds down, follow this checklist:
 
 When a phase completes, update the ✅ markers and check items off in
 this file in the same commit. **One plan, kept up to date.**
+
+---
+
+## Vercel features adopted
+
+Aligned with the workspace template's full feature set (reference: `template/docs/VERCEL_FEATURES.md`):
+
+- **Analytics + Speed Insights** — added to `web/src/app/layout.tsx`.
+- **AI Gateway** — already used (`web/src/lib/ai/model.ts` fallback array + per-feature gateway tags).
+- **Cron** — `web/vercel.json` schedules `/api/cron/cleanup` (90-day conversation data-retention). Guards on `CRON_SECRET`.
+- **Blob** — `web/src/app/api/me/export/route.ts` exports a user's conversations + memories to Blob. Ingest CLI already used Blob.
+- **Workflows (WDK)** — `web/src/workflows/post-turn.ts` makes chat `onFinish` post-turn jobs (summarise, extract memories, infer profile, auto-title) durable + retryable; started from `web/src/app/api/chat/route.ts`. `next.config.ts` wrapped with `withWorkflow`.
+- **Queues** — `web/src/lib/queue/producer.ts` + `web/src/app/api/queue/embeddings/route.ts` for batch embedding fan-out (topic `embeddings`, in `vercel.json`).
+- **Security** — `POST /api/chat/complete` (n8n endpoint) now requires `CHAT_COMPLETE_SECRET` (Bearer / `x-api-key`); returns 503 when unset, 401 on mismatch.
+- **OG image** — `web/src/app/opengraph-image.tsx`.
+
+Env to set: `CRON_SECRET`, `CHAT_COMPLETE_SECRET`, plus existing `BLOB_READ_WRITE_TOKEN`.

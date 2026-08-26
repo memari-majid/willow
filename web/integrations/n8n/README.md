@@ -11,6 +11,7 @@ Willow’s automation-friendly endpoint is **`POST /api/chat/complete`** (JSON i
    - If you run **`npx n8n`** from a folder, create **`.env` in that same folder**.
 3. Required for the sample workflow URL:
    - **`WILLOW_BASE_URL`** — e.g. `http://127.0.0.1:3000` (no trailing slash).
+   - **`WILLOW_CHAT_COMPLETE_SECRET`** — must match `CHAT_COMPLETE_SECRET` set in Willow's env. The endpoint now requires this secret (sent as `Authorization: Bearer <secret>`). If Willow's `CHAT_COMPLETE_SECRET` is unset, the endpoint returns 503.
 
 Restart n8n after changing `.env`.
 
@@ -39,6 +40,7 @@ Restart n8n after changing `.env`.
      - Or, for a quick test only, use a fixed URL: `http://127.0.0.1:3000/api/chat/complete`
    - **Send body**: on  
    - **Body content type**: **JSON**
+   - **Headers**: add `Authorization` = `Bearer {{ $env.WILLOW_CHAT_COMPLETE_SECRET }}` (required; the endpoint rejects unauthenticated calls with 401).
    - **JSON**: paste a minimal body (edit the user text as needed):
 
 ```json

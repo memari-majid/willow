@@ -84,6 +84,13 @@ export const verificationTokens = pgTable(
   }),
 );
 
+export const passwordResetTokens = pgTable("password_reset_token", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull(),
+  token: text("token").notNull().unique(),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
 // ─── RAG corpus ───
 
 export const documentChunks = pgTable(

@@ -10,7 +10,6 @@ import {
 
 import { auth } from "@/auth";
 import { buildChatModelMessages } from "@/lib/ai/chat-messages";
-import { maybeAutoTitleConversation } from "@/lib/ai/auto-title";
 import { prepareTurnContext } from "@/lib/ai/prepare-turn-context";
 import { trimHistory } from "@/lib/ai/trim-history";
 import { makeAgentTools } from "@/lib/ai/tools/agent-tools";
@@ -32,9 +31,8 @@ import { loadContent, loadPersonaOverlay } from "@/lib/content";
 import { getConversation, getUserById } from "@/lib/db/queries";
 import { persistConversationMessages } from "@/lib/db/persist-messages";
 import { insertSafetyEvent } from "@/lib/db/queries";
-import { maybeAutoExtractMemories } from "@/lib/memory/auto-extract";
-import { maybeSummarizeConversation } from "@/lib/memory/summarize";
-import { maybeInferUserProfile } from "@/lib/personalization/inferences";
+import { start } from "workflow/api";
+import { willowPostTurn } from "@/workflows/post-turn";
 import { isPersonalizationEnabled } from "@/lib/personalization/flags";
 import { formatRetrievedChunks } from "@/lib/rag/retrieve";
 import { classifyUserMessage } from "@/lib/safety/classifier";
@@ -254,36 +252,25 @@ export async function POST(req: Request) {
         logger.error({ err: e }, "persist.messages_failed");
       }
 
-      if (personalizationOn && safety.riskLevel === "green") {
-        void maybeSummarizeConversation({ conversationId, userId }).catch(
-          (e) => logger.warn({ err: e }, "memory.summarize_failed"),
-        );
-        void maybeAutoExtractMemories({ conversationId, userId }).catch((e) =>
-          logger.warn({ err: e }, "memory.auto_extract_failed"),
-        );
-        void maybeInferUserProfile({ conversationId, userId }).catch((e) =>
-          logger.warn({ err: e }, "personalization.infer_failed"),
-        );
-      }
-
       const firstUser = finalMessages.find((m) => m.role === "user");
       const firstAssistant = finalMessages.find((m) => m.role === "assistant");
       const firstUserText = firstUser ? extractMessageText(firstUser) : "";
       const firstAssistantText = firstAssistant
         ? extractMessageText(firstAssistant)
         : "";
-      try {
-        await maybeAutoTitleConversation({
-          conversationId,
-          userId,
-          currentTitle: convo.title,
-          firstUserMessage: firstUserText,
-          firstAssistantMessage: firstAssistantText,
-          messageCount: finalMessages.length,
-        });
-      } catch {
-        /* best-effort */
-      }
+
+      // Start durable post-turn workflow (summarize, extract memories, infer
+      // profile, auto-title). Returns immediately; survives the request lifecycle.
+      void start(willowPostTurn, [{
+        conversationId,
+        userId,
+        currentTitle: convo.title,
+        firstUserMessage: firstUserText,
+        firstAssistantMessage: firstAssistantText,
+        messageCount: finalMessages.length,
+        personalizationOn,
+        safetyLevel: safety.riskLevel,
+      }]).catch((e) => logger.warn({ err: e }, "post-turn.workflow_start_failed"));
     },
   });
 }
