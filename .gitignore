@@ -49,3 +49,4 @@ web/content/source-pdf/*.pdf
 /*.md
 !/README.md
 .vercel
+.env*
