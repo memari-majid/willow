@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,7 @@ export function Chat({
   demo?: boolean;
 }) {
   const [input, setInput] = useState("");
+  const demoId = useId();
   const prefillApplied = useRef(false);
   const router = useRouter();
   const titleRefreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -55,7 +56,7 @@ export function Chat({
 
   const { messages, sendMessage, status, stop, error, regenerate } =
     useChat<WillowUIMessage>({
-      id: conversationId,
+      id: conversationId ?? demoId,
       messages: initialMessages ?? [],
       transport,
       onFinish: ({ messages: finished }) => {
@@ -161,7 +162,9 @@ export function Chat({
           status={status}
         />
         <p className="mt-2 text-center text-[11px] text-muted-foreground">
-          {CHAT_COPY.footerNote}
+          {demo
+            ? "Demo conversations are temporary and are not saved to an account."
+            : CHAT_COPY.footerNote}
         </p>
       </div>
     </div>
