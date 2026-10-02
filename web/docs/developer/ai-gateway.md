@@ -25,10 +25,10 @@ handles authentication, routing, failover, and cost tracking.
 In `src/lib/ai/model.ts` we define model strings:
 
 ```ts
-export const CBT_CONVERSATION_MODEL = "anthropic/claude-haiku-4.5" as const;
+export const CBT_CONVERSATION_MODEL = "anthropic/claude-sonnet-5.5" as const;
 export const SAFETY_CLASSIFIER_MODEL = "anthropic/claude-haiku-4.5" as const;
 export const MAX_AGENT_TOOL_STEPS = 3;
-export const FALLBACK_MODELS = ["anthropic/claude-sonnet-4.6", "google/gemini-3-pro"] as const;
+export const FALLBACK_MODELS = ["anthropic/claude-sonnet-5", PRIMARY_MODEL] as const;
 ```
 
 In `src/app/api/chat/route.ts` we pass the conversation model to `streamText`:

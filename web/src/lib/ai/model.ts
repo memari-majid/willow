@@ -19,7 +19,7 @@
 export const PRIMARY_MODEL = "openai/gpt-5.4" as const;
 
 /** Primary model for CBT companion conversations (via AI Gateway). */
-export const CBT_CONVERSATION_MODEL = "anthropic/claude-haiku-4.5" as const;
+export const CBT_CONVERSATION_MODEL = "anthropic/claude-sonnet-5.5" as const;
 
 /** Fast classifier for parallel safety assessment. */
 export const SAFETY_CLASSIFIER_MODEL = "anthropic/claude-haiku-4.5" as const;
@@ -31,8 +31,8 @@ export const MAX_AGENT_TOOL_STEPS = 3;
  * Fallback models the gateway will try if the primary model is unavailable.
  */
 export const FALLBACK_MODELS = [
-  "anthropic/claude-sonnet-4.6",
-  "google/gemini-3-pro",
+  "anthropic/claude-sonnet-5",
+  PRIMARY_MODEL,
 ] as const;
 
 /**

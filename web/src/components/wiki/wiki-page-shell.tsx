@@ -30,7 +30,7 @@ export function WikiPageShell({
               <Link href={HOW_WILLOW_WORKS.href}>{HOW_WILLOW_WORKS.navLabel}</Link>
             </Button>
             <Button asChild variant="outline" size="sm">
-              <Link href="/sign-in?callbackUrl=/chat">{WIKI_UI_COPY.signInCta}</Link>
+              <Link href="/demo">{WIKI_UI_COPY.tryWillowCta}</Link>
             </Button>
           </div>
         </div>

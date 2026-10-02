@@ -113,7 +113,7 @@ export const WIKI_UI_COPY = {
   draftBadge: "Draft — not clinically reviewed yet",
   passagesUnavailable:
     "We couldn't pull book excerpts right now. The summary above still follows the same source material.",
-  signInCta: "Sign in to talk with Willow",
+  tryWillowCta: "Try Willow",
 } as const;
 
 export const SOURCES_UI_COPY = {
