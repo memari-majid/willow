@@ -24,7 +24,9 @@ const requestSchema = z.object({
     parts: z.array(z.union([z.object({
       type: z.literal("text"),
       text: z.string().max(4000),
-    }), z.object({ type: z.literal("step-start") })])).min(1).max(8)
+    }), z.object({ type: z.literal("step-start") }), z.object({
+      type: z.literal("reasoning"), text: z.string().max(16000),
+    })])).min(1).max(8)
       .transform((parts) => parts.filter((p) => p.type === "text")),
   })).min(1).max(24),
 });
@@ -95,6 +97,7 @@ export async function POST(req: Request) {
     });
     return result.toUIMessageStreamResponse({
       originalMessages: messages,
+      sendReasoning: false,
       messageMetadata: ({ part }) => part.type === "start"
         ? { createdAt: Date.now(), crisisDetected: false, safetyLevel: safety.riskLevel }
         : undefined,

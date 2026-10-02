@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("ai", () => ({
   convertToModelMessages: vi.fn(async (messages) => messages),
-  streamText: vi.fn(() => ({ toUIMessageStreamResponse: () => new Response("demo reply") })),
+  streamText: vi.fn(() => ({ toUIMessageStreamResponse: vi.fn(() => new Response("demo reply")) })),
 }));
 vi.mock("@/lib/content", () => ({ loadContent: vi.fn(async () => ({})) }));
 vi.mock("@/lib/ai/system-prompt", () => ({
@@ -37,6 +37,8 @@ describe("public demo", () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe("demo reply");
     expect(streamText).toHaveBeenCalledOnce();
+    expect(vi.mocked(streamText).mock.results[0].value.toUIMessageStreamResponse)
+      .toHaveBeenCalledWith(expect.objectContaining({ sendReasoning: false }));
   });
 
   it("rejects client-supplied system messages", async () => {
@@ -78,5 +80,25 @@ describe("public demo", () => {
     }));
     expect(response.status).toBe(200);
     expect(streamText).toHaveBeenCalledOnce();
+  });
+
+  it("accepts and strips reasoning from existing assistant history", async () => {
+    const response = await POST(new Request("https://example.com/api/demo/chat", {
+      method: "POST", body: JSON.stringify({ messages: [
+        { id: "u1", role: "user", parts: [{ type: "text", text: "My presentation" }] },
+        { id: "a1", role: "assistant", parts: [
+          { type: "step-start" },
+          { type: "reasoning", text: "Internal reasoning", providerMetadata: { anthropic: { signature: "test" } } },
+          { type: "text", text: "What worries you?" },
+        ] },
+        { id: "u2", role: "user", parts: [{ type: "text", text: "Going blank" }] },
+      ] }),
+    }));
+    expect(response.status).toBe(200);
+    expect(streamText).toHaveBeenCalledWith(expect.objectContaining({
+      messages: expect.not.arrayContaining([expect.objectContaining({
+        parts: expect.arrayContaining([expect.objectContaining({ type: "reasoning" })]),
+      })]),
+    }));
   });
 });
