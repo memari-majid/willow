@@ -35,8 +35,8 @@ export default function HomePage() {
         </div>
 
         <Button asChild size="lg" className="rounded-full px-6">
-          <Link href="/sign-in?callbackUrl=/chat">
-            Start a conversation
+          <Link href="/demo">
+            Try Willow — no sign-in
             <ArrowRight className="size-4" />
           </Link>
         </Button>

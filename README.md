@@ -105,6 +105,13 @@ After deploy, smoke-test: `/`, `/sources`, `/sign-in`, `/api/auth/session` (shou
 
 ## Live
 
+Public testing: visit `/demo` for a temporary conversation without an account.
+The homepage opens the demo; `/chat`, `/sign-in`, and `/sign-up` redirect there.
+Demo chats clear on refresh and do not write account data or saved exercises.
+The demo uses the existing protocol, crisis response, and safety classifier.
+Requests have bounded history/output and IP rate limits (shared through Redis
+when configured, otherwise per server instance).
+
 | | |
 |---|---|
 | Production | https://willowspace.dev |

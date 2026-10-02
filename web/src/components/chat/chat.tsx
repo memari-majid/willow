@@ -26,6 +26,7 @@ export function Chat({
   initialMessages,
   prefill,
   wikiLinkRegistry = [],
+  demo = false,
 }: {
   starters: string[];
   /** Required for saved CBT conversations (auth users). */
@@ -34,6 +35,7 @@ export function Chat({
   /** Prefill composer from wiki or deep link (not auto-sent). */
   prefill?: string;
   wikiLinkRegistry?: WikiLinkEntry[];
+  demo?: boolean;
 }) {
   const [input, setInput] = useState("");
   const prefillApplied = useRef(false);
@@ -43,12 +45,12 @@ export function Chat({
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
-        api: "/api/chat",
+        api: demo ? "/api/demo/chat" : "/api/chat",
         body: () => ({
           conversationId,
         }),
       }),
-    [conversationId],
+    [conversationId, demo],
   );
 
   const { messages, sendMessage, status, stop, error, regenerate } =
@@ -57,6 +59,7 @@ export function Chat({
       messages: initialMessages ?? [],
       transport,
       onFinish: ({ messages: finished }) => {
+        if (demo) return;
         const userTurns = finished.filter((m) => m.role === "user").length;
         if (userTurns > 2) return;
         if (titleRefreshTimer.current) {
