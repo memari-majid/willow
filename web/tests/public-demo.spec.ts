@@ -37,6 +37,9 @@ describe("public demo", () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe("demo reply");
     expect(streamText).toHaveBeenCalledOnce();
+    expect(streamText).toHaveBeenCalledWith(expect.objectContaining({
+      providerOptions: expect.objectContaining({ anthropic: { effort: "low" } }),
+    }));
     expect(vi.mocked(streamText).mock.results[0].value.toUIMessageStreamResponse)
       .toHaveBeenCalledWith(expect.objectContaining({ sendReasoning: false }));
   });

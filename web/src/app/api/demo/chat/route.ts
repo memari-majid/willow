@@ -92,7 +92,10 @@ export async function POST(req: Request) {
         conversationMessages: await convertToModelMessages(messages),
       }),
       maxOutputTokens: 700,
-      providerOptions: { gateway: { models: [...FALLBACK_MODELS], tags: ["app:willow", "feature:public-demo"] } },
+      providerOptions: {
+        anthropic: { effort: "low" },
+        gateway: { models: [...FALLBACK_MODELS], tags: ["app:willow", "feature:public-demo"] },
+      },
       onError: ({ error }) => logger.error({ err: error }, "demo.generation_failed"),
     });
     return result.toUIMessageStreamResponse({

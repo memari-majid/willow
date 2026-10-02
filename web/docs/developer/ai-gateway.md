@@ -33,6 +33,12 @@ export const FALLBACK_MODELS = ["anthropic/claude-sonnet-5", PRIMARY_MODEL] as c
 
 In `src/app/api/chat/route.ts` we pass the conversation model to `streamText`:
 
+The default Sonnet 5.5 conversation uses `anthropic.effort: "low"` to reduce
+the delay before the first visible text. The public demo uses the same setting.
+Safety classification still runs before generation with its existing timeout;
+keyword crisis handling remains immediate. Custom model selections retain their
+own default reasoning settings.
+
 ```ts
 const result = streamText({
   model: chosenModel,            // ← plain string, no provider import

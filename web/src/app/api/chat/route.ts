@@ -222,6 +222,9 @@ export async function POST(req: Request) {
     stopWhen: stepCountIs(MAX_AGENT_TOOL_STEPS),
     temperature: chosenTemperature,
     providerOptions: {
+      ...(chosenModel === CBT_CONVERSATION_MODEL
+        ? { anthropic: { effort: "low" } }
+        : {}),
       gateway: {
         models: [...FALLBACK_MODELS],
         user: userId,
