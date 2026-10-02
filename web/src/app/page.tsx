@@ -34,12 +34,15 @@ export default function HomePage() {
           </p>
         </div>
 
-        <Button asChild size="lg" className="rounded-full px-6">
-          <Link href="/demo">
-            Try Willow — no sign-in
-            <ArrowRight className="size-4" />
-          </Link>
-        </Button>
+        <div className="flex flex-col items-center gap-2">
+          <Button asChild size="lg" className="rounded-full px-6">
+            <Link href="/demo">
+              Try Willow
+              <ArrowRight className="size-4" />
+            </Link>
+          </Button>
+          <p className="text-xs text-muted-foreground">Test phase</p>
+        </div>
 
         <div className="grid w-full grid-cols-1 gap-4 text-left sm:grid-cols-3">
           {HOME_PILLARS.map((pillar, i) => {
