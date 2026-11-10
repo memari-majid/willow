@@ -31,9 +31,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col overflow-x-hidden bg-background text-foreground">
-        <nav className="portfolio-brand" aria-label="Prototype portfolio">
-          <span>Majid Memari · AI solution prototype</span>
-          <a href="https://www.majidmemari.com/prototypes">All prototypes ↗</a>
+        <nav className="portfolio-brand" aria-label="Project portfolio">
+          <span>Majid Memari · Project portfolio</span>
+          <a href="https://www.majidmemari.com/projects">All projects ↗</a>
         </nav>
         <AuthSessionProvider>
           <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
