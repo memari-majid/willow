@@ -7,17 +7,29 @@
     {
       "id": "presentation",
       "label": "A fictional presentation worry",
-      "prompt": "Alex, a fictional student, thinks one stumble will ruin an upcoming practice presentation. Show a gentle way to examine that thought and take one manageable preparation step."
+      "prompt": "Alex, a fictional student, thinks one stumble will ruin an upcoming practice presentation. Show a gentle way to examine that thought and take one manageable preparation step.",
+      "context": "Alex is preparing for a practice presentation and worries that one stumble would ruin it.",
+      "sampleInput": "Help Alex examine that worry and choose one manageable preparation step.",
+      "takeaway": "Look for a balanced thought, rather than a promise that everything will go perfectly.",
+      "nextAction": "What small preparation step does the response suggest for fictional Alex?"
     },
     {
       "id": "small-win",
       "label": "Notice a fictional small win",
-      "prompt": "Sam, a fictional character, finishes a short task after putting it off. Demonstrate noticing the effort without exaggerating the achievement."
+      "prompt": "Sam, a fictional character, finishes a short task after putting it off. Demonstrate noticing the effort without exaggerating the achievement.",
+      "context": "Sam has finished a short task after putting it off.",
+      "sampleInput": "Help Sam notice the effort without exaggerating the achievement.",
+      "takeaway": "A useful reflection can acknowledge effort and keep the next step manageable.",
+      "nextAction": "How does the response recognize fictional Sam’s effort?"
     },
     {
       "id": "balanced-thought",
       "label": "Practice a balanced thought",
-      "prompt": "Alex, a fictional character, makes a minor typo in an informal practice exercise and thinks everything is a failure. Demonstrate separating the event from the interpretation."
+      "prompt": "Alex, a fictional character, makes a minor typo in an informal practice exercise and thinks everything is a failure. Demonstrate separating the event from the interpretation.",
+      "context": "Alex notices a small typo in an informal practice exercise and concludes that everything is a failure.",
+      "sampleInput": "Help Alex separate the mistake from the story about what it means.",
+      "takeaway": "Notice the distinction between one event and an overall judgment.",
+      "nextAction": "Which part of the response helps fictional Alex see the event more clearly?"
     }
   ],
   "sources": [
@@ -25,5 +37,18 @@
       "label": "NHS: self-help reflection techniques",
       "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/"
     }
-  ]
+  ],
+  "guide": {
+    "steps": [
+      "Read the situation",
+      "See a skills response",
+      "Reflect on the approach"
+    ],
+    "inputLabel": "Sample request",
+    "responseLabel": "Willow’s skills response",
+    "waiting": "Willow is preparing a response to this fictional situation.",
+    "readingGuide": "Notice how the response acknowledges a feeling, offers a balanced perspective, and suggests one small step.",
+    "nextLabel": "Explore the public reflection guide",
+    "responseMode": "reflection"
+  }
 }
