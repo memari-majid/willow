@@ -87,6 +87,7 @@ export function PublicDemo({ title, subtitle, scope, examples, sources, guide }:
           <div className="mt-6 border-t border-border pt-5">
             <label htmlFor="demo-example" className="mb-2 block text-sm font-medium">Or choose another example</label>
             <select id="demo-example" value={selected.id} disabled={busy} onChange={(event) => choose(event.target.value)} className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-60">{examples.map((example) => <option key={example.id} value={example.id}>{example.label}</option>)}</select>
+            <button type="button" onClick={reset} disabled={busy || (selected.id === examples[0].id && !reply && !error)} className="mt-3 rounded-lg border border-border px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40">Reset demo</button>
           </div>
         </section>
 
@@ -104,7 +105,6 @@ export function PublicDemo({ title, subtitle, scope, examples, sources, guide }:
             </aside>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <button type="button" onClick={tryAnother} className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground focus-visible:outline-2 focus-visible:outline-ring">Try another example →</button>
-              <button type="button" onClick={reset} className="rounded-xl border border-border px-4 py-2.5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-ring">Reset demo</button>
               {sources.length ? <a href="#public-demo-sources" className="text-sm font-medium text-primary underline underline-offset-4">{guide.nextLabel}</a> : null}
             </div>
           </> : <div className="mt-6 rounded-xl border border-dashed border-border bg-background p-5 text-sm leading-relaxed text-muted-foreground"><h3 className="mb-2 text-base font-semibold text-foreground">How to read the result</h3><p>{guide.readingGuide}</p></div>}
