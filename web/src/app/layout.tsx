@@ -1,21 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import { AuthSessionProvider } from "@/components/providers/session-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Willow — A gentle space to talk things through",
@@ -27,7 +16,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0a0a0a",
+  themeColor: "#f7f6f2",
 };
 
 export default function RootLayout({
@@ -38,10 +27,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className="h-full antialiased"
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col overflow-x-hidden bg-background text-foreground">
+        <nav className="portfolio-brand" aria-label="Prototype portfolio">
+          <span>Majid Memari · AI solution prototype</span>
+          <a href="https://www.majidmemari.com/prototypes">All prototypes ↗</a>
+        </nav>
         <AuthSessionProvider>
           <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
         </AuthSessionProvider>
