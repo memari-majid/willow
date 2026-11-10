@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
-import { AuthSessionProvider } from "@/components/providers/session-provider";
+import { PrivateSessionBoundary } from "@/components/private-session-boundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,11 +33,9 @@ export default function RootLayout({
           <span>Majid Memari · Project portfolio</span>
           <a href="https://www.majidmemari.com/projects">All projects ↗</a>
         </nav>
-        <AuthSessionProvider>
+        <PrivateSessionBoundary>
           <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
-        </AuthSessionProvider>
-        <Analytics />
-        <SpeedInsights />
+        </PrivateSessionBoundary>
       </body>
     </html>
   );
